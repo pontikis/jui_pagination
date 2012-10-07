@@ -1,0 +1,12 @@
+#demo_pag1, #demo_pag2 {
+    padding: 20px;
+    border: 1px coral solid;
+}
+
+#demo_pag1 {
+    width: 400px;
+}
+
+#demo_pag2 {
+    width: 600px;
+}
