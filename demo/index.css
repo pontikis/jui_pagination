@@ -1,12 +1,19 @@
-#demo_pag1, #demo_pag2 {
-    padding: 20px;
-    border: 1px coral solid;
-}
-
-#demo_pag1 {
+.demo_pag1 {
     width: 400px;
+    padding: 10px;
 }
 
-#demo_pag2 {
+.demo_pag2 {
     width: 600px;
+    padding: 20px;
+}
+
+.tools {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.demo_pag1_alt1 {
+    width: 800px;
+    padding: 40px;
 }

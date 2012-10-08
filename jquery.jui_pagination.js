@@ -11,6 +11,102 @@
     var pluginName = 'jui_pagination';
 
     // private methods
+    var create_nav_items = function(container_id) {
+
+        var elem = $("#" + container_id);
+
+        var settings = $(elem).jui_pagination('getAllOptions');
+
+        var totalPages = settings.totalPages;
+        var currentPage = settings.currentPage;
+        var visiblePageLinks = settings.visiblePageLinks;
+
+        var nav_pages_id = settings.navPages_id_prefix + container_id;
+
+        var current_id = settings.current_id_prefix + container_id;
+        var top_id_prefix = settings.top_id_prefix + container_id + '_';
+        var prev_id_prefix = settings.prev_id_prefix + container_id + '_';
+        var nav_item_id_prefix = settings.nav_item_id_prefix + container_id + '_';
+        var nav_item_selected_id_prefix = settings.nav_item_selected_id_prefix + container_id + '_';
+        var nav_item_link_id_prefix = settings.nav_item_link_id_prefix + container_id + '_';
+        var next_id_prefix = settings.next_id_prefix + container_id + '_';
+        var last_id_prefix = settings.last_id_prefix + container_id + '_';
+        var total_id = settings.total_id_prefix + container_id;
+
+        var labelPage = settings.labelPage;
+        var labelTotalPages = settings.labelTotalPages;
+
+        var navPagesClass = settings.navPagesClass;
+        var navItemClass = settings.navItemClass;
+        var navItemSelectedClass = settings.navItemSelectedClass;
+        var navItemLinkClass = settings.navItemLinkClass;
+
+        var offset = elem.data('offset');
+        if(typeof(offset) == 'undefined') {
+            elem.data('offset', 0);
+            offset = 0;
+        }
+
+        var nav_start = elem.data('nav_start');
+        if(typeof(nav_start) == 'undefined') {
+            elem.data('nav_start', 1);
+            nav_start = 1;
+        }
+        var nav_end = Math.min(totalPages, visiblePageLinks);
+
+        if(totalPages < visiblePageLinks) {
+            nav_start = 1;
+            nav_end = totalPages;
+        } else {
+            // special conditions
+            var dist_to_last = totalPages - (nav_start - 1);
+            if(dist_to_last < visiblePageLinks) {
+                nav_start = nav_start - (visiblePageLinks - dist_to_last);
+            }
+            nav_end = nav_start + visiblePageLinks - 1;
+        }
+
+console.log(nav_start);
+console.log(nav_end);
+        var nav_html = '';
+
+        //nav_html += '<div id="' + current_id + '">' + labelPage + ' ' + currentPage + '</div>';
+
+        nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">&laquo;</a></div>';
+        nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">&larr;</a></div>';
+
+        for(var i = nav_start; i <= nav_end; i++) {
+            if(i == currentPage) {
+                nav_html += '<div id="' + nav_item_selected_id_prefix + i + '">' +
+                    '<a id="' + nav_item_link_id_prefix + i + '" href="javascript:void(0);">' + i + '</a>' +
+                    '</div>';
+            } else {
+                nav_html += '<div id="' + nav_item_id_prefix + i + '">' +
+                    '<a id="' + nav_item_link_id_prefix + i + '" href="javascript:void(0);">' + i + '</a>' +
+                    '</div>';
+            }
+
+        }
+
+        nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">&rarr;</a></div>';
+        nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">&raquo;</a></div>';
+
+        //nav_html += '<div id="' + total_id + '">' + labelTotalPages + ' ' + totalPages + '</div>';
+
+        $("#" + nav_pages_id).html(nav_html);
+
+        $("#" + nav_pages_id).removeClass().addClass(navPagesClass);
+
+        var selector;
+        selector = '[id^="' + nav_item_id_prefix + '"]';
+        $(selector).removeClass().addClass(navItemClass);
+
+        selector = '[id^="' + nav_item_selected_id_prefix + '"]';
+        $(selector).removeClass().addClass(navItemSelectedClass);
+
+        selector = '[id^="' + nav_item_link_id_prefix + '"]';
+        $(selector).removeClass().addClass(navItemLinkClass);
+    };
 
     // public methods
     var methods = {
@@ -26,57 +122,107 @@
 
             return this.each(function() {
 
+                // settings and defaults
                 var settings = elem.data(pluginName);
                 if(typeof(settings) == 'undefined') {
-                    var defaults = {
-                        currentPage: 1,
-                        visiblePageLinks: 10,
-                        navPages_id_prefix: 'nav_',
-                        slider_id_prefix: 'sld_',
-                        next_id_prefix: 'next_',
-                        last_id_prefix: 'last_',
-                        top_id_prefix: 'top_',
-                        prev_id_prefix: 'prev_',
-                        onPageClick: function() {
-                        }
-                    };
+                    var defaults = elem.jui_pagination('getDefaults');
                     settings = $.extend({}, defaults, options);
-                    elem.data(pluginName, settings);
                 } else {
                     settings = $.extend({}, settings, options);
                 }
+                elem.data(pluginName, settings);
 
+                // bind events
+                elem.unbind("onNavPageClick").bind("onNavPageClick", elem.jui_pagination('getOption', 'onNavPageClick'));
+
+                // set width
+                if(settings.container_class != '') {
+                    elem.removeClass().addClass(settings.container_class);
+                }
+
+                // create nav-pages, divider div and slider
                 var container_id = elem.attr("id");
-                var nav_pages_id = elem.jui_pagination('getOption', 'navPages_id_prefix') + container_id;
-                var slider_id = elem.jui_pagination('getOption', 'slider_id_prefix') + container_id;
+                var nav_pages_id = settings.navPages_id_prefix + container_id;
+                var nav_slider_divider_id = settings.divider_id_prefix + container_id;
+                var slider_id = settings.slider_id_prefix + container_id;
 
-                var nav_html = '';
+                var elem_html = '';
+                elem_html += '<div id="' + nav_pages_id + '"></div>';
+                elem_html += '<div id="' + nav_slider_divider_id + '"></div>';
+                elem_html += '<div id="' + slider_id + '"></div>';
+
+                elem.html(elem_html);
+
+                create_nav_items(container_id);
 
 
+                $("#" + nav_slider_divider_id).removeClass().addClass(settings.dividerClass);
 
-                nav_html += '<div id="' + nav_pages_id + '" class="nav-pane ui-widget ui-widget-header ui-corner-all">';
+                //  slider
+                if(settings.totalPages > settings.visiblePageLinks) {
+                    $("#" + slider_id).slider({
+                        min: 1,
+                        max: settings.totalPages,
+                        value: settings.currentPage,
+                        stop: function() {
+                            var newValue = $("#" + slider_id).slider('value');
+                            elem.data('nav_start', newValue);
+                            create_nav_items(container_id);
+                        }
+                    });
+                } else {
+                    $("#" + slider_id).slider('destroy');
+                    $("#" + slider_id).html('');
+                }
 
-                nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">&laquo;</a></div>';
-                nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">&larr;</a></div>';
 
-                nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">1</a></div>';
-                nav_html += '<div class="nav-item ui-widget-header">2</div>';
-                nav_html += '<div class="nav-item ui-widget-header">3</div>';
-
-                nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">&rarr;</a></div>';
-                nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">&raquo;</a></div>';
-                nav_html += '</div>';
-
-                nav_html += '<div style="clear: both; padding-top: 5px; padding-bottom: 5px;"></div>';
-
-                nav_html += '<div id="' + slider_id + '">';
-                nav_html += '</div>';
-
-                elem.html(nav_html);
-
-                $("#" + slider_id).slider({});
+                // set currentPage and return page number when click on nav page item
+                var prefix = settings.nav_item_link_id_prefix + container_id + '_';
+                var nav_item_selector = '[id^="' + prefix + '"]';
+                $(nav_item_selector).on('click', function() {
+                    var len = prefix.length;
+                    var page_num = $(this).attr("id").substr(len);
+                    settings.currentPage = page_num;
+                    elem.jui_pagination('setOption', 'currentPage', page_num, false);
+                    // TODO change current page + styles
+                    // trigger event
+                    elem.triggerHandler("onNavPageClick", page_num);
+                });
 
             });
+        },
+
+        /**
+         * Get default values
+         * @return {Object}
+         */
+        getDefaults: function() {
+            var defaults = {
+                currentPage: 1,
+                visiblePageLinks: 10,
+                navPagesClass: 'nav-pane ui-widget ui-widget-header ui-corner-all',
+                navItemClass: 'nav-item ui-widget-header',
+                navItemSelectedClass: 'nav-item ui-state-highlight ui-widget-header',
+                navItemLinkClass: 'nav-link',
+                dividerClass: 'nav-slider-divider',
+                labelPage: 'Page',
+                labelTotalPages: 'Total',
+                navPages_id_prefix: 'nav_',
+                slider_id_prefix: 'sld_',
+                divider_id_prefix: 'clear_',
+                current_id_prefix: 'current_',
+                top_id_prefix: 'top_',
+                prev_id_prefix: 'prev_',
+                nav_item_id_prefix: 'page_',
+                nav_item_selected_id_prefix: 'page_sel_',
+                nav_item_link_id_prefix: 'page_link_',
+                next_id_prefix: 'next_',
+                last_id_prefix: 'last_',
+                total_id_prefix: 'total_',
+                onNavPageClick: function() {
+                }
+            };
+            return defaults;
         },
 
         /**
@@ -89,6 +235,30 @@
             var elem = this;
             return elem.data(pluginName)[opt];
         },
+
+        /**
+         * Get all options
+         * @return {*}
+         */
+        getAllOptions: function() {
+            var elem = this;
+            return elem.data(pluginName);
+        },
+
+        /**
+         *
+         * @param opt
+         * @param val
+         * @param reinit
+         */
+        setOption: function(opt, val, reinit) {
+            var elem = this;
+            elem.data(pluginName)[opt] = val;
+            if(reinit) {
+                elem.jui_pagination('init');
+            }
+        },
+
 
         /**
          * Destroy plugin
@@ -105,6 +275,10 @@
     };
 
     $.fn.jui_pagination = function(method) {
+        // TODO check with ni ID
+        if(this.size() != 1) {
+            $.error('You must use this plugin with a unique element');
+        }
 
         // Method calling logic
         if(methods[method]) {
