@@ -1,6 +1,6 @@
 /**
  * jquery pagination plugin
- * Requires jquery, jquery-ui
+ * Requires jquery, jquery-ui slider, jquery-ui CSS
  * Copyright 2012 Christos Pontikis (http://pontikis.net)
  * Project page https://github.com/pontikis/jui_pagination
  * Release 1.00 - ??/10/2012
@@ -9,148 +9,6 @@
 (function($) {
 
     var pluginName = 'jui_pagination';
-
-    // private methods
-    var create_nav_items = function(container_id) {
-
-        var elem = $("#" + container_id);
-
-        var settings = $(elem).jui_pagination('getAllOptions');
-
-        var totalPages = settings.totalPages;
-        var currentPage = settings.currentPage;
-        var visiblePageLinks = settings.visiblePageLinks;
-
-        var nav_pages_id = settings.navPages_id_prefix + container_id;
-        var slider_id = settings.slider_id_prefix + container_id;
-
-        var current_id = settings.current_id_prefix + container_id;
-        var top_id_prefix = settings.top_id_prefix + container_id + '_';
-        var prev_id_prefix = settings.prev_id_prefix + container_id + '_';
-        var nav_item_id_prefix = settings.nav_item_id_prefix + container_id + '_';
-        var next_id_prefix = settings.next_id_prefix + container_id + '_';
-        var last_id_prefix = settings.last_id_prefix + container_id + '_';
-        var total_id = settings.total_id_prefix + container_id;
-
-        var labelPage = settings.labelPage;
-        var labelTotalPages = settings.labelTotalPages;
-
-        var navPagesClass = settings.navPagesClass;
-        var navCurrentPage = settings.navCurrentPage;
-        var navItemClass = settings.navItemClass;
-        var navItemSelectedClass = settings.navItemSelectedClass;
-        var navTotalPages = settings.navTotalPages;
-
-        var nav_start = elem.data('nav_start');
-        if(typeof(nav_start) == 'undefined') {
-            elem.data('nav_start', 1);
-            nav_start = 1;
-        }
-        var nav_end;
-
-        if(totalPages < visiblePageLinks) {
-            nav_start = 1;
-            nav_end = totalPages;
-        } else {
-            // special conditions
-            var dist_to_last = totalPages - (nav_start - 1);
-            if(dist_to_last < visiblePageLinks) {
-                nav_start = nav_start - (visiblePageLinks - dist_to_last);
-            }
-            nav_end = nav_start + visiblePageLinks - 1;
-        }
-
-        var nav_html = '';
-
-        nav_html += '<div id="' + current_id + '">' + labelPage + ' ' + currentPage + '</div>';
-
-        if(nav_start > 1) {
-            nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">&laquo;</a></div>';
-            nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">&larr;</a></div>';
-        }
-
-        for(var i = nav_start; i <= nav_end; i++) {
-            nav_html += '<div id="' + nav_item_id_prefix + i + '">' + i + '</div>';
-        }
-
-        if(nav_end < totalPages) {
-            nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">&rarr;</a></div>';
-            nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">&raquo;</a></div>';
-        }
-
-        nav_html += '<div id="' + total_id + '">' + labelTotalPages + ' ' + totalPages + '</div>';
-
-        // set nav pane html
-        $("#" + nav_pages_id).html(nav_html);
-
-        // apply style
-        $("#" + nav_pages_id).removeClass().addClass(navPagesClass);
-        $("#" + current_id).removeClass().addClass(navCurrentPage);
-
-        $('[id^="' + nav_item_id_prefix + '"]').removeClass().addClass(navItemClass);
-        $("#" + nav_item_id_prefix + currentPage).removeClass().addClass(navItemSelectedClass);
-
-        $("#" + total_id).removeClass().addClass(navTotalPages);
-
-        // set currentPage and return page number when click on nav page item
-        var nav_item_selector = '[id^="' + nav_item_id_prefix + '"]';
-        $(nav_item_selector).on('click', function() {
-            var len = nav_item_id_prefix.length;
-            var page_num = $(this).attr("id").substr(len);
-
-            set_current_page(container_id, page_num, true);
-
-        });
-
-
-    };
-
-    /**
-     * Set current page
-     * @param container_id
-     * @param page_num
-     * @param update_slider
-     */
-    var set_current_page = function(container_id, page_num, update_slider) {
-
-        var elem = $("#" + container_id);
-
-        var settings = $(elem).jui_pagination('getAllOptions');
-
-        var previous_currentPage = settings.currentPage;
-
-        var totalPages = settings.totalPages;
-        var visiblePageLinks = settings.visiblePageLinks;
-
-        var slider_id = settings.slider_id_prefix + container_id;
-
-        var current_id = settings.current_id_prefix + container_id;
-        var nav_item_id_prefix = settings.nav_item_id_prefix + container_id + '_';
-
-        var labelPage = settings.labelPage;
-
-        var navItemClass = settings.navItemClass;
-        var navItemSelectedClass = settings.navItemSelectedClass;
-
-        elem.jui_pagination('setOption', 'currentPage', page_num, false);
-
-        // change id and apply appropriate styles
-        $("#" + nav_item_id_prefix + previous_currentPage).removeClass().addClass(navItemClass);
-        $("#" + nav_item_id_prefix + page_num).removeClass().addClass(navItemSelectedClass);
-
-        // change current page
-        $("#" + current_id).text(labelPage + ' ' + page_num);
-
-        // update slider if exists
-        if(update_slider) {
-            if(totalPages > visiblePageLinks) {
-                $("#" + slider_id).slider({'value': page_num});
-            }
-        }
-
-        // trigger event
-        elem.triggerHandler("onNavPageClick", page_num);
-    };
 
     // public methods
     var methods = {
@@ -299,7 +157,6 @@
             }
         },
 
-
         /**
          * Destroy plugin
          * @param options
@@ -312,6 +169,149 @@
                 $this.removeData(pluginName);
             });
         }
+    };
+
+
+    // private methods
+    var create_nav_items = function(container_id) {
+
+        var elem = $("#" + container_id);
+
+        var settings = $(elem).jui_pagination('getAllOptions');
+
+        var totalPages = settings.totalPages;
+        var currentPage = settings.currentPage;
+        var visiblePageLinks = settings.visiblePageLinks;
+
+        var nav_pages_id = settings.navPages_id_prefix + container_id;
+        var slider_id = settings.slider_id_prefix + container_id;
+
+        var current_id = settings.current_id_prefix + container_id;
+        var top_id_prefix = settings.top_id_prefix + container_id + '_';
+        var prev_id_prefix = settings.prev_id_prefix + container_id + '_';
+        var nav_item_id_prefix = settings.nav_item_id_prefix + container_id + '_';
+        var next_id_prefix = settings.next_id_prefix + container_id + '_';
+        var last_id_prefix = settings.last_id_prefix + container_id + '_';
+        var total_id = settings.total_id_prefix + container_id;
+
+        var labelPage = settings.labelPage;
+        var labelTotalPages = settings.labelTotalPages;
+
+        var navPagesClass = settings.navPagesClass;
+        var navCurrentPage = settings.navCurrentPage;
+        var navItemClass = settings.navItemClass;
+        var navItemSelectedClass = settings.navItemSelectedClass;
+        var navTotalPages = settings.navTotalPages;
+
+        var nav_start = elem.data('nav_start');
+        if(typeof(nav_start) == 'undefined') {
+            elem.data('nav_start', 1);
+            nav_start = 1;
+        }
+        var nav_end;
+
+        if(totalPages < visiblePageLinks) {
+            nav_start = 1;
+            nav_end = totalPages;
+        } else {
+            // special conditions
+            var dist_to_last = totalPages - (nav_start - 1);
+            if(dist_to_last < visiblePageLinks) {
+                nav_start = nav_start - (visiblePageLinks - dist_to_last);
+            }
+            nav_end = nav_start + visiblePageLinks - 1;
+        }
+
+        var nav_html = '';
+
+        nav_html += '<div id="' + current_id + '">' + labelPage + ' ' + currentPage + '</div>';
+
+        if(nav_start > 1) {
+            nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">&laquo;</a></div>';
+            nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">&larr;</a></div>';
+        }
+
+        for(var i = nav_start; i <= nav_end; i++) {
+            nav_html += '<div id="' + nav_item_id_prefix + i + '">' + i + '</div>';
+        }
+
+        if(nav_end < totalPages) {
+            nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">&rarr;</a></div>';
+            nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">&raquo;</a></div>';
+        }
+
+        nav_html += '<div id="' + total_id + '">' + labelTotalPages + ' ' + totalPages + '</div>';
+
+        // set nav pane html
+        $("#" + nav_pages_id).html(nav_html);
+
+        // apply style
+        $("#" + nav_pages_id).removeClass().addClass(navPagesClass);
+        $("#" + current_id).removeClass().addClass(navCurrentPage);
+
+        $('[id^="' + nav_item_id_prefix + '"]').removeClass().addClass(navItemClass);
+        $("#" + nav_item_id_prefix + currentPage).removeClass().addClass(navItemSelectedClass);
+
+        $("#" + total_id).removeClass().addClass(navTotalPages);
+
+        // set currentPage and return page number when click on nav page item
+        var nav_item_selector = '[id^="' + nav_item_id_prefix + '"]';
+        $(nav_item_selector).on('click', function() {
+            var len = nav_item_id_prefix.length;
+            var page_num = $(this).attr("id").substr(len);
+
+            set_current_page(container_id, page_num, true);
+
+        });
+
+
+    };
+
+    /**
+     * Set current page
+     * @param container_id
+     * @param page_num
+     * @param update_slider
+     */
+    var set_current_page = function(container_id, page_num, update_slider) {
+
+        var elem = $("#" + container_id);
+
+        var settings = $(elem).jui_pagination('getAllOptions');
+
+        var previous_currentPage = settings.currentPage;
+
+        var totalPages = settings.totalPages;
+        var visiblePageLinks = settings.visiblePageLinks;
+
+        var slider_id = settings.slider_id_prefix + container_id;
+
+        var current_id = settings.current_id_prefix + container_id;
+        var nav_item_id_prefix = settings.nav_item_id_prefix + container_id + '_';
+
+        var labelPage = settings.labelPage;
+
+        var navItemClass = settings.navItemClass;
+        var navItemSelectedClass = settings.navItemSelectedClass;
+
+        elem.jui_pagination('setOption', 'currentPage', page_num, false);
+
+        // change id and apply appropriate styles
+        $("#" + nav_item_id_prefix + previous_currentPage).removeClass().addClass(navItemClass);
+        $("#" + nav_item_id_prefix + page_num).removeClass().addClass(navItemSelectedClass);
+
+        // change current page
+        $("#" + current_id).text(labelPage + ' ' + page_num);
+
+        // update slider if exists
+        if(update_slider) {
+            if(totalPages > visiblePageLinks) {
+                $("#" + slider_id).slider({'value': page_num});
+            }
+        }
+
+        // trigger event
+        elem.triggerHandler("onNavPageClick", page_num);
     };
 
     $.fn.jui_pagination = function(method) {

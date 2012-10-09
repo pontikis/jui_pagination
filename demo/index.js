@@ -1,5 +1,5 @@
 $(function() {
-// TODO 1.9.0 themeswitcher
+// TODO jQuery-UI 1.9.0 themeswitcher not working
 /*    $('#switcher').themeswitcher();*/
 
     $("#demo_pag1").jui_pagination({
