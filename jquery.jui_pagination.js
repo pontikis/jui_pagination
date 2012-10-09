@@ -28,8 +28,6 @@
         var top_id_prefix = settings.top_id_prefix + container_id + '_';
         var prev_id_prefix = settings.prev_id_prefix + container_id + '_';
         var nav_item_id_prefix = settings.nav_item_id_prefix + container_id + '_';
-        var nav_item_selected_id_prefix = settings.nav_item_selected_id_prefix + container_id + '_';
-        var nav_item_link_id_prefix = settings.nav_item_link_id_prefix + container_id + '_';
         var next_id_prefix = settings.next_id_prefix + container_id + '_';
         var last_id_prefix = settings.last_id_prefix + container_id + '_';
         var total_id = settings.total_id_prefix + container_id;
@@ -41,7 +39,6 @@
         var navCurrentPage = settings.navCurrentPage;
         var navItemClass = settings.navItemClass;
         var navItemSelectedClass = settings.navItemSelectedClass;
-        var navItemLinkClass = settings.navItemLinkClass;
         var navTotalPages = settings.navTotalPages;
 
         var nav_start = elem.data('nav_start');
@@ -73,16 +70,7 @@
         }
 
         for(var i = nav_start; i <= nav_end; i++) {
-            if(i == currentPage) {
-                nav_html += '<div id="' + nav_item_selected_id_prefix + i + '">' +
-                    '<a id="' + nav_item_link_id_prefix + i + '" href="javascript:void(0);">' + i + '</a>' +
-                    '</div>';
-            } else {
-                nav_html += '<div id="' + nav_item_id_prefix + i + '">' +
-                    '<a id="' + nav_item_link_id_prefix + i + '" href="javascript:void(0);">' + i + '</a>' +
-                    '</div>';
-            }
-
+            nav_html += '<div id="' + nav_item_id_prefix + i + '">' + i + '</div>';
         }
 
         if(nav_end < totalPages) {
@@ -99,22 +87,15 @@
         $("#" + nav_pages_id).removeClass().addClass(navPagesClass);
         $("#" + current_id).removeClass().addClass(navCurrentPage);
 
-        var selector;
-        selector = '[id^="' + nav_item_id_prefix + '"]';
-        $(selector).removeClass().addClass(navItemClass);
-
-        selector = '[id^="' + nav_item_selected_id_prefix + '"]';
-        $(selector).removeClass().addClass(navItemSelectedClass);
-
-        selector = '[id^="' + nav_item_link_id_prefix + '"]';
-        $(selector).removeClass().addClass(navItemLinkClass);
+        $('[id^="' + nav_item_id_prefix + '"]').removeClass().addClass(navItemClass);
+        $("#" + nav_item_id_prefix + currentPage).removeClass().addClass(navItemSelectedClass);
 
         $("#" + total_id).removeClass().addClass(navTotalPages);
 
         // set currentPage and return page number when click on nav page item
-        var nav_item_selector = '[id^="' + nav_item_link_id_prefix + '"]';
+        var nav_item_selector = '[id^="' + nav_item_id_prefix + '"]';
         $(nav_item_selector).on('click', function() {
-            var len = nav_item_link_id_prefix.length;
+            var len = nav_item_id_prefix.length;
             var page_num = $(this).attr("id").substr(len);
 
             set_current_page(container_id, page_num, true);
@@ -145,7 +126,6 @@
 
         var current_id = settings.current_id_prefix + container_id;
         var nav_item_id_prefix = settings.nav_item_id_prefix + container_id + '_';
-        var nav_item_selected_id_prefix = settings.nav_item_selected_id_prefix + container_id + '_';
 
         var labelPage = settings.labelPage;
 
@@ -155,11 +135,8 @@
         elem.jui_pagination('setOption', 'currentPage', page_num, false);
 
         // change id and apply appropriate styles
-        $("#" + nav_item_selected_id_prefix + previous_currentPage).removeClass().addClass(navItemClass);
-        $("#" + nav_item_selected_id_prefix + previous_currentPage).attr("id", nav_item_id_prefix + previous_currentPage);
-
+        $("#" + nav_item_id_prefix + previous_currentPage).removeClass().addClass(navItemClass);
         $("#" + nav_item_id_prefix + page_num).removeClass().addClass(navItemSelectedClass);
-        $("#" + nav_item_id_prefix + page_num).attr("id", nav_item_selected_id_prefix + page_num);
 
         // change current page
         $("#" + current_id).text(labelPage + ' ' + page_num);
@@ -173,7 +150,7 @@
 
         // trigger event
         elem.triggerHandler("onNavPageClick", page_num);
-    }
+    };
 
     // public methods
     var methods = {
@@ -236,6 +213,7 @@
                         stop: function(event, ui) {
                             elem.data('nav_start', ui.value);
                             create_nav_items(container_id);
+                            set_current_page(container_id, ui.value, false);
                         }
                     });
 
@@ -265,7 +243,6 @@
                 navCurrentPage: 'current-page',
                 navItemClass: 'nav-item ui-widget-header',
                 navItemSelectedClass: 'nav-item ui-state-highlight ui-widget-header',
-                navItemLinkClass: 'nav-link',
                 navTotalPages: 'total-pages',
                 dividerClass: 'nav-slider-divider',
 
@@ -279,8 +256,6 @@
                 top_id_prefix: 'top_',
                 prev_id_prefix: 'prev_',
                 nav_item_id_prefix: 'page_',
-                nav_item_selected_id_prefix: 'page_sel_',
-                nav_item_link_id_prefix: 'page_link_',
                 next_id_prefix: 'next_',
                 last_id_prefix: 'last_',
                 total_id_prefix: 'total_',
