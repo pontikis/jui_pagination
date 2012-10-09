@@ -3,6 +3,15 @@
     text-align: center;
 }
 
+.current-page {
+    display: inline-block;
+    margin: 3px 20px 3px 3px;
+    font-size: 13px;
+    text-align: center;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
 .nav-item {
     display: inline-block;
     margin: 3px;
@@ -14,6 +23,15 @@
 
 .nav-link {
     text-decoration: none;
+}
+
+.total-pages {
+    display: inline-block;
+    margin: 3px 3px 3px 20px;
+    font-size: 13px;
+    text-align: center;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 .nav-slider-divider {

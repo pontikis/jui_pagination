@@ -22,6 +22,7 @@
         var visiblePageLinks = settings.visiblePageLinks;
 
         var nav_pages_id = settings.navPages_id_prefix + container_id;
+        var slider_id = settings.slider_id_prefix + container_id;
 
         var current_id = settings.current_id_prefix + container_id;
         var top_id_prefix = settings.top_id_prefix + container_id + '_';
@@ -37,9 +38,11 @@
         var labelTotalPages = settings.labelTotalPages;
 
         var navPagesClass = settings.navPagesClass;
+        var navCurrentPage = settings.navCurrentPage;
         var navItemClass = settings.navItemClass;
         var navItemSelectedClass = settings.navItemSelectedClass;
         var navItemLinkClass = settings.navItemLinkClass;
+        var navTotalPages = settings.navTotalPages;
 
         var offset = elem.data('offset');
         if(typeof(offset) == 'undefined') {
@@ -52,7 +55,7 @@
             elem.data('nav_start', 1);
             nav_start = 1;
         }
-        var nav_end = Math.min(totalPages, visiblePageLinks);
+        var nav_end;
 
         if(totalPages < visiblePageLinks) {
             nav_start = 1;
@@ -66,14 +69,14 @@
             nav_end = nav_start + visiblePageLinks - 1;
         }
 
-console.log(nav_start);
-console.log(nav_end);
         var nav_html = '';
 
-        //nav_html += '<div id="' + current_id + '">' + labelPage + ' ' + currentPage + '</div>';
+        nav_html += '<div id="' + current_id + '">' + labelPage + ' ' + currentPage + '</div>';
 
-        nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">&laquo;</a></div>';
-        nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">&larr;</a></div>';
+        if(nav_start > 1) {
+            nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">&laquo;</a></div>';
+            nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">&larr;</a></div>';
+        }
 
         for(var i = nav_start; i <= nav_end; i++) {
             if(i == currentPage) {
@@ -88,14 +91,19 @@ console.log(nav_end);
 
         }
 
-        nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">&rarr;</a></div>';
-        nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">&raquo;</a></div>';
+        if(nav_end < totalPages) {
+            nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">&rarr;</a></div>';
+            nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">&raquo;</a></div>';
+        }
 
-        //nav_html += '<div id="' + total_id + '">' + labelTotalPages + ' ' + totalPages + '</div>';
+        nav_html += '<div id="' + total_id + '">' + labelTotalPages + ' ' + totalPages + '</div>';
 
+        // set nav pane html
         $("#" + nav_pages_id).html(nav_html);
 
+        // apply style
         $("#" + nav_pages_id).removeClass().addClass(navPagesClass);
+        $("#" + current_id).removeClass().addClass(navCurrentPage);
 
         var selector;
         selector = '[id^="' + nav_item_id_prefix + '"]';
@@ -106,6 +114,38 @@ console.log(nav_end);
 
         selector = '[id^="' + nav_item_link_id_prefix + '"]';
         $(selector).removeClass().addClass(navItemLinkClass);
+
+        $("#" + total_id).removeClass().addClass(navTotalPages);
+
+        // set currentPage and return page number when click on nav page item
+        var nav_item_selector = '[id^="' + nav_item_link_id_prefix + '"]';
+        $(nav_item_selector).on('click', function() {
+            var len = nav_item_link_id_prefix.length;
+            var page_num = $(this).attr("id").substr(len);
+            var previous_currentPage = settings.currentPage;
+            settings.currentPage = page_num;
+            elem.jui_pagination('setOption', 'currentPage', page_num, false);
+
+            // change id and apply appropriate styles
+            $("#" + nav_item_selected_id_prefix + previous_currentPage).removeClass().addClass(navItemClass);
+            $("#" + nav_item_selected_id_prefix + previous_currentPage).attr("id", nav_item_id_prefix + previous_currentPage);
+
+            $("#" + nav_item_id_prefix + page_num).removeClass().addClass(navItemSelectedClass);
+            $("#" + nav_item_id_prefix + page_num).attr("id", nav_item_selected_id_prefix + page_num);
+
+            // change current page
+            $("#" + current_id).text(labelPage + ' ' + page_num);
+
+            // update slider if exists
+            if(totalPages > visiblePageLinks) {
+                $("#" + slider_id).slider({'value': page_num});
+            }
+
+            // trigger event
+            elem.triggerHandler("onNavPageClick", page_num);
+        });
+
+
     };
 
     // public methods
@@ -164,30 +204,23 @@ console.log(nav_end);
                         min: 1,
                         max: settings.totalPages,
                         value: settings.currentPage,
-                        stop: function() {
-                            var newValue = $("#" + slider_id).slider('value');
-                            elem.data('nav_start', newValue);
+                        animate: 'slow',
+                        range: 'min',
+                        stop: function(event, ui) {
+                            elem.data('nav_start', ui.value);
                             create_nav_items(container_id);
                         }
                     });
+
                 } else {
-                    $("#" + slider_id).slider('destroy');
-                    $("#" + slider_id).html('');
+                    if($("#" + slider_id).data("slider")) {
+                        $("#" + slider_id).slider('destroy');
+                        $("#" + slider_id).html('');
+                    }
                 }
 
 
-                // set currentPage and return page number when click on nav page item
-                var prefix = settings.nav_item_link_id_prefix + container_id + '_';
-                var nav_item_selector = '[id^="' + prefix + '"]';
-                $(nav_item_selector).on('click', function() {
-                    var len = prefix.length;
-                    var page_num = $(this).attr("id").substr(len);
-                    settings.currentPage = page_num;
-                    elem.jui_pagination('setOption', 'currentPage', page_num, false);
-                    // TODO change current page + styles
-                    // trigger event
-                    elem.triggerHandler("onNavPageClick", page_num);
-                });
+
 
             });
         },
@@ -200,13 +233,18 @@ console.log(nav_end);
             var defaults = {
                 currentPage: 1,
                 visiblePageLinks: 10,
+
                 navPagesClass: 'nav-pane ui-widget ui-widget-header ui-corner-all',
+                navCurrentPage: 'current-page',
                 navItemClass: 'nav-item ui-widget-header',
                 navItemSelectedClass: 'nav-item ui-state-highlight ui-widget-header',
                 navItemLinkClass: 'nav-link',
+                navTotalPages: 'total-pages',
                 dividerClass: 'nav-slider-divider',
+
                 labelPage: 'Page',
                 labelTotalPages: 'Total',
+
                 navPages_id_prefix: 'nav_',
                 slider_id_prefix: 'sld_',
                 divider_id_prefix: 'clear_',
@@ -275,9 +313,11 @@ console.log(nav_end);
     };
 
     $.fn.jui_pagination = function(method) {
-        // TODO check with ni ID
+
         if(this.size() != 1) {
-            $.error('You must use this plugin with a unique element');
+            var err_msg = 'You must use this plugin with a unique element';
+            this.html('<span style="color: red;">' + 'ERROR: ' + err_msg + '</span>');
+            $.error(err_msg);
         }
 
         // Method calling logic

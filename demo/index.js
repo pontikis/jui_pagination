@@ -1,11 +1,11 @@
 $(function() {
-
+// TODO 1.9.0 themeswitcher
 /*    $('#switcher').themeswitcher();*/
 
     $("#demo_pag1").jui_pagination({
         currentPage: 31,
         visiblePageLinks: 10,
-        totalPages: 100,
+        totalPages: 10003,
         container_class: 'demo_pag1',
         onNavPageClick: function(event, page_num) {
             alert('Page number is: ' + page_num);
@@ -13,9 +13,9 @@ $(function() {
     });
 
     $("#demo_pag2").jui_pagination({
-        currentPage: 100,
-        visiblePageLinks: 5,
-        totalPages: 300,
+        currentPage: 1,
+        visiblePageLinks: 10,
+        totalPages: 50,
         container_class: 'demo_pag2'
     });
 
@@ -36,6 +36,25 @@ $(function() {
         var tmp = $("#demo_pag1").jui_pagination('getOption', 'container_class');
         alert(tmp);
     });
+
+
+    $("#set_option_3").click(function() {
+        $("#demo_pag2").jui_pagination({
+            totalPages: 5
+        });
+    });
+
+    $("#set_option_4").click(function() {
+        $("#demo_pag2").jui_pagination({
+            totalPages: 50
+        });
+    });
+
+    $("#get_option_2").click(function() {
+        var tmp = $("#demo_pag2").jui_pagination('getOption', 'totalPages');
+        alert(tmp);
+    });
+
 
 
 });
