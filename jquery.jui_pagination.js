@@ -44,19 +44,18 @@
 
                 // create nav-pages, divider div and slider
                 var container_id = elem.attr("id");
-                var nav_pages_id = settings.navPages_id_prefix + container_id;
+                var nav_pane_id = settings.navPages_id_prefix + container_id;
                 var nav_slider_divider_id = settings.divider_id_prefix + container_id;
                 var slider_id = settings.slider_id_prefix + container_id;
 
                 var elem_html = '';
-                elem_html += '<div id="' + nav_pages_id + '"></div>';
+                elem_html += '<div id="' + nav_pane_id + '"></div>';
                 elem_html += '<div id="' + nav_slider_divider_id + '"></div>';
                 elem_html += '<div id="' + slider_id + '"></div>';
 
                 elem.html(elem_html);
 
                 create_nav_items(container_id);
-
 
                 $("#" + nav_slider_divider_id).removeClass().addClass(settings.dividerClass);
 
@@ -74,7 +73,6 @@
                             set_current_page(container_id, ui.value, false);
                         }
                     });
-
                 } else {
                     if($("#" + slider_id).data("slider")) {
                         $("#" + slider_id).slider('destroy');
@@ -82,10 +80,36 @@
                     }
                 }
 
+                var goto;
+                // click on go to top button
+                var selector = settings.top_id_prefix + container_id;
+                $("#" + container_id).on('click', "#" + selector, function() {
+                    goto = 1;
+                    elem.data('nav_start', goto);
+                    create_nav_items(container_id);
+                    set_current_page(container_id, goto, true);
+                });
 
+                // click on go to next button
+                var selector = settings.next_id_prefix + container_id;
+                $("#" + container_id).on('click', "#" + selector, function() {
+                    goto = settings.currentPage + 1;
+                    elem.data('nav_start', goto);
+                    create_nav_items(container_id);
+                    set_current_page(container_id, goto, true);
+                });
 
+                // click on go to end button
+                var selector = settings.last_id_prefix + container_id;
+                $("#" + container_id).on('click', "#" + selector, function() {
+                    goto = settings.totalPages;
+                    elem.data('nav_start', goto);
+                    create_nav_items(container_id);
+                    set_current_page(container_id, goto, true);
+                });
 
             });
+
         },
 
         /**
@@ -97,11 +121,14 @@
                 currentPage: 1,
                 visiblePageLinks: 10,
 
-                navPagesClass: 'nav-pane ui-widget ui-widget-header ui-corner-all',
-                navCurrentPage: 'current-page',
+                navPaneClass: 'nav-pane ui-widget ui-widget-header ui-corner-all',
+                navCurrentPageClass: 'current-page',
+                navButtonClass: 'nav-button ui-widget-header',
+                navDotsLeftClass: 'nav-dots-left',
                 navItemClass: 'nav-item ui-widget-header',
                 navItemSelectedClass: 'nav-item ui-state-highlight ui-widget-header',
-                navTotalPages: 'total-pages',
+                navDotsRightClass: 'nav-dots-right',
+                navTotalPagesClass: 'total-pages',
                 dividerClass: 'nav-slider-divider',
 
                 labelPage: 'Page',
@@ -113,7 +140,9 @@
                 current_id_prefix: 'current_',
                 top_id_prefix: 'top_',
                 prev_id_prefix: 'prev_',
+                nav_dots_left_id_prefix: 'dots_left_',
                 nav_item_id_prefix: 'page_',
+                nav_dots_right_id_prefix: 'dots_right_',
                 next_id_prefix: 'next_',
                 last_id_prefix: 'last_',
                 total_id_prefix: 'total_',
@@ -183,25 +212,31 @@
         var currentPage = settings.currentPage;
         var visiblePageLinks = settings.visiblePageLinks;
 
-        var nav_pages_id = settings.navPages_id_prefix + container_id;
+        var nav_pane_id = settings.navPages_id_prefix + container_id;
         var slider_id = settings.slider_id_prefix + container_id;
 
         var current_id = settings.current_id_prefix + container_id;
-        var top_id_prefix = settings.top_id_prefix + container_id + '_';
-        var prev_id_prefix = settings.prev_id_prefix + container_id + '_';
+        var dots_left_id = settings.top_id_prefix + container_id;
+        var top_id = settings.top_id_prefix + container_id;
+        var prev_id = settings.prev_id_prefix + container_id;
+        var nav_dots_left_id = settings.nav_dots_left_id_prefix + container_id;
         var nav_item_id_prefix = settings.nav_item_id_prefix + container_id + '_';
-        var next_id_prefix = settings.next_id_prefix + container_id + '_';
-        var last_id_prefix = settings.last_id_prefix + container_id + '_';
+        var nav_dots_right_id = settings.nav_dots_right_id_prefix + container_id;
+        var next_id = settings.next_id_prefix + container_id;
+        var last_id = settings.last_id_prefix + container_id;
         var total_id = settings.total_id_prefix + container_id;
 
         var labelPage = settings.labelPage;
         var labelTotalPages = settings.labelTotalPages;
 
-        var navPagesClass = settings.navPagesClass;
-        var navCurrentPage = settings.navCurrentPage;
+        var navPaneClass = settings.navPaneClass;
+        var navCurrentPageClass = settings.navCurrentPageClass;
+        var navButtonClass = settings.navButtonClass;
+        var navDotsLeftClass = settings.navDotsLeftClass;
         var navItemClass = settings.navItemClass;
         var navItemSelectedClass = settings.navItemSelectedClass;
-        var navTotalPages = settings.navTotalPages;
+        var navDotsRightClass = settings.navDotsRightClass;
+        var navTotalPagesClass = settings.navTotalPagesClass;
 
         var nav_start = elem.data('nav_start');
         if(typeof(nav_start) == 'undefined') {
@@ -227,8 +262,9 @@
         nav_html += '<div id="' + current_id + '">' + labelPage + ' ' + currentPage + '</div>';
 
         if(nav_start > 1) {
-            nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">&laquo;</a></div>';
-            nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">&larr;</a></div>';
+            nav_html += '<div id="' + top_id + '">&laquo;</div>';
+            nav_html += '<div id="' + prev_id + '">&larr;</div>';
+            nav_html += '<div id="' + nav_dots_left_id + '">...</div>';
         }
 
         for(var i = nav_start; i <= nav_end; i++) {
@@ -236,34 +272,35 @@
         }
 
         if(nav_end < totalPages) {
-            nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">&rarr;</a></div>';
-            nav_html += '<div class="nav-item ui-widget-header"><a href="javascript:void(0);" class="nav-link">&raquo;</a></div>';
+            nav_html += '<div id="' + nav_dots_right_id + '">...</div>';
+            nav_html += '<div id="' + next_id + '">&rarr;</div>';
+            nav_html += '<div id="' + last_id + '">&raquo;</div>';
         }
 
         nav_html += '<div id="' + total_id + '">' + labelTotalPages + ' ' + totalPages + '</div>';
 
         // set nav pane html
-        $("#" + nav_pages_id).html(nav_html);
+        $("#" + nav_pane_id).html(nav_html);
 
         // apply style
-        $("#" + nav_pages_id).removeClass().addClass(navPagesClass);
-        $("#" + current_id).removeClass().addClass(navCurrentPage);
-
+        $("#" + nav_pane_id).removeClass().addClass(navPaneClass);
+        $("#" + current_id).removeClass().addClass(navCurrentPageClass);
+        $("#" + top_id).removeClass().addClass(navButtonClass);
+        $("#" + prev_id).removeClass().addClass(navButtonClass);
+        $("#" + nav_dots_left_id).removeClass().addClass(navDotsLeftClass);
         $('[id^="' + nav_item_id_prefix + '"]').removeClass().addClass(navItemClass);
         $("#" + nav_item_id_prefix + currentPage).removeClass().addClass(navItemSelectedClass);
+        $("#" + nav_dots_right_id).removeClass().addClass(navDotsRightClass);
+        $("#" + next_id).removeClass().addClass(navButtonClass);
+        $("#" + last_id).removeClass().addClass(navButtonClass);
+        $("#" + total_id).removeClass().addClass(navTotalPagesClass);
 
-        $("#" + total_id).removeClass().addClass(navTotalPages);
-
-        // set currentPage and return page number when click on nav page item
-        var nav_item_selector = '[id^="' + nav_item_id_prefix + '"]';
-        $(nav_item_selector).on('click', function() {
+        // click on nav page item
+        $('[id^="' + nav_item_id_prefix + '"]').on('click', function() {
             var len = nav_item_id_prefix.length;
             var page_num = $(this).attr("id").substr(len);
-
             set_current_page(container_id, page_num, true);
-
         });
-
 
     };
 
@@ -310,14 +347,14 @@
             }
         }
 
-        // trigger event
+        // trigger event onNavPageClick
         elem.triggerHandler("onNavPageClick", page_num);
     };
 
     $.fn.jui_pagination = function(method) {
 
         if(this.size() != 1) {
-            var err_msg = 'You must use this plugin with a unique element';
+            var err_msg = 'You must use this plugin with a unique element (at once)';
             this.html('<span style="color: red;">' + 'ERROR: ' + err_msg + '</span>');
             $.error(err_msg);
         }

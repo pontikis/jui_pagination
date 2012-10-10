@@ -22,6 +22,36 @@
     cursor: pointer;
 }
 
+.nav-button {
+    display: inline-block;
+    margin: 3px;
+    font-size: 14px;
+    text-align: center;
+    padding-left: 2px;
+    padding-right: 2px;
+    cursor: pointer;
+}
+
+.nav-dots-left {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 12px;
+    font-weight: normal;
+    text-align: center;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.nav-dots-right {
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 12px;
+    font-weight: normal;
+    text-align: center;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
 .total-pages {
     display: inline-block;
     margin: 3px 3px 3px 20px;
