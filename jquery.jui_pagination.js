@@ -3,7 +3,7 @@
  * Requires jquery, jquery-ui slider, jquery-ui CSS
  * Copyright 2012 Christos Pontikis (http://pontikis.net)
  * Project page https://github.com/pontikis/jui_pagination
- * Release 1.00 - ??/10/2012
+ * Release 1.00 - 10 Oct 2012
  * License MIT
  */
 (function($) {
@@ -80,9 +80,9 @@
                     }
                 }
 
-                var goto;
+                var goto, selector;
                 // click on go to top button
-                var selector = settings.top_id_prefix + container_id;
+                selector = settings.top_id_prefix + container_id;
                 $("#" + container_id).on('click', "#" + selector, function() {
                     goto = 1;
                     elem.data('nav_start', goto);
@@ -90,8 +90,17 @@
                     set_current_page(container_id, goto, true);
                 });
 
+                // click on go to prev button
+                selector = settings.prev_id_prefix + container_id;
+                $("#" + container_id).on('click', "#" + selector, function() {
+                    goto = settings.currentPage - 1;
+                    elem.data('nav_start', goto);
+                    create_nav_items(container_id);
+                    set_current_page(container_id, goto, true);
+                });
+
                 // click on go to next button
-                var selector = settings.next_id_prefix + container_id;
+                selector = settings.next_id_prefix + container_id;
                 $("#" + container_id).on('click', "#" + selector, function() {
                     goto = settings.currentPage + 1;
                     elem.data('nav_start', goto);
@@ -100,7 +109,7 @@
                 });
 
                 // click on go to end button
-                var selector = settings.last_id_prefix + container_id;
+                selector = settings.last_id_prefix + container_id;
                 $("#" + container_id).on('click', "#" + selector, function() {
                     goto = settings.totalPages;
                     elem.data('nav_start', goto);
@@ -108,6 +117,14 @@
                     set_current_page(container_id, goto, true);
                 });
 
+
+                // click on nav page item
+                selector = settings.nav_item_id_prefix + container_id + '_';
+                $("#" + container_id).on('click', '[id^="' + selector + '"]', function() {
+                    var len = selector.length;
+                    var page_num = $(event.target).attr("id").substr(len);
+                    set_current_page(container_id, page_num, true);
+                });
             });
 
         },
@@ -240,9 +257,17 @@
 
         var nav_start = elem.data('nav_start');
         if(typeof(nav_start) == 'undefined') {
-            elem.data('nav_start', 1);
-            nav_start = 1;
+            nav_start = currentPage;
+            elem.data('nav_start', nav_start);
         }
+        var offset;
+        var mod = nav_start % visiblePageLinks;
+        if(mod == 0) {
+            offset = - visiblePageLinks + 1;
+        } else {
+            offset = - mod + 1;
+        }
+        nav_start += offset;
         var nav_end;
 
         if(totalPages < visiblePageLinks) {
@@ -295,12 +320,7 @@
         $("#" + last_id).removeClass().addClass(navButtonClass);
         $("#" + total_id).removeClass().addClass(navTotalPagesClass);
 
-        // click on nav page item
-        $('[id^="' + nav_item_id_prefix + '"]').on('click', function() {
-            var len = nav_item_id_prefix.length;
-            var page_num = $(this).attr("id").substr(len);
-            set_current_page(container_id, page_num, true);
-        });
+
 
     };
 

@@ -3,7 +3,7 @@ $(function() {
 /*    $('#switcher').themeswitcher();*/
 
     $("#demo_pag1").jui_pagination({
-        currentPage: 31,
+        currentPage: 33,
         visiblePageLinks: 10,
         totalPages: 10003,
         container_class: 'demo_pag1',
@@ -13,9 +13,9 @@ $(function() {
     });
 
     $("#demo_pag2").jui_pagination({
-        currentPage: 1,
+        currentPage: 7,
         visiblePageLinks: 10,
-        totalPages: 50,
+        totalPages: 24,
         container_class: 'demo_pag2'
     });
 
