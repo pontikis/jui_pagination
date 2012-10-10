@@ -5,7 +5,7 @@ $(function() {
     $("#demo_pag1").jui_pagination({
         currentPage: 33,
         visiblePageLinks: 10,
-        totalPages: 10003,
+        totalPages: 103,
         container_class: 'demo_pag1',
         onNavPageClick: function(event, page_num) {
             alert('Page number is: ' + page_num);
