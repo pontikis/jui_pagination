@@ -129,7 +129,9 @@
 
                 create_nav_items(container_id);
 
-                //  slider and stop enent handling
+                var goto_page;
+
+                //  slider and its event handling (stop event)
                 if(settings.totalPages > settings.visiblePageLinks) {
                     $("#" + slider_id).slider({
                         min: 1,
@@ -138,9 +140,17 @@
                         animate: 'slow',
                         range: 'min',
                         stop: function(event, ui) {
-                            change_page(container_id, ui.value, false);
+                            goto_page = ui.value;
+                            change_page(container_id, goto_page, false);
                         }
                     });
+
+
+                    $("#" + slider_id).on('mouseover', $(this).find(".ui-slider-handle"), function(event, target) {
+                        $(event.target).attr("title", $(this).slider('option', 'value'));
+                    })
+
+
                 } else {
                     if($("#" + slider_id).data("slider")) {
                         $("#" + slider_id).slider('destroy');
@@ -148,42 +158,42 @@
                     }
                 }
 
-                // various enents handling
-                var goto, selector;
+                // enents handling (other than slider events)
+                var selector;
                 // click on go to top button
                 selector = settings.nav_top_id_prefix + container_id;
                 $("#" + container_id).on('click', "#" + selector, function() {
-                    goto = 1;
-                    change_page(container_id, goto, true);
+                    goto_page = 1;
+                    change_page(container_id, goto_page, true);
                 });
 
                 // click on go to prev button
                 selector = settings.nav_prev_id_prefix + container_id;
                 $("#" + container_id).on('click', "#" + selector, function() {
-                    goto = parseInt(settings.currentPage) - 1;
-                    change_page(container_id, goto, true);
+                    goto_page = parseInt(settings.currentPage) - 1;
+                    change_page(container_id, goto_page, true);
                 });
 
                 // click on go to next button
                 selector = settings.nav_next_id_prefix + container_id;
                 $("#" + container_id).on('click', "#" + selector, function() {
-                    goto = parseInt(settings.currentPage) + 1;
-                    change_page(container_id, goto, true);
+                    goto_page = parseInt(settings.currentPage) + 1;
+                    change_page(container_id, goto_page, true);
                 });
 
                 // click on go to end button
                 selector = settings.nav_last_id_prefix + container_id;
                 $("#" + container_id).on('click', "#" + selector, function() {
-                    goto = parseInt(settings.totalPages);
-                    change_page(container_id, goto, true);
+                    goto_page = parseInt(settings.totalPages);
+                    change_page(container_id, goto_page, true);
                 });
 
                 // click on nav page item
                 selector = settings.nav_item_id_prefix + container_id + '_';
                 $("#" + container_id).on('click', '[id^="' + selector + '"]', function(event) {
                     var len = selector.length;
-                    var page_num = $(event.target).attr("id").substr(len);
-                    update_current_page(container_id, page_num, true);
+                    goto_page = $(event.target).attr("id").substr(len);
+                    update_current_page(container_id, goto_page, true);
                 });
             });
 
@@ -321,11 +331,12 @@
     }
 
     /**
-     * Update nagivation pages
+     * Create nagivation pages
      * @param container_id
      */
     var create_nav_items = function(container_id) {
 
+        // retrieve options
         var elem = $("#" + container_id);
         var s = $(elem).jui_pagination('getAllOptions');
 
@@ -345,20 +356,18 @@
         var navItemClass = s.navItemClass;
         var navItemSelectedClass = s.navItemSelectedClass;
 
-        var nav_start = elem.data('nav_start');
+        var nav_start, nav_end, mod, offset;
+        nav_start = elem.data('nav_start');
         if(typeof(nav_start) == 'undefined') {
             nav_start = currentPage;
         }
-        var offset;
-        var mod = nav_start % visiblePageLinks;
+        mod = nav_start % visiblePageLinks;
         if(mod == 0) {
             offset = -visiblePageLinks + 1;
         } else {
             offset = -mod + 1;
         }
         nav_start += offset;
-
-        var nav_end;
 
         if(totalPages < visiblePageLinks) {
             nav_start = 1;
@@ -371,9 +380,11 @@
             }
             nav_end = nav_start + visiblePageLinks - 1;
         }
+        // store nav_start nav_end
         elem.data('nav_start', nav_start);
         elem.data('nav_end', nav_end);
 
+        // show - hide nav controls
         var selector = '';
         selector = "#" + nav_top_id + ', ' + "#" + nav_prev_id + ', ' + "#" + nav_dots_left_id;
         if(nav_start > 1) {
@@ -389,6 +400,7 @@
             $(selector).hide();
         }
 
+        // create nav pages html
         var nav_html = '';
         for(var i = nav_start; i <= nav_end; i++) {
             nav_html += '<div id="' + nav_item_id_prefix + i + '">' + i + '</div>';
@@ -404,13 +416,13 @@
     /**
      * Update current page
      * @param container_id
-     * @param page_num
+     * @param goto_page
      * @param update_slider
      */
-    var update_current_page = function(container_id, page_num, update_slider) {
+    var update_current_page = function(container_id, goto_page, update_slider) {
 
+        // retrieve options
         var elem = $("#" + container_id);
-
         var s = $(elem).jui_pagination('getAllOptions');
 
         var previous_currentPage = s.currentPage;
@@ -428,24 +440,25 @@
         var navItemClass = s.navItemClass;
         var navItemSelectedClass = s.navItemSelectedClass;
 
-        // apply appropriate styles
+        // change selected page, appling appropriate styles
         $("#" + nav_item_id_prefix + previous_currentPage).removeClass().addClass(navItemClass);
-        $("#" + nav_item_id_prefix + page_num).removeClass().addClass(navItemSelectedClass);
+        $("#" + nav_item_id_prefix + goto_page).removeClass().addClass(navItemSelectedClass);
 
         // update current page indicator
-        $("#" + current_id).text(labelPage + ' ' + page_num);
+        $("#" + current_id).text(labelPage + ' ' + goto_page);
 
         // update slider if exists
         if(update_slider) {
             if(totalPages > visiblePageLinks) {
-                $("#" + slider_id).slider({'value': page_num});
+                $("#" + slider_id).slider({'value': goto_page});
             }
         }
 
-        elem.jui_pagination('setOption', 'currentPage', page_num, false);
+        // update currentPage option
+        elem.jui_pagination('setOption', 'currentPage', goto_page, false);
 
         // trigger event onChangePage
-        elem.triggerHandler("onChangePage", page_num);
+        elem.triggerHandler("onChangePage", goto_page);
     };
 
     /**
@@ -454,10 +467,10 @@
      * @param page_num
      * @param update_slider
      */
-    var change_page = function(container_id, page_num, update_slider) {
-        $("#" + container_id).data('nav_start', page_num);
+    var change_page = function(container_id, goto_page, update_slider) {
+        $("#" + container_id).data('nav_start', goto_page);
         create_nav_items(container_id);
-        update_current_page(container_id, page_num, update_slider);
+        update_current_page(container_id, goto_page, update_slider);
     }
 
     $.fn.jui_pagination = function(method) {

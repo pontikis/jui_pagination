@@ -95,7 +95,7 @@ Methods
 <p>setOption</p>
     $("#element_id").jui_pagination('setOption', 'option_name', option_value, reinit);
 
-<p>Alternative way to set one or more option</p>
+<p>Alternative way to set one or more options</p>
     $("#element_id").jui_pagination({option1_name: option1_value, etc});
 
 <p>destroy</p>
