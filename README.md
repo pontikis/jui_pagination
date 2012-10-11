@@ -10,7 +10,7 @@ Preview:
 
 ![jui_pagination sample][sample]
 
-[sample]: https://github.com/pontikis/jui_pagination/raw/master/demo/images/sample.png "jui_pagination sample"
+[sample]: https://raw.github.com/pontikis/jui_pagination/master/demo/images/sample.png "jui_pagination sample"
 
 Usage:
 ---
