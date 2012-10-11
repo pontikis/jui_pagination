@@ -191,6 +191,7 @@
 
         /**
          * Get default values
+         * Usage: $(element).jui_pagination('getDefaults');
          * @return {Object}
          */
         getDefaults: function() {
@@ -270,6 +271,7 @@
 
         /**
          * Destroy plugin
+         * Usage: $(element).jui_pagination('destroy');
          * @param options
          * @return {*|jQuery}
          */

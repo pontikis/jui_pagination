@@ -83,6 +83,9 @@ Default styling needs jquery-ui Themes CSS: http://jqueryui.com/themeroller/
 Methods
 ---
 
+<p>getDefaults</p>
+    $("#element_id").jui_pagination('getDefaults')
+
 <p>getOption</p>
     $("#element_id").jui_pagination('getOption', 'option_name')
 
