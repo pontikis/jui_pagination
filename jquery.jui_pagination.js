@@ -129,6 +129,10 @@
 
                 create_nav_items(container_id);
 
+                //$('[id^="' + nav_item_id_prefix + '"]').removeClass().addClass(navItemClass);
+                //$("#" + nav_item_id_prefix + currentPage).removeClass().addClass(navItemSelectedClass);
+
+
                 var goto_page;
 
                 //  slider and its event handling (stop event)
