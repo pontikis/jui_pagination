@@ -3,7 +3,7 @@
  * Requires jquery, jquery-ui slider, jquery-ui CSS
  * Copyright 2012 Christos Pontikis (http://pontikis.net)
  * Project page https://github.com/pontikis/jui_pagination
- * Release 1.00 - 11 Oct 2012
+ * Release 1.00 - 12 Oct 2012
  * License MIT
  */
 "use strict";
@@ -87,6 +87,15 @@
                 var navDotsRightClass = settings.navDotsRightClass;
                 var navTotalPagesClass = settings.navTotalPagesClass;
 
+                var sliderClass = settings.sliderClass;
+
+                if(useSlider) {
+                    var pageLimit = (useSliderWithPagesCount == 0 ? visiblePageLinks : Math.max(useSliderWithPagesCount, visiblePageLinks));
+                    if(totalPages <= pageLimit) {
+                        useSlider = false;
+                    }
+                }
+
                 var elem_html = '';
                 elem_html += '<div id="' + nav_pane_id + '">';
 
@@ -107,12 +116,11 @@
 
                 elem_html += '</div>';
 
+                if(useSlider) {
+                    elem_html += '<div id="' + slider_id + '"></div>';
+                }
+
                 // set nav pane html
-                $("#" + nav_pane_id).html(elem_html);
-
-                elem_html += '<div id="' + nav_slider_divider_id + '"></div>';
-                elem_html += '<div id="' + slider_id + '"></div>';
-
                 elem.html(elem_html);
 
                 // apply style
@@ -132,21 +140,16 @@
 
                 $("#" + total_id).removeClass().addClass(navTotalPagesClass);
 
-                $("#" + nav_slider_divider_id).removeClass().addClass(settings.dividerClass);
-
                 create_nav_items(container_id);
+
+                if(useSlider) {
+                    $("#" + slider_id).removeClass().addClass(sliderClass);
+                }
 
                 /* manage navigation events --------------------------------- */
                 var goto_page;
 
                 //  slider and its event handling (stop event)
-                if(useSlider) {
-                    var pageLimit = (useSliderWithPagesCount == 0 ? visiblePageLinks : Math.max(useSliderWithPagesCount, visiblePageLinks));
-                    if(totalPages <= pageLimit) {
-                        useSlider = false;
-                    }
-                }
-
                 if(useSlider) {
                     $("#" + slider_id).slider({
                         min: 1,
@@ -232,7 +235,7 @@
                 navItemSelectedClass: 'nav-item ui-state-highlight ui-widget-header',
                 navDotsRightClass: 'nav-dots-right',
                 navTotalPagesClass: 'total-pages',
-                dividerClass: 'nav-slider-divider',
+                sliderClass: 'nav-slider',
 
                 nav_pane_id_prefix: 'nav_pane_',
                 nav_current_page_id_prefix: 'current_',

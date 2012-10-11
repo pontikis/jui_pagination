@@ -7,6 +7,7 @@ $(function() {
         visiblePageLinks: 10,
         totalPages: 103,
         containerClass: 'demo_pag1',
+        sliderClass: 'demo_pag1_slider',
         onChangePage: function(event, page_num) {
             $("#result").html('Page changed to: ' + page_num);
         }
@@ -19,7 +20,8 @@ $(function() {
         currentPage: 7,
         visiblePageLinks: 10,
         totalPages: 24,
-        containerClass: 'demo_pag2'
+        containerClass: 'demo_pag2',
+        useSliderWithPagesCount: 30
     });
 
 
