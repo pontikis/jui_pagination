@@ -3,14 +3,17 @@ $(function() {
 /*    $('#switcher').themeswitcher();*/
 
     $("#demo_pag1").jui_pagination({
-        currentPage: 33,
+        currentPage: 8,
         visiblePageLinks: 10,
         totalPages: 103,
         container_class: 'demo_pag1',
-        onNavPageClick: function(event, page_num) {
-            alert('Page number is: ' + page_num);
+        onChangePage: function(event, page_num) {
+            $("#result").html('Page changed to: ' + page_num);
         }
     });
+
+    $("#result").html('Current page is: ' + $("#demo_pag1").jui_pagination('getOption', 'currentPage'));
+
 
     $("#demo_pag2").jui_pagination({
         currentPage: 7,
@@ -40,13 +43,13 @@ $(function() {
 
     $("#set_option_3").click(function() {
         $("#demo_pag2").jui_pagination({
-            totalPages: 5
+            totalPages: 50
         });
     });
 
     $("#set_option_4").click(function() {
         $("#demo_pag2").jui_pagination({
-            totalPages: 50
+            totalPages: 24
         });
     });
 

@@ -3,9 +3,10 @@
  * Requires jquery, jquery-ui slider, jquery-ui CSS
  * Copyright 2012 Christos Pontikis (http://pontikis.net)
  * Project page https://github.com/pontikis/jui_pagination
- * Release 1.00 - 10 Oct 2012
+ * Release 1.00 - 11 Oct 2012
  * License MIT
  */
+"use strict";
 (function($) {
 
     var pluginName = 'jui_pagination';
@@ -72,8 +73,11 @@
                 var labelTotalPages = settings.labelTotalPages;
 
                 var navPaneClass = settings.navPaneClass;
-                var navPagesClass = settings.navPagesClass;
                 var navCurrentPageClass = settings.navCurrentPageClass;
+                var navButtonClass = settings.navButtonClass;
+                var navDotsLeftClass = settings.navDotsLeftClass;
+                var navPagesClass = settings.navPagesClass;
+                var navDotsRightClass = settings.navDotsRightClass;
                 var navTotalPagesClass = settings.navTotalPagesClass;
 
                 var elem_html = '';
@@ -106,8 +110,19 @@
 
                 // apply style
                 $("#" + nav_pane_id).removeClass().addClass(navPaneClass);
+
                 $("#" + current_id).removeClass().addClass(navCurrentPageClass);
+
+                $("#" + nav_top_id).removeClass().addClass(navButtonClass);
+                $("#" + nav_prev_id).removeClass().addClass(navButtonClass);
+                $("#" + nav_dots_left_id).removeClass().addClass(navDotsLeftClass);
+
                 $("#" + nav_pages_id).removeClass().addClass(navPagesClass);
+
+                $("#" + nav_dots_right_id).removeClass().addClass(navDotsRightClass);
+                $("#" + nav_next_id).removeClass().addClass(navButtonClass);
+                $("#" + nav_last_id).removeClass().addClass(navButtonClass);
+
                 $("#" + total_id).removeClass().addClass(navTotalPagesClass);
 
                 $("#" + nav_slider_divider_id).removeClass().addClass(settings.dividerClass);
@@ -322,12 +337,8 @@
         var nav_next_id = s.nav_next_id_prefix + container_id;
         var nav_last_id = s.nav_last_id_prefix + container_id;
 
-        var navPagesClass = s.navPagesClass;
-        var navButtonClass = s.navButtonClass;
-        var navDotsLeftClass = s.navDotsLeftClass;
         var navItemClass = s.navItemClass;
         var navItemSelectedClass = s.navItemSelectedClass;
-        var navDotsRightClass = s.navDotsRightClass;
 
         var nav_start = elem.data('nav_start');
         if(typeof(nav_start) == 'undefined') {
@@ -379,18 +390,9 @@
         }
         $("#" + nav_pages_id).html(nav_html);
 
-
         // apply style
-        $("#" + nav_top_id).removeClass().addClass(navButtonClass);
-        $("#" + nav_prev_id).removeClass().addClass(navButtonClass);
-        $("#" + nav_dots_left_id).removeClass().addClass(navDotsLeftClass);
-        $("#" + nav_pages_id).removeClass().addClass(navPagesClass);
         $('[id^="' + nav_item_id_prefix + '"]').removeClass().addClass(navItemClass);
         $("#" + nav_item_id_prefix + currentPage).removeClass().addClass(navItemSelectedClass);
-        $("#" + nav_dots_right_id).removeClass().addClass(navDotsRightClass);
-        $("#" + nav_next_id).removeClass().addClass(navButtonClass);
-        $("#" + nav_last_id).removeClass().addClass(navButtonClass);
-
 
     };
 

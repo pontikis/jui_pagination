@@ -16,4 +16,5 @@
 .demo_pag1_alt1 {
     width: 800px;
     padding: 40px;
+    border: solid blue 1px;
 }
