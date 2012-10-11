@@ -18,7 +18,7 @@ Usage:
 <p>HTML (head section)</p>
 
     <link rel="stylesheet" href="/path/to/jqueryui_theme/jquery-ui.css">
-    <link rel="stylesheet" href="/path/to/jqueryui_theme/jquery.jui_pagination.css">
+    <link rel="stylesheet" href="/path/to/jquery.jui_pagination.css">
 
     <script type="text/javascript" src="/path/to/jquery.js"></script>
     <script type="text/javascript" src="/path/to/jquery-ui.js"></script>
