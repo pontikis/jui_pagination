@@ -46,6 +46,8 @@
                 // bind events
                 elem.unbind("onChangePage").bind("onChangePage", elem.jui_pagination('getOption', 'onChangePage'));
 
+                /* create user interface ------------------------------------ */
+
                 // set container style (if any)
                 if(settings.containerClass != '') {
                     elem.removeClass().addClass(settings.containerClass);
@@ -54,6 +56,7 @@
                 // create nav pane, divider div and slider
                 var totalPages = settings.totalPages;
                 var currentPage = settings.currentPage;
+                var visiblePageLinks = settings.visiblePageLinks;
 
                 var nav_pane_id = settings.nav_pane_id_prefix + container_id;
                 var nav_slider_divider_id = settings.divider_id_prefix + container_id;
@@ -133,11 +136,18 @@
 
                 create_nav_items(container_id);
 
-                /* manage navigation ---------------------------------------- */
+                /* manage navigation events --------------------------------- */
                 var goto_page;
 
                 //  slider and its event handling (stop event)
-                if(settings.totalPages > settings.visiblePageLinks) {
+                if(useSlider) {
+                    var pageLimit = (useSliderWithPagesCount == 0 ? visiblePageLinks : Math.max(useSliderWithPagesCount, visiblePageLinks));
+                    if(totalPages <= pageLimit) {
+                        useSlider = false;
+                    }
+                }
+
+                if(useSlider) {
                     $("#" + slider_id).slider({
                         min: 1,
                         max: totalPages,

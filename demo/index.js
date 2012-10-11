@@ -40,6 +40,19 @@ $(function() {
         alert(tmp);
     });
 
+    $("#set_option_5").click(function() {
+        $("#demo_pag1").jui_pagination({
+            useSlider: true
+        });
+    });
+
+    $("#set_option_6").click(function() {
+        $("#demo_pag1").jui_pagination({
+            useSlider: false
+        });
+    });
+
+
 
     $("#set_option_3").click(function() {
         $("#demo_pag2").jui_pagination({
