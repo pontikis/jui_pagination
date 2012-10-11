@@ -6,7 +6,7 @@ $(function() {
         currentPage: 8,
         visiblePageLinks: 10,
         totalPages: 103,
-        container_class: 'demo_pag1',
+        containerClass: 'demo_pag1',
         onChangePage: function(event, page_num) {
             $("#result").html('Page changed to: ' + page_num);
         }
@@ -19,24 +19,24 @@ $(function() {
         currentPage: 7,
         visiblePageLinks: 10,
         totalPages: 24,
-        container_class: 'demo_pag2'
+        containerClass: 'demo_pag2'
     });
 
 
     $("#set_option_1").click(function() {
         $("#demo_pag1").jui_pagination({
-            container_class: 'demo_pag1_alt1'
+            containerClass: 'demo_pag1_alt1'
         });
     });
 
     $("#set_option_2").click(function() {
         $("#demo_pag1").jui_pagination({
-            container_class: 'demo_pag1'
+            containerClass: 'demo_pag1'
         });
     });
 
     $("#get_option_1").click(function() {
-        var tmp = $("#demo_pag1").jui_pagination('getOption', 'container_class');
+        var tmp = $("#demo_pag1").jui_pagination('getOption', 'containerClass');
         alert(tmp);
     });
 

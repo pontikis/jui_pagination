@@ -28,13 +28,17 @@ Usage:
 <p>JS code</p>
 
     $("#element_id").jui_pagination({
-        totalPages: 100
+        totalPages: 100, // REQUIRED
+        containerClass: 'some_class' // NOT MANDATORY
+        visiblePageLinks: 5  // default = 10
     })
 
 Detailed syntax:
 
     $("#element_id").jui_pagination({
-        totalPages: 100,
+        totalPages: 100, // REQUIRED
+
+        containerClass: 'some_class', // NOT MANDATORY
 
         // DEFAULTS
         currentPage: 1,

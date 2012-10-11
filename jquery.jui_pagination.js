@@ -47,8 +47,8 @@
                 elem.unbind("onChangePage").bind("onChangePage", elem.jui_pagination('getOption', 'onChangePage'));
 
                 // set width
-                if(settings.container_class != '') {
-                    elem.removeClass().addClass(settings.container_class);
+                if(settings.containerClass != '') {
+                    elem.removeClass().addClass(settings.containerClass);
                 }
 
                 // create nav pane, divider div and slider
