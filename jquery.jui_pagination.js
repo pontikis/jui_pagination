@@ -27,7 +27,7 @@
 
                 /**
                  * settings and defaults
-                 * using $.extend settings modification will affect elem.data() and vive versa
+                 * using $.extend, settings modification will affect elem.data() and vive versa
                  */
                 var settings = elem.data(pluginName);
                 if(typeof(settings) == 'undefined') {
@@ -46,7 +46,7 @@
                 // bind events
                 elem.unbind("onChangePage").bind("onChangePage", elem.jui_pagination('getOption', 'onChangePage'));
 
-                // set width
+                // set container style (if any)
                 if(settings.containerClass != '') {
                     elem.removeClass().addClass(settings.containerClass);
                 }
@@ -129,12 +129,12 @@
 
                 create_nav_items(container_id);
 
-                //  slider
+                //  slider and stop enent handling
                 if(settings.totalPages > settings.visiblePageLinks) {
                     $("#" + slider_id).slider({
                         min: 1,
-                        max: settings.totalPages,
-                        value: settings.currentPage,
+                        max: totalPages,
+                        value: currentPage,
                         animate: 'slow',
                         range: 'min',
                         stop: function(event, ui) {
@@ -148,6 +148,7 @@
                     }
                 }
 
+                // various enents handling
                 var goto, selector;
                 // click on go to top button
                 selector = settings.nav_top_id_prefix + container_id;
@@ -233,7 +234,7 @@
 
         /**
          * Get any option set to plugin using its name (as string)
-         * Usage: $(element).jui_datagrid('getOption', some_option);
+         * Usage: $(element).jui_pagination('getOption', some_option);
          * @param opt
          * @return {*}
          */
@@ -244,6 +245,7 @@
 
         /**
          * Get all options
+         * Usage: $(element).jui_pagination('getAllOptions');
          * @return {*}
          */
         getAllOptions: function() {
@@ -252,7 +254,8 @@
         },
 
         /**
-         *
+         * Set option
+         * Usage: $(element).jui_pagination('setOption', 'oprion_name',  'oprion_value',  reinit);
          * @param opt
          * @param val
          * @param reinit

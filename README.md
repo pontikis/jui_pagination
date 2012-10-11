@@ -79,6 +79,25 @@ Detailed syntax:
 
 Default styling needs jquery-ui Themes CSS: http://jqueryui.com/themeroller/
 
+Methods
+---
+
+<p>getOption</p>
+    $("#element_id").jui_pagination('getOption', 'option_name')
+
+<p>getAllOptions</p>
+    $("#element_id").jui_pagination('getAllOptions')
+
+<p>setOption</p>
+    $("#element_id").jui_pagination('setOption', 'option_name', option_value, reinit)
+
+Alternative weay to set an option
+    $("#element_id").jui_pagination({option1_name: option1_value, etc})
+
+<p>destroy</p>
+    $("#element_id").jui_pagination('destroy')
+
+
 Demo
 ---
 
