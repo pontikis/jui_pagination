@@ -31,7 +31,7 @@ Usage:
         totalPages: 100, // REQUIRED
         containerClass: 'some_class' // NOT MANDATORY
         visiblePageLinks: 5  // default = 10
-    })
+    });
 
 Options
 ---
@@ -75,7 +75,7 @@ Options
 
         onChangePage: function() {
         }
-    })
+    });
 
 
 Default styling needs jquery-ui Themes CSS: http://jqueryui.com/themeroller/
@@ -84,22 +84,22 @@ Methods
 ---
 
 <p>getDefaults</p>
-    $("#element_id").jui_pagination('getDefaults')
+    $("#element_id").jui_pagination('getDefaults');
 
 <p>getOption</p>
-    $("#element_id").jui_pagination('getOption', 'option_name')
+    $("#element_id").jui_pagination('getOption', 'option_name');
 
 <p>getAllOptions</p>
-    $("#element_id").jui_pagination('getAllOptions')
+    $("#element_id").jui_pagination('getAllOptions');
 
 <p>setOption</p>
-    $("#element_id").jui_pagination('setOption', 'option_name', option_value, reinit)
+    $("#element_id").jui_pagination('setOption', 'option_name', option_value, reinit);
 
-<p>Alternative way to set an option</p>
-    $("#element_id").jui_pagination({option1_name: option1_value, etc})
+<p>Alternative way to set one or more option</p>
+    $("#element_id").jui_pagination({option1_name: option1_value, etc});
 
 <p>destroy</p>
-    $("#element_id").jui_pagination('destroy')
+    $("#element_id").jui_pagination('destroy');
 
 
 Events
@@ -110,7 +110,7 @@ Events
         onChangePage: function() {
             // your code here
         }
-    })
+    });
 
 
 Demo
