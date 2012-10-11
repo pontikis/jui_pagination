@@ -58,7 +58,5 @@ $(function() {
         alert(tmp);
     });
 
-
-
 });
 
