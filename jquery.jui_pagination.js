@@ -129,10 +129,7 @@
 
                 create_nav_items(container_id);
 
-                //$('[id^="' + nav_item_id_prefix + '"]').removeClass().addClass(navItemClass);
-                //$("#" + nav_item_id_prefix + currentPage).removeClass().addClass(navItemSelectedClass);
-
-
+                /* manage navigation ---------------------------------------- */
                 var goto_page;
 
                 //  slider and its event handling (stop event)
@@ -148,13 +145,6 @@
                             change_page(container_id, goto_page, false);
                         }
                     });
-
-
-                    $("#" + slider_id).on('mouseover', $(this).find(".ui-slider-handle"), function(event, target) {
-                        $(event.target).attr("title", $(this).slider('option', 'value'));
-                    })
-
-
                 } else {
                     if($("#" + slider_id).data("slider")) {
                         $("#" + slider_id).slider('destroy');
@@ -166,35 +156,35 @@
                 var selector;
                 // click on go to top button
                 selector = settings.nav_top_id_prefix + container_id;
-                $("#" + container_id).on('click', "#" + selector, function() {
+                $("#" + container_id).off('click', "#" + selector).on('click', "#" + selector, function() {
                     goto_page = 1;
                     change_page(container_id, goto_page, true);
                 });
 
                 // click on go to prev button
                 selector = settings.nav_prev_id_prefix + container_id;
-                $("#" + container_id).on('click', "#" + selector, function() {
+                $("#" + container_id).off('click', "#" + selector).on('click', "#" + selector, function() {
                     goto_page = parseInt(settings.currentPage) - 1;
                     change_page(container_id, goto_page, true);
                 });
 
                 // click on go to next button
                 selector = settings.nav_next_id_prefix + container_id;
-                $("#" + container_id).on('click', "#" + selector, function() {
+                $("#" + container_id).off('click', "#" + selector).on('click', "#" + selector, function() {
                     goto_page = parseInt(settings.currentPage) + 1;
                     change_page(container_id, goto_page, true);
                 });
 
                 // click on go to end button
                 selector = settings.nav_last_id_prefix + container_id;
-                $("#" + container_id).on('click', "#" + selector, function() {
+                $("#" + container_id).off('click', "#" + selector).on('click', "#" + selector, function() {
                     goto_page = parseInt(settings.totalPages);
                     change_page(container_id, goto_page, true);
                 });
 
                 // click on nav page item
                 selector = settings.nav_item_id_prefix + container_id + '_';
-                $("#" + container_id).on('click', '[id^="' + selector + '"]', function(event) {
+                $("#" + container_id).off('click', '[id^="' + selector + '"]').on('click', '[id^="' + selector + '"]', function(event) {
                     var len = selector.length;
                     goto_page = $(event.target).attr("id").substr(len);
                     update_current_page(container_id, goto_page, true);
@@ -411,7 +401,7 @@
         }
         $("#" + nav_pages_id).html(nav_html);
 
-        // apply style
+        // apply style for navigation items (pages)
         $('[id^="' + nav_item_id_prefix + '"]').removeClass().addClass(navItemClass);
         $("#" + nav_item_id_prefix + currentPage).removeClass().addClass(navItemSelectedClass);
 
@@ -444,7 +434,7 @@
         var navItemClass = s.navItemClass;
         var navItemSelectedClass = s.navItemSelectedClass;
 
-        // change selected page, appling appropriate styles
+        // change selected page, applying appropriate styles
         $("#" + nav_item_id_prefix + previous_currentPage).removeClass().addClass(navItemClass);
         $("#" + nav_item_id_prefix + goto_page).removeClass().addClass(navItemSelectedClass);
 
