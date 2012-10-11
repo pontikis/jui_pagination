@@ -64,10 +64,14 @@
                 var nav_prev_id = settings.nav_prev_id_prefix + container_id;
                 var nav_dots_left_id = settings.nav_dots_left_id_prefix + container_id;
                 var nav_pages_id = settings.nav_pages_id_prefix + container_id;
+                var nav_item_id_prefix = settings.nav_item_id_prefix + container_id + '_';
                 var nav_dots_right_id = settings.nav_dots_right_id_prefix + container_id;
                 var nav_next_id = settings.nav_next_id_prefix + container_id;
                 var nav_last_id = settings.nav_last_id_prefix + container_id;
                 var total_id = settings.nav_total_id_prefix + container_id;
+
+                var useSlider = settings.useSlider;
+                var useSliderWithPagesCount = settings.useSliderWithPagesCount;
 
                 var labelPage = settings.labelPage;
                 var labelTotalPages = settings.labelTotalPages;
@@ -155,37 +159,37 @@
                 // enents handling (other than slider events)
                 var selector;
                 // click on go to top button
-                selector = settings.nav_top_id_prefix + container_id;
-                $("#" + container_id).off('click', "#" + selector).on('click', "#" + selector, function() {
+                selector = "#" + nav_top_id;
+                elem.off('click', selector).on('click', selector, function() {
                     goto_page = 1;
                     change_page(container_id, goto_page, true);
                 });
 
                 // click on go to prev button
-                selector = settings.nav_prev_id_prefix + container_id;
-                $("#" + container_id).off('click', "#" + selector).on('click', "#" + selector, function() {
+                selector = "#" + nav_prev_id;
+                elem.off('click', selector).on('click', selector, function() {
                     goto_page = parseInt(settings.currentPage) - 1;
                     change_page(container_id, goto_page, true);
                 });
 
                 // click on go to next button
-                selector = settings.nav_next_id_prefix + container_id;
-                $("#" + container_id).off('click', "#" + selector).on('click', "#" + selector, function() {
+                selector = "#" + nav_next_id;
+                elem.off('click', selector).on('click', selector, function() {
                     goto_page = parseInt(settings.currentPage) + 1;
                     change_page(container_id, goto_page, true);
                 });
 
                 // click on go to end button
-                selector = settings.nav_last_id_prefix + container_id;
-                $("#" + container_id).off('click', "#" + selector).on('click', "#" + selector, function() {
+                selector = "#" + nav_last_id;
+                elem.off('click', selector).on('click', selector, function() {
                     goto_page = parseInt(settings.totalPages);
                     change_page(container_id, goto_page, true);
                 });
 
                 // click on nav page item
-                selector = settings.nav_item_id_prefix + container_id + '_';
-                $("#" + container_id).off('click', '[id^="' + selector + '"]').on('click', '[id^="' + selector + '"]', function(event) {
-                    var len = selector.length;
+                selector = '[id^="' + nav_item_id_prefix + '"]';
+                elem.off('click', selector).on('click', selector, function(event) {
+                    var len = nav_item_id_prefix.length;
                     goto_page = $(event.target).attr("id").substr(len);
                     update_current_page(container_id, goto_page, true);
                 });
@@ -203,6 +207,12 @@
                 currentPage: 1,
                 visiblePageLinks: 10,
 
+                useSlider: true,
+                useSliderWithPagesCount: 0,
+
+                labelPage: 'Page',
+                labelTotalPages: 'Total',
+
                 navPaneClass: 'nav-pane ui-widget ui-widget-header ui-corner-all',
                 navCurrentPageClass: 'current-page',
                 navButtonClass: 'nav-button ui-widget-header',
@@ -213,9 +223,6 @@
                 navDotsRightClass: 'nav-dots-right',
                 navTotalPagesClass: 'total-pages',
                 dividerClass: 'nav-slider-divider',
-
-                labelPage: 'Page',
-                labelTotalPages: 'Total',
 
                 nav_pane_id_prefix: 'nav_pane_',
                 nav_current_page_id_prefix: 'current_',
@@ -445,7 +452,7 @@
 
         // update slider if exists
         if(update_slider) {
-            if(totalPages > visiblePageLinks) {
+            if($("#" + slider_id).data("slider")) {
                 $("#" + slider_id).slider({'value': goto_page});
             }
         }
