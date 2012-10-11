@@ -350,30 +350,32 @@
         var navItemClass = s.navItemClass;
         var navItemSelectedClass = s.navItemSelectedClass;
 
+        // detect possible offset to navigation pages
         var nav_start, nav_end, mod, offset;
         nav_start = elem.data('nav_start');
         if(typeof(nav_start) == 'undefined') {
             nav_start = currentPage;
         }
-        mod = nav_start % visiblePageLinks;
-        if(mod == 0) {
-            offset = -visiblePageLinks + 1;
-        } else {
-            offset = -mod + 1;
-        }
-        nav_start += offset;
 
         if(totalPages < visiblePageLinks) {
             nav_start = 1;
             nav_end = totalPages;
         } else {
-            // special conditions
             var dist_to_last = totalPages - (nav_start - 1);
             if(dist_to_last < visiblePageLinks) {
                 nav_start = nav_start - (visiblePageLinks - dist_to_last);
+            } else {
+                mod = nav_start % visiblePageLinks;
+                if(mod == 0) {
+                    offset = -visiblePageLinks + 1;
+                } else {
+                    offset = -mod + 1;
+                }
+                nav_start += offset;
             }
             nav_end = nav_start + visiblePageLinks - 1;
         }
+
         // store nav_start nav_end
         elem.data('nav_start', nav_start);
         elem.data('nav_end', nav_end);
