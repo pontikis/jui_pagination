@@ -45,6 +45,12 @@ Options
         currentPage: 1,
         visiblePageLinks: 10,
 
+        useSlider: true,
+        useSliderWithPagesCount: 0,
+
+        labelPage: 'Page',
+        labelTotalPages: 'Total',
+
         navPaneClass: 'nav-pane ui-widget ui-widget-header ui-corner-all',
         navCurrentPageClass: 'current-page',
         navButtonClass: 'nav-button ui-widget-header',
@@ -54,10 +60,7 @@ Options
         navItemSelectedClass: 'nav-item ui-state-highlight ui-widget-header',
         navDotsRightClass: 'nav-dots-right',
         navTotalPagesClass: 'total-pages',
-        dividerClass: 'nav-slider-divider',
-
-        labelPage: 'Page',
-        labelTotalPages: 'Total',
+        sliderClass: 'nav-slider',
 
         nav_pane_id_prefix: 'nav_pane_',
         nav_current_page_id_prefix: 'current_',
