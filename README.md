@@ -33,7 +33,8 @@ Usage:
         visiblePageLinks: 5  // default = 10
     })
 
-Detailed syntax:
+Options
+---
 
     $("#element_id").jui_pagination({
         totalPages: 100, // REQUIRED
@@ -91,11 +92,22 @@ Methods
 <p>setOption</p>
     $("#element_id").jui_pagination('setOption', 'option_name', option_value, reinit)
 
-<p>Alternative way to set an option</a>
+<p>Alternative way to set an option</p>
     $("#element_id").jui_pagination({option1_name: option1_value, etc})
 
 <p>destroy</p>
     $("#element_id").jui_pagination('destroy')
+
+
+Events
+---
+
+<p>onChangePage</p>
+    $("#element_id").jui_pagination({
+        onChangePage: function() {
+            // your code here
+        }
+    })
 
 
 Demo
