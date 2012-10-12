@@ -145,30 +145,10 @@
                     $("#" + slider_id).removeClass().addClass(sliderClass);
                 }
 
-                /* manage navigation events --------------------------------- */
+
                 var goto_page;
 
-                //  slider and its event handling (stop event)
-                if(useSlider) {
-                    $("#" + slider_id).slider({
-                        min: 1,
-                        max: totalPages,
-                        value: currentPage,
-                        animate: 'slow',
-                        range: 'min',
-                        stop: function(event, ui) {
-                            goto_page = ui.value;
-                            change_page(container_id, goto_page, false);
-                        }
-                    });
-                } else {
-                    if($("#" + slider_id).data("slider")) {
-                        $("#" + slider_id).slider('destroy');
-                        $("#" + slider_id).html('');
-                    }
-                }
-
-                // enents handling (other than slider events)
+                // panel enents
                 var selector;
                 // click on go to top button
                 selector = "#" + nav_top_id;
@@ -205,6 +185,29 @@
                     goto_page = $(event.target).attr("id").substr(len);
                     update_current_page(container_id, goto_page, true);
                 });
+
+
+                /* CREATE SLIDER -------------------------------------------- */
+                //  slider and its event handling (stop event)
+                if(useSlider) {
+                    $("#" + slider_id).slider({
+                        min: 1,
+                        max: totalPages,
+                        value: currentPage,
+                        animate: 'slow',
+                        range: 'min',
+                        stop: function(event, ui) {
+                            goto_page = ui.value;
+                            change_page(container_id, goto_page, false);
+                        }
+                    });
+                } else {
+                    if($("#" + slider_id).data("slider")) {
+                        $("#" + slider_id).slider('destroy');
+                        $("#" + slider_id).html('');
+                    }
+                }
+
             });
 
         },
