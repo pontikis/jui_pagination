@@ -46,20 +46,19 @@
                 // bind events
                 elem.unbind("onChangePage").bind("onChangePage", elem.jui_pagination('getOption', 'onChangePage'));
 
-                /* create user interface ------------------------------------ */
-
                 // set container style (if any)
                 if(settings.containerClass != '') {
                     elem.removeClass().addClass(settings.containerClass);
                 }
 
-                // create nav pane, divider div and slider
+                /* CREATE PANEL --------------------------------------------- */
+
+                // retrieve options
                 var totalPages = settings.totalPages;
                 var currentPage = settings.currentPage;
                 var visiblePageLinks = settings.visiblePageLinks;
 
                 var nav_pane_id = settings.nav_pane_id_prefix + container_id;
-                var nav_slider_divider_id = settings.divider_id_prefix + container_id;
                 var slider_id = settings.slider_id_prefix + container_id;
 
                 var current_id = settings.nav_current_page_id_prefix + container_id;
