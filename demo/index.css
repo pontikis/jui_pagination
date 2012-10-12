@@ -26,3 +26,30 @@
     margin-right: auto;
     margin-left: auto;
 }
+
+.wrap1 {
+    overflow: auto;
+    width: 550px;
+}
+
+.list2 {
+    width: 500px;
+    height: 300px;
+    border: solid black 1px;
+    float: left;
+}
+
+.slider2 {
+    height: 270px;
+    float: left;
+    margin-left: 10px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.navpane2 {
+    width: 480px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
