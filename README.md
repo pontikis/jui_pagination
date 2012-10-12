@@ -5,18 +5,11 @@ jQuery pagination plugin (using jQuery UI)
 
 Copyright Christos Pontikis http://pontikis.net License MIT
 
-Preview:
----
-
-![jui_pagination sample][sample]
-
-[sample]: https://raw.github.com/pontikis/jui_pagination/master/demo/images/sample.png "jui_pagination sample"
-
 Usage:
 ---
 
-<p>HTML (head section)</p>
-
+HTML (head section)
+--
     <link rel="stylesheet" href="/path/to/jqueryui_theme/jquery-ui.css">
     <link rel="stylesheet" href="/path/to/jquery.jui_pagination.css">
 
@@ -25,13 +18,20 @@ Usage:
     <script type="text/javascript" src="/path/to/jquery.jui_pagination.js"></script>
 
 
-<p>JS code</p>
-
+JS code
+--
     $("#element_id").jui_pagination({
         totalPages: 100, // REQUIRED
         containerClass: 'some_class' // NOT MANDATORY
         visiblePageLinks: 5  // default = 10
     });
+
+Preview:
+
+![jui_pagination sample][sample]
+
+[sample]: https://raw.github.com/pontikis/jui_pagination/master/demo/images/sample.png "jui_pagination sample"
+
 
 Options
 ---
@@ -45,8 +45,13 @@ Options
         currentPage: 1,
         visiblePageLinks: 10,
 
+        useNavPane: true,
+        navPaneElementID: false,
+
         useSlider: true,
+        sliderElementID: false,
         useSliderWithPagesCount: 0,
+        sliderOrientation: 'horizontal',
 
         labelPage: 'Page',
         labelTotalPages: 'Total',
@@ -75,9 +80,6 @@ Options
         nav_total_id_prefix: 'total_',
         divider_id_prefix: 'clear_',
         slider_id_prefix: 'sld_',
-
-        onChangePage: function() {
-        }
     });
 
 
