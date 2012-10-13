@@ -5,6 +5,8 @@ jQuery pagination plugin (using jQuery UI)
 
 Copyright Christos Pontikis http://pontikis.net
 
+Current Release 1.00 (13 Oct 2012)
+
 License MIT
 
 Usage:
@@ -16,9 +18,13 @@ HTML (head section)
 <link rel="stylesheet" href="/path/to/jqueryui_theme/jquery-ui.css">
 <link rel="stylesheet" href="/path/to/jquery.jui_pagination.css">
 
-<script type="text/javascript" src="/path/to/jquery.js"></script>
-<script type="text/javascript" src="/path/to/jquery-ui.js"></script>
-<script type="text/javascript" src="/path/to/jquery.jui_pagination.js"></script>
+<script type="text/javascript" src="/path/to/jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="/path/to/jquery-ui.js" type="text/javascript"></script>
+
+<!--  if touch event support for touch devices is needed (see folder /lib) -->
+<script src="/path/to/jquery.ui.touch-punch.min.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="/path/to/jquery.jui_pagination.js" type="text/javascript"></script>
 ```
 
 JS code
