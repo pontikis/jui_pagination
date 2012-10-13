@@ -5,11 +5,12 @@ jQuery pagination plugin (using jQuery UI)
 
 Copyright Christos Pontikis http://pontikis.net
 
-Current Release 1.00 (13 Oct 2012)
+Current Release 1.00 (13 Oct 2012). Download [here].
 
 License [MIT][mit]
 
 [mit]: https://raw.github.com/pontikis/jui_pagination/master/MIT_LICENSE
+[here]: https://github.com/pontikis/jui_pagination/zipball/v1.0.0
 
 Usage:
 ------
