@@ -9,7 +9,7 @@ Current Release 1.00 (13 Oct 2012)
 
 License [MIT][mit]
 
-[mit]: https://raw.github.com/pontikis/jui_pagination/dev/MIT_LICENSE
+[mit]: https://raw.github.com/pontikis/jui_pagination/master/MIT_LICENSE
 
 Usage:
 ------
