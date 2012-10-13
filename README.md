@@ -7,7 +7,9 @@ Copyright Christos Pontikis http://pontikis.net
 
 Current Release 1.00 (13 Oct 2012)
 
-License MIT
+License [MIT][mit]
+
+[mit]: https://raw.github.com/pontikis/jui_pagination/dev/MIT_LICENSE
 
 Usage:
 ------
