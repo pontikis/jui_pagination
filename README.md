@@ -27,9 +27,9 @@ JS code
 ### Common
 ```javascript
 $("#element_id").jui_pagination({
-    totalPages: 100, // REQUIRED
+    totalPages: 103, // REQUIRED
     containerClass: 'some_class' // NOT MANDATORY
-    visiblePageLinks: 5,  // default = 10
+    visiblePageLinks: 10,  // default = 10
 
     onChangePage: function(event, page_num) {
         $("#result").html('Page changed to: ' + page_num);
@@ -46,7 +46,7 @@ Preview:
 ### Nav pane and slider inside their own divs
 ```javascript
 $("#element_id").jui_pagination({
-    totalPages: 100, // REQUIRED
+    totalPages: 24, // REQUIRED
     containerClass: 'some_class' // NOT MANDATORY
     visiblePageLinks: 5  // default = 10
 
