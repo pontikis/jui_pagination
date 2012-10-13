@@ -5,6 +5,9 @@ jQuery pagination plugin (using jQuery UI)
 
 Copyright Christos Pontikis http://pontikis.net
 
+* Requires jquery, jquery-ui slider, jquery-ui CSS (tested with jquery 1.8.2 and jquery-ui 1.9.0)
+* For touch event support jquery.ui.touch-punch.min.js could be used (see folder /lib)
+
 Current Release 1.00 (13 Oct 2012). Download [here].
 
 License [MIT][mit]

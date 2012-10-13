@@ -1,9 +1,10 @@
 /**
  * jquery pagination plugin
  * Requires jquery, jquery-ui slider, jquery-ui CSS
- * Copyright 2012 Christos Pontikis (http://pontikis.net)
+ * For touch event support jquery.ui.touch-punch.min.js could be used (see folder /lib)
+ * Copyright 2012 Christos Pontikis http://pontikis.net
  * Project page https://github.com/pontikis/jui_pagination
- * Release 1.00 - 12 Oct 2012
+ * Release 1.00 - 13 Oct 2012
  * License MIT
  */
 "use strict";
@@ -46,7 +47,7 @@
                 // bind events
                 elem.unbind("onChangePage").bind("onChangePage", elem.jui_pagination('getOption', 'onChangePage'));
 
-                // set container style (if any)
+                // set container style
                 if(settings.containerClass != '') {
                     elem.removeClass().addClass(settings.containerClass);
                 }
@@ -193,7 +194,7 @@
                 if(useSlider) {
 
                     if(!sliderElementID) {
-                        if($("#" + slider_id ).length == 0) {
+                        if($("#" + slider_id).length == 0) {
                             elem.append('<div id="' + slider_id + '"></div>');
                         }
                     }
@@ -205,7 +206,7 @@
                         max: totalPages,
                         value: (sliderOrientation == 'horizontal' ? currentPage : totalPages - currentPage + 1),
                         animate: 'slow',
-                        range:  (sliderOrientation == 'horizontal' ? 'min' : 'max'),
+                        range: (sliderOrientation == 'horizontal' ? 'min' : 'max'),
                         orientation: sliderOrientation,
                         stop: function(event, ui) {
                             goto_page = (sliderOrientation == 'horizontal' ? ui.value : totalPages - ui.value + 1);
@@ -450,10 +451,10 @@
 
         if(navItemHoverClass != '') {
             $('[id^="' + nav_item_id_prefix + '"]').hover(
-                function () {
+                function() {
                     $(this).addClass(navItemHoverClass);
                 },
-                function () {
+                function() {
                     $(this).removeClass(navItemHoverClass);
                 }
             );

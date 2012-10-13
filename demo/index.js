@@ -83,8 +83,6 @@ $(function() {
     });
 
 
-
-
     $("#set_option_3").click(function() {
         $("#demo_pag2").jui_pagination({
             totalPages: 50
@@ -129,8 +127,6 @@ $(function() {
             useSlider: false
         });
     });
-
-
 
 });
 
