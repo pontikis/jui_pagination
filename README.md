@@ -19,6 +19,8 @@ HTML (head section)
 ```html
 <link rel="stylesheet" href="/path/to/jqueryui_theme/jquery-ui.css">
 <link rel="stylesheet" href="/path/to/jquery.jui_pagination.css">
+<!--  if custom classes used -->
+<link rel="stylesheet" href="/path/to/custom.css">
 
 <script type="text/javascript" src="/path/to/jquery.js" type="text/javascript"></script>
 <script type="text/javascript" src="/path/to/jquery-ui.js" type="text/javascript"></script>
