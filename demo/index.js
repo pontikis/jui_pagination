@@ -5,7 +5,7 @@ $(function() {
     $("#demo_pag1").jui_pagination({
         currentPage: 8,
         visiblePageLinks: 10,
-        totalPages: 103,
+        totalPages: 100,
         containerClass: 'demo_pag1',
         sliderClass: 'demo_pag1_slider',
         onChangePage: function(event, page_num) {

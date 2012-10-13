@@ -6,25 +6,28 @@ jQuery pagination plugin (using jQuery UI)
 Copyright Christos Pontikis http://pontikis.net License MIT
 
 Usage:
----
+------
 
 HTML (head section)
---
+------------------
+```html
     <link rel="stylesheet" href="/path/to/jqueryui_theme/jquery-ui.css">
     <link rel="stylesheet" href="/path/to/jquery.jui_pagination.css">
 
     <script type="text/javascript" src="/path/to/jquery.js"></script>
     <script type="text/javascript" src="/path/to/jquery-ui.js"></script>
     <script type="text/javascript" src="/path/to/jquery.jui_pagination.js"></script>
-
+```
 
 JS code
---
+-------
+```javascript
     $("#element_id").jui_pagination({
         totalPages: 100, // REQUIRED
         containerClass: 'some_class' // NOT MANDATORY
         visiblePageLinks: 5  // default = 10
     });
+```
 
 Preview:
 
@@ -34,8 +37,8 @@ Preview:
 
 
 Options
----
-
+-------
+```javascript
     $("#element_id").jui_pagination({
         totalPages: 100, // REQUIRED
 
@@ -82,16 +85,17 @@ Options
         divider_id_prefix: 'clear_',
         slider_id_prefix: 'sld_',
     });
-
+```
 
 Default styling needs jquery-ui Themes CSS: http://jqueryui.com/themeroller/
 
 Methods
----
+------
 
 <p>getDefaults</p>
+```javascript
     $("#element_id").jui_pagination('getDefaults');
-
+```
 <p>getOption</p>
     $("#element_id").jui_pagination('getOption', 'option_name');
 
@@ -109,7 +113,7 @@ Methods
 
 
 Events
----
+------
 
 <p>onChangePage</p>
     $("#element_id").jui_pagination({
@@ -120,6 +124,6 @@ Events
 
 
 Demo
----
+----
 
 JSFIDDLE demo DEMO http://jsfiddle.net/pontikis/zwL4F/ (not working with Internet Explorer)

@@ -392,7 +392,7 @@
         var navItemHoverClass = s.navItemHoverClass;
 
         // detect possible offset to navigation pages
-        var nav_start, nav_end, mod, offset;
+        var nav_start, nav_end, mod, offset, totalSections;
         nav_start = elem.data('nav_start');
         if(typeof(nav_start) == 'undefined') {
             nav_start = currentPage;
@@ -402,9 +402,9 @@
             nav_start = 1;
             nav_end = totalPages;
         } else {
-            var dist_to_last = totalPages - (nav_start - 1);
-            if(dist_to_last < visiblePageLinks) {
-                nav_start = nav_start - (visiblePageLinks - dist_to_last);
+            totalSections = Math.ceil(totalPages / visiblePageLinks);
+            if(nav_start > visiblePageLinks * (totalSections - 1)) {
+                nav_start = totalPages - visiblePageLinks + 1;
             } else {
                 mod = nav_start % visiblePageLinks;
                 if(mod == 0) {
