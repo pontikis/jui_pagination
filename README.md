@@ -29,17 +29,45 @@ JS code
 $("#element_id").jui_pagination({
     totalPages: 100, // REQUIRED
     containerClass: 'some_class' // NOT MANDATORY
-    visiblePageLinks: 5  // default = 10
+    visiblePageLinks: 5,  // default = 10
+
+    onChangePage: function(event, page_num) {
+        $("#result").html('Page changed to: ' + page_num);
+    }
 });
 ```
 
 Preview:
 
 ![jui_pagination sample][sample]
-[sample]: https://raw.github.com/pontikis/jui_pagination/master/demo/images/sample.png "jui_pagination sample"
+[sample]: https://raw.github.com/pontikis/jui_pagination/master/demo/images/sample.png "jui_pagination common usage"
 
 
-### Nav pane and slider in its own divs
+### Nav pane and slider inside their own divs
+```javascript
+$("#element_id").jui_pagination({
+    totalPages: 100, // REQUIRED
+    containerClass: 'some_class' // NOT MANDATORY
+    visiblePageLinks: 5  // default = 10
+
+    navPaneElementID: 'some_div_id',
+    navPaneClass: 'custom_class_for_pane nav-pane ui-widget ui-widget-header ui-corner-all',
+
+    sliderElementID: 'some_div_id',
+    sliderClass: 'custom_class_for_slider',
+    sliderOrientation: 'vertical',
+
+    onChangePage: function(event, page_num) {
+        $("#result").html('Page changed to: ' + page_num);
+    }
+});
+```
+
+Preview:
+
+![jui_pagination sample][sample1]
+[sample1]: https://raw.github.com/pontikis/jui_pagination/master/demo/images/sample1.png "jui_pagination with pane and slider inside their own divs"
+
 
 Options
 -------
