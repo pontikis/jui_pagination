@@ -23,6 +23,7 @@ $(function() {
 
         navPaneElementID: 'navpane2',
         navPaneClass: 'navpane2 nav-pane ui-widget ui-widget-header ui-corner-all',
+        navItemHoverClass: '',
 
         sliderElementID: 'slider2',
         sliderClass: 'slider2',

@@ -252,6 +252,7 @@
                 navPagesClass: 'nav-pages',
                 navItemClass: 'nav-item ui-widget-header',
                 navItemSelectedClass: 'nav-item ui-state-highlight ui-widget-header',
+                navItemHoverClass: 'ui-state-hover',
                 navDotsRightClass: 'nav-dots-right',
                 navTotalPagesClass: 'total-pages',
                 sliderClass: 'nav-slider',
@@ -388,6 +389,7 @@
 
         var navItemClass = s.navItemClass;
         var navItemSelectedClass = s.navItemSelectedClass;
+        var navItemHoverClass = s.navItemHoverClass;
 
         // detect possible offset to navigation pages
         var nav_start, nav_end, mod, offset;
@@ -445,6 +447,17 @@
         // apply style for navigation items (pages)
         $('[id^="' + nav_item_id_prefix + '"]').removeClass().addClass(navItemClass);
         $("#" + nav_item_id_prefix + currentPage).removeClass().addClass(navItemSelectedClass);
+
+        if(navItemHoverClass != '') {
+            $('[id^="' + nav_item_id_prefix + '"]').hover(
+                function () {
+                    $(this).addClass(navItemHoverClass);
+                },
+                function () {
+                    $(this).removeClass(navItemHoverClass);
+                }
+            );
+        }
 
     };
 

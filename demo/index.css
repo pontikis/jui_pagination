@@ -1,5 +1,5 @@
 .demo_pag1 {
-    width: 700px;
+    width: 750px;
     padding: 10px;
 }
 
@@ -14,7 +14,7 @@
 }
 
 .demo_pag1_alt1 {
-    width: 800px;
+    width: 900px;
     padding: 40px;
     border: solid blue 1px;
 }
@@ -29,11 +29,11 @@
 
 .wrap1 {
     overflow: auto;
-    width: 550px;
+    width: 620px;
 }
 
 .list2 {
-    width: 500px;
+    width: 570px;
     height: 300px;
     border: solid black 1px;
     float: left;
@@ -48,8 +48,8 @@
 }
 
 .navpane2 {
-    width: 480px;
+    width: 550px;
     margin-top: 10px;
-    margin-left: 10px;
+    margin-left: 5px;
     margin-bottom: 10px;
 }

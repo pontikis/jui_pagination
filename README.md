@@ -63,6 +63,7 @@ Options
         navPagesClass: 'nav-pages',
         navItemClass: 'nav-item ui-widget-header',
         navItemSelectedClass: 'nav-item ui-state-highlight ui-widget-header',
+        navItemHoverClass: 'ui-state-hover',
         navDotsRightClass: 'nav-dots-right',
         navTotalPagesClass: 'total-pages',
         sliderClass: 'nav-slider',
