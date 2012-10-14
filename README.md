@@ -86,7 +86,7 @@ Preview:
 ![jui_pagination sample][sample1]
 [sample1]: https://raw.github.com/pontikis/jui_pagination/master/demo/images/sample1.png "jui_pagination with pane and slider inside their own divs"
 
-Structure details: [container][str2_container], [nav_pane][str2_nav_pane], [slider][str2_slider]
+Structure details: [container][str2_container] (actually empty), [nav_pane][str2_nav_pane], [slider][str2_slider]
 [str2_container]: https://raw.github.com/pontikis/jui_pagination/dev/demo/images/structure2_container.png
 [str2_nav_pane]: https://raw.github.com/pontikis/jui_pagination/dev/demo/images/structure2_navpane.png
 [str2_slider]: https://raw.github.com/pontikis/jui_pagination/dev/demo/images/structure2_slider.png
