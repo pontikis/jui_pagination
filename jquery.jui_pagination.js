@@ -45,7 +45,7 @@
                 validate_input(container_id);
 
                 // bind events
-                elem.unbind("onChangePage").bind("onChangePage", elem.jui_pagination('getOption', 'onChangePage'));
+                elem.unbind("onChangePage").bind("onChangePage", settings.onChangePage);
 
                 // set container style
                 if(settings.containerClass != '') {
