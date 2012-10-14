@@ -56,7 +56,7 @@ Preview:
 ![jui_pagination sample][sample]
 [sample]: https://raw.github.com/pontikis/jui_pagination/master/demo/images/sample.png "jui_pagination common usage"
 
-Structure details: [container][str1_container], [nav_pane][str1_nav_pane], [slider[str]1_slider]
+Structure details: [container][str1_container], [nav_pane][str1_nav_pane], [slider][str1_slider]
 [str1_container]: https://raw.github.com/pontikis/jui_pagination/dev/demo/images/structure1_container.png
 [str1_nav_pane]: https://raw.github.com/pontikis/jui_pagination/dev/demo/images/structure1_navpane.png
 [str1_slider]: https://raw.github.com/pontikis/jui_pagination/dev/demo/images/structure1_slider.png
