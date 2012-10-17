@@ -59,6 +59,8 @@
                 var currentPage = settings.currentPage;
                 var visiblePageLinks = settings.visiblePageLinks;
 
+                var useNavButtons = settings.useNavButtons;
+
                 var useNavPane = settings.useNavPane;
                 var navPaneElementID = settings.navPaneElementID;
 
@@ -111,20 +113,24 @@
                     }
 
                     var nav_pane_html = '';
-                    nav_pane_html += '<div id="' + current_id + '">' + labelPage + ' ' + currentPage + '</div>';
+                    if(useNavButtons) {
+                        nav_pane_html += '<div id="' + current_id + '">' + labelPage + ' ' + currentPage + '</div>';
 
-                    nav_pane_html += '<div id="' + nav_top_id + '">&laquo;</div>';
-                    nav_pane_html += '<div id="' + nav_prev_id + '">&larr;</div>';
-                    nav_pane_html += '<div id="' + nav_dots_left_id + '">...</div>';
+                        nav_pane_html += '<div id="' + nav_top_id + '">&laquo;</div>';
+                        nav_pane_html += '<div id="' + nav_prev_id + '">&larr;</div>';
+                        nav_pane_html += '<div id="' + nav_dots_left_id + '">...</div>';
+                    }
 
                     nav_pane_html += '<div id="' + nav_pages_id + '">';
                     nav_pane_html += '</div>';
 
-                    nav_pane_html += '<div id="' + nav_dots_right_id + '">...</div>';
-                    nav_pane_html += '<div id="' + nav_next_id + '">&rarr;</div>';
-                    nav_pane_html += '<div id="' + nav_last_id + '">&raquo;</div>';
+                    if(useNavButtons) {
+                        nav_pane_html += '<div id="' + nav_dots_right_id + '">...</div>';
+                        nav_pane_html += '<div id="' + nav_next_id + '">&rarr;</div>';
+                        nav_pane_html += '<div id="' + nav_last_id + '">&raquo;</div>';
 
-                    nav_pane_html += '<div id="' + total_id + '">' + labelTotalPages + ' ' + totalPages + '</div>';
+                        nav_pane_html += '<div id="' + total_id + '">' + labelTotalPages + ' ' + totalPages + '</div>';
+                    }
 
                     // set nav_pane_html
                     $("#" + nav_pane_id).html(nav_pane_html);
@@ -148,43 +154,68 @@
 
                     create_nav_items(container_id);
 
+
+                    // click on go to top button
+                    selector = "#tog";
+                    $("#" + nav_pane_id).off('click', selector).on('click', selector, function() {
+                        $(this).toggleClass('op_tog');
+/*                        elem.jui_pagination({
+                            useSlider: !useSlider
+                        })*/
+                    });
+
+
                     // panel enents
                     var selector;
-                    // click on go to top button
-                    selector = "#" + nav_top_id;
-                    $("#" + nav_pane_id).off('click', selector).on('click', selector, function() {
-                        goto_page = 1;
-                        change_page(container_id, goto_page, true);
-                    });
+                    if(useNavButtons) {
 
-                    // click on go to prev button
-                    selector = "#" + nav_prev_id;
-                    $("#" + nav_pane_id).off('click', selector).on('click', selector, function() {
-                        goto_page = parseInt(settings.currentPage) - 1;
-                        change_page(container_id, goto_page, true);
-                    });
 
-                    // click on go to next button
-                    selector = "#" + nav_next_id;
-                    $("#" + nav_pane_id).off('click', selector).on('click', selector, function() {
-                        goto_page = parseInt(settings.currentPage) + 1;
-                        change_page(container_id, goto_page, true);
-                    });
 
-                    // click on go to end button
-                    selector = "#" + nav_last_id;
-                    $("#" + nav_pane_id).off('click', selector).on('click', selector, function() {
-                        goto_page = parseInt(settings.totalPages);
-                        change_page(container_id, goto_page, true);
-                    });
+
+
+                        // click on go to top button
+                        selector = "#" + nav_top_id;
+                        $("#" + nav_pane_id).off('click', selector).on('click', selector, function() {
+                            goto_page = 1;
+                            change_page(container_id, goto_page, true);
+                        });
+
+                        // click on go to prev button
+                        selector = "#" + nav_prev_id;
+                        $("#" + nav_pane_id).off('click', selector).on('click', selector, function() {
+                            goto_page = parseInt(settings.currentPage) - 1;
+                            change_page(container_id, goto_page, true);
+                        });
+
+                        // click on go to next button
+                        selector = "#" + nav_next_id;
+                        $("#" + nav_pane_id).off('click', selector).on('click', selector, function() {
+                            goto_page = parseInt(settings.currentPage) + 1;
+                            change_page(container_id, goto_page, true);
+                        });
+
+                        // click on go to end button
+                        selector = "#" + nav_last_id;
+                        $("#" + nav_pane_id).off('click', selector).on('click', selector, function() {
+                            goto_page = parseInt(settings.totalPages);
+                            change_page(container_id, goto_page, true);
+                        });
+
+                    }
 
                     // click on nav page item
                     selector = '[id^="' + nav_item_id_prefix + '"]';
                     $("#" + nav_pane_id).off('click', selector).on('click', selector, function(event) {
                         var len = nav_item_id_prefix.length;
                         goto_page = $(event.target).attr("id").substr(len);
-                        update_current_page(container_id, goto_page, true);
+                        if(useNavButtons) {
+                            update_current_page(container_id, goto_page, true);
+                        } else {
+                            change_page(container_id, goto_page, true);
+                        }
+
                     });
+
                 } else {
                     $("#" + nav_pane_id)._removeClass();
                     $("#" + nav_pane_id).html('');
@@ -233,7 +264,9 @@
         getDefaults: function() {
             var defaults = {
                 currentPage: 1,
-                visiblePageLinks: 10,
+                visiblePageLinks: 5,
+
+                useNavButtons: false,
 
                 useNavPane: true,
                 navPaneElementID: false,
@@ -251,8 +284,8 @@
                 navButtonClass: 'nav-button ui-widget-header',
                 navDotsLeftClass: 'nav-dots-left',
                 navPagesClass: 'nav-pages',
-                navItemClass: 'nav-item ui-widget-header',
-                navItemSelectedClass: 'nav-item ui-state-highlight ui-widget-header',
+                navItemClass: 'nav-item ui-widget-header ui-corner-all',
+                navItemSelectedClass: 'nav-item ui-state-highlight ui-widget-header ui-corner-all',
                 navItemHoverClass: 'ui-state-hover',
                 navDotsRightClass: 'nav-dots-right',
                 navTotalPagesClass: 'total-pages',
@@ -332,6 +365,16 @@
     /* private methods ------------------------------------------------------ */
 
     /**
+     * Create element id
+     * @param prefix
+     * @param container_id
+     * @return {*}
+     */
+    var create_id = function(prefix, plugin_container_id) {
+        return prefix + plugin_container_id;
+    }
+
+    /**
      * Validate input values
      * @param container_id
      */
@@ -375,6 +418,8 @@
         var elem = $("#" + container_id);
         var s = $(elem).jui_pagination('getAllOptions');
 
+        var useNavButtons = s.useNavButtons;
+
         var totalPages = s.totalPages;
         var currentPage = s.currentPage;
         var visiblePageLinks = s.visiblePageLinks;
@@ -391,63 +436,112 @@
         var navItemClass = s.navItemClass;
         var navItemSelectedClass = s.navItemSelectedClass;
         var navItemHoverClass = s.navItemHoverClass;
+        var navDotsLeftClass = s.navDotsLeftClass;
+        var navDotsRightClass = s.navDotsRightClass;
 
-        // detect possible offset to navigation pages
-        var nav_start, nav_end, mod, offset, totalSections;
-        nav_start = elem.data('nav_start');
-        if(typeof(nav_start) == 'undefined') {
-            nav_start = currentPage;
-        }
-
-        if(totalPages < visiblePageLinks) {
-            nav_start = 1;
-            nav_end = totalPages;
-        } else {
-            totalSections = Math.ceil(totalPages / visiblePageLinks);
-            if(nav_start > visiblePageLinks * (totalSections - 1)) {
-                nav_start = totalPages - visiblePageLinks + 1;
-            } else {
-                mod = nav_start % visiblePageLinks;
-                if(mod == 0) {
-                    offset = -visiblePageLinks + 1;
-                } else {
-                    offset = -mod + 1;
-                }
-                nav_start += offset;
-            }
-            nav_end = nav_start + visiblePageLinks - 1;
-        }
-
-        // store nav_start nav_end
-        elem.data('nav_start', nav_start);
-        elem.data('nav_end', nav_end);
-
-        // show - hide nav controls
-        var selector = '';
-        selector = "#" + nav_top_id + ', ' + "#" + nav_prev_id + ', ' + "#" + nav_dots_left_id;
-        if(nav_start > 1) {
-            $(selector).show();
-        } else {
-            $(selector).hide();
-        }
-
-        selector = "#" + nav_dots_right_id + ', ' + "#" + nav_next_id + ', ' + "#" + nav_last_id;
-        if(nav_end < totalPages) {
-            $(selector).show();
-        } else {
-            $(selector).hide();
-        }
-
-        // create nav pages html
         var nav_html = '';
-        for(var i = nav_start; i <= nav_end; i++) {
-            nav_html += '<div id="' + nav_item_id_prefix + i + '">' + i + '</div>';
+        var goto = elem.data('goto');
+        if(typeof(goto) == 'undefined') {
+            goto = currentPage;
         }
-        $("#" + nav_pages_id).html(nav_html);
+        goto = parseInt(goto);
+
+        if(useNavButtons) {
+
+            var nav_start, nav_end, mod, offset, totalSections;
+            nav_start = goto;
+
+            // detect possible offset to navigation pages
+            if(totalPages < visiblePageLinks) {
+                nav_start = 1;
+                nav_end = totalPages;
+            } else {
+                totalSections = Math.ceil(totalPages / visiblePageLinks);
+                if(nav_start > visiblePageLinks * (totalSections - 1)) {
+                    nav_start = totalPages - visiblePageLinks + 1;
+                } else {
+                    mod = nav_start % visiblePageLinks;
+                    if(mod == 0) {
+                        offset = -visiblePageLinks + 1;
+                    } else {
+                        offset = -mod + 1;
+                    }
+                    nav_start += offset;
+                }
+                nav_end = nav_start + visiblePageLinks - 1;
+            }
+
+            // store nav_start nav_end
+            elem.data('nav_start', nav_start);
+            elem.data('nav_end', nav_end);
+
+            // show - hide nav controls
+            var selector = '';
+            selector = "#" + nav_top_id + ', ' + "#" + nav_prev_id + ', ' + "#" + nav_dots_left_id;
+            if(nav_start > 1) {
+                $(selector).show();
+            } else {
+                $(selector).hide();
+            }
+
+            selector = "#" + nav_dots_right_id + ', ' + "#" + nav_next_id + ', ' + "#" + nav_last_id;
+            if(nav_end < totalPages) {
+                $(selector).show();
+            } else {
+                $(selector).hide();
+            }
+
+            // create nav pages html
+            for(var i = nav_start; i <= nav_end; i++) {
+                nav_html += '<div id="' + nav_item_id_prefix + i + '">' + i + '</div>';
+            }
+            $("#" + nav_pages_id).html(nav_html);
+
+
+        } else {
+
+            var noNavButtonLinks = visiblePageLinks;
+            if(noNavButtonLinks % 2 == 0) {
+                noNavButtonLinks = noNavButtonLinks - 1;
+            }
+            if(noNavButtonLinks < 5) {
+                noNavButtonLinks = 5;
+            }
+            var median_links = noNavButtonLinks - 2;
+            var bilateral_links = (median_links - 1) / 2;
+
+            // create nav pages html
+            if(goto <= median_links) {
+                for(var i = 1; i <= median_links + 1; i++) {
+                    nav_html += '<div id="' + nav_item_id_prefix + i + '">' + i + '</div>';
+                }
+                nav_html += '<div id="' + nav_dots_right_id + '">...</div>';
+                nav_html += '<div id="' + nav_item_id_prefix + totalPages + '">' + totalPages + '</div>';
+            } else if(goto > totalPages - median_links) {
+                nav_html += '<div id="' + nav_item_id_prefix + '1' + '">1</div>';
+                nav_html += '<div id="' + nav_dots_left_id + '">...</div>';
+                for(var i = totalPages - median_links; i <= totalPages; i++) {
+                    nav_html += '<div id="' + nav_item_id_prefix + i + '">' + i + '</div>';
+                }
+            } else {
+                nav_html += '<div id="' + nav_item_id_prefix + '1' + '">1</div>';
+                nav_html += '<div id="' + nav_dots_left_id + '">...</div>';
+                for(var i = goto - bilateral_links; i <= goto + bilateral_links; i++) {
+                    nav_html += '<div id="' + nav_item_id_prefix + i + '">' + i + '</div>';
+                }
+                nav_html += '<div id="' + nav_dots_right_id + '">...</div>';
+                nav_html += '<div id="' + nav_item_id_prefix + totalPages + '">' + totalPages + '</div>';
+            }
+            $("#" + nav_pages_id).html(nav_html);
+
+
+            $("#" + nav_dots_left_id).removeClass().addClass(navDotsLeftClass);
+            $("#" + nav_dots_right_id).removeClass().addClass(navDotsRightClass);
+        }
 
         // apply style for navigation items (pages)
         $('[id^="' + nav_item_id_prefix + '"]').removeClass().addClass(navItemClass);
-        $("#" + nav_item_id_prefix + currentPage).removeClass().addClass(navItemSelectedClass);
+        $("#" + nav_item_id_prefix + goto).removeClass().addClass(navItemSelectedClass);
 
         if(navItemHoverClass != '') {
             $('[id^="' + nav_item_id_prefix + '"]').hover(
@@ -475,7 +569,6 @@
         var s = $(elem).jui_pagination('getAllOptions');
 
         var totalPages = s.totalPages;
-        var previous_currentPage = s.currentPage;
 
         var sliderElementID = s.sliderElementID;
         var slider_id = (!sliderElementID ? s.slider_id_prefix + container_id : sliderElementID);
@@ -490,7 +583,7 @@
         var navItemSelectedClass = s.navItemSelectedClass;
 
         // change selected page, applying appropriate styles
-        $("#" + nav_item_id_prefix + previous_currentPage).removeClass().addClass(navItemClass);
+        $('[id^="' + nav_item_id_prefix + '"]').removeClass().addClass(navItemClass);
         $("#" + nav_item_id_prefix + goto_page).removeClass().addClass(navItemSelectedClass);
 
         // update current page indicator
@@ -519,7 +612,7 @@
      * @param update_slider
      */
     var change_page = function(container_id, goto_page, update_slider) {
-        $("#" + container_id).data('nav_start', goto_page);
+        $("#" + container_id).data('goto', goto_page);
         create_nav_items(container_id);
         update_current_page(container_id, goto_page, update_slider);
     }

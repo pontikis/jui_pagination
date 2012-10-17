@@ -2,9 +2,16 @@ $(function() {
 // TODO jQuery-UI 1.9.0 themeswitcher not working
     //$('#switcher').themeswitcher();
 
+
+
+
+
+    /**
+     * demo_pag1 ---------------------------------------------------------------
+     */
     $("#demo_pag1").jui_pagination({
         currentPage: 8,
-        visiblePageLinks: 10,
+        visiblePageLinks: 5,
         totalPages: 103,
         containerClass: 'demo_pag1',
         sliderClass: 'demo_pag1_slider',
@@ -15,27 +22,18 @@ $(function() {
 
     $("#result").html('Current page is: ' + $("#demo_pag1").jui_pagination('getOption', 'currentPage'));
 
-
-    $("#demo_pag2").jui_pagination({
-        currentPage: 7,
-        visiblePageLinks: 5,
-        totalPages: 24,
-
-        navPaneElementID: 'navpane2',
-        navPaneClass: 'navpane2 nav-pane ui-widget ui-widget-header ui-corner-all',
-        navItemHoverClass: '',
-
-        sliderElementID: 'slider2',
-        sliderClass: 'slider2',
-        sliderOrientation: 'vertical',
-
-        onChangePage: function(event, page_num) {
-            $("#result2").html('Page changed to: ' + page_num);
-        }
-
+    $("#set_option_15").click(function() {
+        $("#demo_pag1").jui_pagination({
+            useNavButtons: false
+        });
     });
 
-    $("#result2").html('Current page is: ' + $("#demo_pag2").jui_pagination('getOption', 'currentPage'));
+    $("#set_option_16").click(function() {
+        $("#demo_pag1").jui_pagination({
+            useNavButtons: true
+        });
+    });
+
 
     $("#set_option_1").click(function() {
         $("#demo_pag1").jui_pagination({
@@ -81,6 +79,31 @@ $(function() {
             useSlider: false
         });
     });
+
+    /**
+     * demo_pag2 ---------------------------------------------------------------
+     */
+    $("#demo_pag2").jui_pagination({
+        currentPage: 7,
+        visiblePageLinks: 5,
+        totalPages: 24,
+
+        navPaneElementID: 'navpane2',
+        navPaneClass: 'navpane2 nav-pane ui-widget ui-widget-header ui-corner-all',
+        navItemHoverClass: '',
+
+        sliderElementID: 'slider2',
+        sliderClass: 'slider2',
+        sliderOrientation: 'vertical',
+
+        onChangePage: function(event, page_num) {
+            $("#result2").html('Page changed to: ' + page_num);
+        }
+
+    });
+
+    $("#result2").html('Current page is: ' + $("#demo_pag2").jui_pagination('getOption', 'currentPage'));
+
 
 
     $("#set_option_3").click(function() {

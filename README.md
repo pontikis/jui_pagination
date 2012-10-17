@@ -8,12 +8,12 @@ Copyright Christos Pontikis http://pontikis.net
 * Requires jquery, jquery-ui slider, jquery-ui CSS (tested with jquery 1.8.2 and jquery-ui 1.9.0)
 * For touch event support jquery.ui.touch-punch.min.js could be used (see folder /lib)
 
-UPCOMING Release 1.01
+Release 1.10 Download [here]
 
 License [MIT][mit]
 
 [mit]: https://raw.github.com/pontikis/jui_pagination/master/MIT_LICENSE
-[here]: https://github.com/pontikis/jui_pagination/zipball/v1.0.0
+[here]: https://github.com/pontikis/jui_pagination/zipball/v1.1.0
 
 Usage:
 ------
@@ -43,7 +43,7 @@ JS code
 $("#element_id").jui_pagination({
     totalPages: 103, // REQUIRED
     containerClass: 'some_class' // NOT MANDATORY
-    visiblePageLinks: 10,  // default = 10
+    visiblePageLinks: 10,  // default = 5
 
     onChangePage: function(event, page_num) {
         $("#result").html('Page changed to: ' + page_num);
@@ -102,7 +102,9 @@ $("#element_id").jui_pagination({
 
     // DEFAULTS
     currentPage: 1,
-    visiblePageLinks: 10,
+    visiblePageLinks: 5,
+
+    useNavButtons: false,
 
     useNavPane: true,
     navPaneElementID: false,
