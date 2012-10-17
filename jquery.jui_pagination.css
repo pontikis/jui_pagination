@@ -43,7 +43,7 @@ Write your own classes in other css file.
 
 .nav-dots-left {
     display: inline-block;
-    margin-left: 10px;
+    margin-left: 5px;
     font-size: 12px;
     font-weight: normal;
     text-align: center;
@@ -53,7 +53,7 @@ Write your own classes in other css file.
 
 .nav-dots-right {
     display: inline-block;
-    margin-right: 10px;
+    margin-right: 5px;
     font-size: 12px;
     font-weight: normal;
     text-align: center;
