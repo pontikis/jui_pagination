@@ -154,51 +154,36 @@
 
                     create_nav_items(container_id);
 
-
-                    // click on go to top button
-                    selector = "#tog";
-                    $("#" + nav_pane_id).off('click', selector).on('click', selector, function() {
-                        $(this).toggleClass('op_tog');
-/*                        elem.jui_pagination({
-                            useSlider: !useSlider
-                        })*/
-                    });
-
-
                     // panel enents
                     var selector;
                     if(useNavButtons) {
-
-
-
-
 
                         // click on go to top button
                         selector = "#" + nav_top_id;
                         $("#" + nav_pane_id).off('click', selector).on('click', selector, function() {
                             goto_page = 1;
-                            change_page(container_id, goto_page, true);
+                            change_page(container_id, goto_page, true, true);
                         });
 
                         // click on go to prev button
                         selector = "#" + nav_prev_id;
                         $("#" + nav_pane_id).off('click', selector).on('click', selector, function() {
                             goto_page = parseInt(settings.currentPage) - 1;
-                            change_page(container_id, goto_page, true);
+                            change_page(container_id, goto_page, true, true);
                         });
 
                         // click on go to next button
                         selector = "#" + nav_next_id;
                         $("#" + nav_pane_id).off('click', selector).on('click', selector, function() {
                             goto_page = parseInt(settings.currentPage) + 1;
-                            change_page(container_id, goto_page, true);
+                            change_page(container_id, goto_page, true, true);
                         });
 
                         // click on go to end button
                         selector = "#" + nav_last_id;
                         $("#" + nav_pane_id).off('click', selector).on('click', selector, function() {
                             goto_page = parseInt(settings.totalPages);
-                            change_page(container_id, goto_page, true);
+                            change_page(container_id, goto_page, true, true);
                         });
 
                     }
@@ -209,9 +194,9 @@
                         var len = nav_item_id_prefix.length;
                         goto_page = $(event.target).attr("id").substr(len);
                         if(useNavButtons) {
-                            update_current_page(container_id, goto_page, true);
+                            change_page(container_id, goto_page, false, true);
                         } else {
-                            change_page(container_id, goto_page, true);
+                            change_page(container_id, goto_page, true, true);
                         }
 
                     });
@@ -241,7 +226,7 @@
                         orientation: sliderOrientation,
                         stop: function(event, ui) {
                             goto_page = (sliderOrientation == 'horizontal' ? ui.value : totalPages - ui.value + 1);
-                            change_page(container_id, goto_page, false);
+                            change_page(container_id, goto_page, true, false);
                         }
                     });
 
@@ -611,9 +596,11 @@
      * @param page_num
      * @param update_slider
      */
-    var change_page = function(container_id, goto_page, update_slider) {
+    var change_page = function(container_id, goto_page, update_nav_items, update_slider) {
         $("#" + container_id).data('goto', goto_page);
-        create_nav_items(container_id);
+        if(update_nav_items) {
+            create_nav_items(container_id);
+        }
         update_current_page(container_id, goto_page, update_slider);
     }
 
