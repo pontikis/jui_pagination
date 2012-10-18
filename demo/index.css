@@ -1,46 +1,50 @@
-.demo_pag1 {
-    width: 750px;
+body {
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-size: 13px;
+}
+
+/* -------------------------------------------------------------------------- */
+.container1 {
+    width: 500px;
     padding: 10px;
 }
 
-.demo_pag2 {
-    width: 600px;
-    padding: 20px;
-}
-
-.tools {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.demo_pag1_alt1 {
-    width: 900px;
+.container1_alt {
+    width: 700px;
     padding: 40px;
     border: solid blue 1px;
 }
 
-.demo_pag1_slider {
-    width: 500px;
+.slider1 {
+    width: 400px;
     margin-top: 10px;
     margin-bottom: 10px;
     margin-right: auto;
     margin-left: auto;
 }
 
-.wrap1 {
+/* -------------------------------------------------------------------------- */
+.tools {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+/* -------------------------------------------------------------------------- */
+.wrap2 {
     overflow: auto;
-    width: 620px;
+    width: 850px;
+    margin-top: 20px;
 }
 
 .list2 {
-    width: 570px;
-    height: 300px;
+    width: 800px;
+    height: 200px;
     border: solid black 1px;
     float: left;
 }
 
 .slider2 {
-    height: 270px;
+    height: 170px;
     float: left;
     margin-left: 10px;
     margin-top: 15px;
@@ -48,8 +52,9 @@
 }
 
 .navpane2 {
-    width: 550px;
+    width: 790px;
     margin-top: 10px;
     margin-left: 5px;
     margin-bottom: 10px;
 }
+/* -------------------------------------------------------------------------- */

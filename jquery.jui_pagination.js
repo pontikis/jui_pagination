@@ -44,13 +44,20 @@
                 // simple validation
                 validate_input(container_id);
 
+                if(elem.data('error_occured')) {
+                    elem.html('');
+                    elem.data('error_occured', false);
+                }
+
+                if(settings.containerClass != '') {
+                    elem.removeClass().addClass(settings.containerClass);
+                }
+
                 // bind events
                 elem.unbind("onChangePage").bind("onChangePage", settings.onChangePage);
 
                 // set container style
-                if(settings.containerClass != '') {
-                    elem.removeClass().addClass(settings.containerClass);
-                }
+
 
                 var goto_page;
 
@@ -83,8 +90,8 @@
                 var nav_last_id = settings.nav_last_id_prefix + container_id;
                 var total_id = settings.nav_total_id_prefix + container_id;
 
-                var labelPage = settings.labelPage;
-                var labelTotalPages = settings.labelTotalPages;
+                var showLabelPage = settings.showLabelPage;
+                var showTotalPages = settings.showTotalPages;
 
                 var navPaneClass = settings.navPaneClass;
                 var navCurrentPageClass = settings.navCurrentPageClass;
@@ -113,9 +120,12 @@
                     }
 
                     var nav_pane_html = '';
-                    if(useNavButtons) {
-                        nav_pane_html += '<div id="' + current_id + '">' + labelPage + ' ' + currentPage + '</div>';
 
+                    if(showLabelPage) {
+                        nav_pane_html += '<div id="' + current_id + '">' + rsc_jui_pag.page_label  + '</div>';
+                    }
+
+                    if(useNavButtons) {
                         nav_pane_html += '<div id="' + nav_top_id + '">&laquo;</div>';
                         nav_pane_html += '<div id="' + nav_prev_id + '">&larr;</div>';
                         nav_pane_html += '<div id="' + nav_dots_left_id + '">...</div>';
@@ -128,8 +138,10 @@
                         nav_pane_html += '<div id="' + nav_dots_right_id + '">...</div>';
                         nav_pane_html += '<div id="' + nav_next_id + '">&rarr;</div>';
                         nav_pane_html += '<div id="' + nav_last_id + '">&raquo;</div>';
+                    }
 
-                        nav_pane_html += '<div id="' + total_id + '">' + labelTotalPages + ' ' + totalPages + '</div>';
+                    if(showTotalPages) {
+                        nav_pane_html += '<div id="' + total_id + '">' + rsc_jui_pag.total_pages_label + ' ' + totalPages + '</div>';
                     }
 
                     // set nav_pane_html
@@ -206,7 +218,7 @@
                     }
 
                 } else {
-                    $("#" + nav_pane_id)._removeClass();
+                    $("#" + nav_pane_id).removeClass();
                     $("#" + nav_pane_id).html('');
                 }
 
@@ -265,10 +277,11 @@
                 useSliderWithPagesCount: 0,
                 sliderOrientation: 'horizontal',
 
+                maxVisiblePageLinks: 20,
                 disableSelectionNavPane: false,
 
-                labelPage: 'Page',
-                labelTotalPages: 'Total',
+                showLabelPage: false,
+                showTotalPages: false,
 
                 navPaneClass: 'nav-pane ui-widget ui-widget-header ui-corner-all',
                 navCurrentPageClass: 'current-page',
@@ -387,6 +400,7 @@
         if(parseInt(totalPages) <= 0 || isNaN(parseInt(totalPages))) {
             var err_msg = 'Invalid totalPages';
             $("#" + container_id).html('<span style="color: red;">' + 'ERROR: ' + err_msg + '</span>');
+            $("#" + container_id).data('error_occured', true);
             $.error(err_msg);
         }
 
@@ -394,6 +408,7 @@
         if(parseInt(currentPage) <= 0 || isNaN(parseInt(currentPage))) {
             var err_msg = 'Invalid currentPage';
             $("#" + container_id).html('<span style="color: red;">' + 'ERROR: ' + err_msg + '</span>');
+            $("#" + container_id).data('error_occured', true);
             $.error(err_msg);
         }
 
@@ -401,15 +416,31 @@
         if(parseInt(visiblePageLinks) <= 0 || isNaN(parseInt(visiblePageLinks))) {
             var err_msg = 'Invalid visiblePageLinks';
             $("#" + container_id).html('<span style="color: red;">' + 'ERROR: ' + err_msg + '</span>');
+            $("#" + container_id).data('error_occured', true);
             $.error(err_msg);
         }
 
         if(parseInt(currentPage) > parseInt(totalPages)) {
             var err_msg = 'Invalid currentPage > totalPages';
             $("#" + container_id).html('<span style="color: red;">' + 'ERROR: ' + err_msg + '</span>');
+            $("#" + container_id).data('error_occured', true);
             $.error(err_msg);
         }
 
+        if(parseInt(visiblePageLinks) > parseInt(totalPages)) {
+            var err_msg = 'Invalid visiblePageLinks > totalPages';
+            $("#" + container_id).html('<span style="color: red;">' + 'ERROR: ' + err_msg + '</span>');
+            $("#" + container_id).data('error_occured', true);
+            $.error(err_msg);
+        }
+
+        var maxVisiblePageLinks = $("#" + container_id).jui_pagination('getOption', 'maxVisiblePageLinks');
+        if(parseInt(visiblePageLinks) > parseInt(maxVisiblePageLinks)) {
+            var err_msg = 'Invalid visiblePageLinks > maxVisiblePageLinks';
+            $("#" + container_id).html('<span style="color: red;">' + 'ERROR: ' + err_msg + '</span>');
+            $("#" + container_id).data('error_occured', true);
+            $.error(err_msg);
+        }
     }
 
     /**
@@ -578,17 +609,12 @@
         var current_id = s.nav_current_page_id_prefix + container_id;
         var nav_item_id_prefix = s.nav_item_id_prefix + container_id + '_';
 
-        var labelPage = s.labelPage;
-
         var navItemClass = s.navItemClass;
         var navItemSelectedClass = s.navItemSelectedClass;
 
         // change selected page, applying appropriate styles
         $('[id^="' + nav_item_id_prefix + '"]').removeClass().addClass(navItemClass);
         $("#" + nav_item_id_prefix + goto_page).removeClass().addClass(navItemSelectedClass);
-
-        // update current page indicator
-        $("#" + current_id).text(labelPage + ' ' + goto_page);
 
         // update slider if exists
         if(update_slider) {

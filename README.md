@@ -114,10 +114,11 @@ $("#element_id").jui_pagination({
     useSliderWithPagesCount: 0,
     sliderOrientation: 'horizontal',
 
+    maxVisiblePageLinks: 20,
     disableSelectionNavPane: false,
 
-    labelPage: 'Page',
-    labelTotalPages: 'Total',
+    showLabelPage: false,
+    showTotalPages: false,
 
     navPaneClass: 'nav-pane ui-widget ui-widget-header ui-corner-all',
     navCurrentPageClass: 'current-page',

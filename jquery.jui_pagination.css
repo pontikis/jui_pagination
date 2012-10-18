@@ -2,7 +2,6 @@
 DO NOT CHANGE this file, as it will be overwritten in next update.
 Write your own classes in other css file.
 */
-
 .nav-pane {
     overflow: auto;
     text-align: center;
@@ -10,7 +9,7 @@ Write your own classes in other css file.
 
 .current-page {
     display: inline-block;
-    margin: 3px 20px 3px 3px;
+    margin: 3px 10px 3px 3px;
     font-size: 13px;
     text-align: center;
     padding-left: 2px;
@@ -63,7 +62,7 @@ Write your own classes in other css file.
 
 .total-pages {
     display: inline-block;
-    margin: 3px 3px 3px 20px;
+    margin: 3px 3px 3px 10px;
     font-size: 13px;
     text-align: center;
     padding-left: 2px;

@@ -9,7 +9,7 @@ License MIT
 
 Release 1.10 (? 19 Oct 2012)
 ---------------------------
-* New minimal design without navigation buttons (default, old nav buttons inteface is still available)
+* New minimal design without navigation buttons (old nav buttons inteface is still available)
 * Go to page functionality (using input box)
 * Slider toggler (from user interface)
 * Rows per page control
