@@ -114,6 +114,8 @@ $("#element_id").jui_pagination({
     useSliderWithPagesCount: 0,
     sliderOrientation: 'horizontal',
 
+    disableSelectionNavPane: false,
+
     labelPage: 'Page',
     labelTotalPages: 'Total',
 

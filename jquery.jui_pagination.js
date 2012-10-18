@@ -201,6 +201,10 @@
 
                     });
 
+                    if(settings.disableSelectionNavPane) {
+                        disableSelection($("#" + nav_pane_id));
+                    }
+
                 } else {
                     $("#" + nav_pane_id)._removeClass();
                     $("#" + nav_pane_id).html('');
@@ -260,6 +264,8 @@
                 sliderElementID: false,
                 useSliderWithPagesCount: 0,
                 sliderOrientation: 'horizontal',
+
+                disableSelectionNavPane: false,
 
                 labelPage: 'Page',
                 labelTotalPages: 'Total',
@@ -358,6 +364,19 @@
     var create_id = function(prefix, plugin_container_id) {
         return prefix + plugin_container_id;
     }
+
+    /**
+     * Disable selection (jquery 1.8)
+     * http://stackoverflow.com/questions/2700000/how-to-disable-text-selection-using-jquery
+     * @param element
+     * @return {*}
+     */
+    var disableSelection = function(element) {
+        return element
+            .attr('unselectable', 'on')
+            .css('user-select', 'none')
+            .on('selectstart', false);
+    };
 
     /**
      * Validate input values

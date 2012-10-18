@@ -12,6 +12,7 @@ $(function() {
         totalPages: 103,
         containerClass: 'demo_pag1',
         sliderClass: 'demo_pag1_slider',
+        disableSelectionNavPane: true,
         onChangePage: function(event, page_num) {
             $("#result").html('Page changed to: ' + page_num);
         }
