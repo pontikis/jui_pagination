@@ -3,15 +3,12 @@ $(function() {
     //$('#switcher').themeswitcher();
 
 
-
-
-
     /**
      * demo_pag1 ---------------------------------------------------------------
      */
     $("#demo_pag1").jui_pagination({
         currentPage: 8,
-        visiblePageLinks: 5,
+        visiblePageLinks: 6,
         totalPages: 103,
         containerClass: 'demo_pag1',
         sliderClass: 'demo_pag1_slider',

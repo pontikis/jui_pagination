@@ -486,14 +486,12 @@
         } else {
 
             var noNavButtonLinks = visiblePageLinks;
-            if(noNavButtonLinks % 2 == 0) {
-                noNavButtonLinks = noNavButtonLinks - 1;
-            }
             if(noNavButtonLinks < 5) {
                 noNavButtonLinks = 5;
             }
             var median_links = noNavButtonLinks - 2;
-            var bilateral_links = (median_links - 1) / 2;
+            var left_links = Math.floor((median_links - 1) / 2);
+            var right_links = Math.ceil((median_links - 1) / 2);
 
             // create nav pages html
             if(goto <= median_links) {
@@ -511,7 +509,7 @@
             } else {
                 nav_html += '<div id="' + nav_item_id_prefix + '1' + '">1</div>';
                 nav_html += '<div id="' + nav_dots_left_id + '">...</div>';
-                for(var i = goto - bilateral_links; i <= goto + bilateral_links; i++) {
+                for(var i = goto - left_links; i <= goto + right_links; i++) {
                     nav_html += '<div id="' + nav_item_id_prefix + i + '">' + i + '</div>';
                 }
                 nav_html += '<div id="' + nav_dots_right_id + '">...</div>';
@@ -538,7 +536,6 @@
                 }
             );
         }
-
     };
 
     /**
