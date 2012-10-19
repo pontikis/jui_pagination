@@ -117,7 +117,9 @@ $("#element_id").jui_pagination({
     maxVisiblePageLinks: 20,
     disableSelectionNavPane: false,
 
-    showLabelPage: false,
+    showLabelCurrentPage: true,
+    showCurrentPage: false,
+    showLabelTotalPages: false,
     showTotalPages: false,
 
     navPaneClass: 'nav-pane ui-widget ui-widget-header ui-corner-all',

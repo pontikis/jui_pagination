@@ -90,7 +90,11 @@
                 var nav_last_id = settings.nav_last_id_prefix + container_id;
                 var total_id = settings.nav_total_id_prefix + container_id;
 
-                var showLabelPage = settings.showLabelPage;
+                var disableSelectionNavPane = settings.disableSelectionNavPane;
+
+                var showLabelCurrentPage = settings.showLabelCurrentPage;
+                var showCurrentPage = settings.showCurrentPage;
+                var showLabelTotalPages = settings.showLabelTotalPages;
                 var showTotalPages = settings.showTotalPages;
 
                 var navPaneClass = settings.navPaneClass;
@@ -121,7 +125,14 @@
 
                     var nav_pane_html = '';
 
-                    if(showLabelPage) {
+
+
+
+
+                    if(showLabelCurrentPage) {
+                        nav_pane_html += '<div id="' + current_id + '">' + rsc_jui_pag.page_label  + '</div>';
+                    }
+                    if(showCurrentPage) {
                         nav_pane_html += '<div id="' + current_id + '">' + rsc_jui_pag.page_label  + '</div>';
                     }
 
@@ -213,7 +224,7 @@
 
                     });
 
-                    if(settings.disableSelectionNavPane) {
+                    if(disableSelectionNavPane) {
                         disableSelection($("#" + nav_pane_id));
                     }
 
@@ -280,7 +291,9 @@
                 maxVisiblePageLinks: 20,
                 disableSelectionNavPane: false,
 
-                showLabelPage: false,
+                showLabelCurrentPage: true,
+                showCurrentPage: false,
+                showLabelTotalPages: false,
                 showTotalPages: false,
 
                 navPaneClass: 'nav-pane ui-widget ui-widget-header ui-corner-all',
