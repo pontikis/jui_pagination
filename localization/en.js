@@ -6,8 +6,13 @@
  *
  */
 var rsc_jui_pag = {
+    slider_toggle: 'Slider toggle',
     go_to_page: 'Go to page',
     rows_per_page: 'Rows per page',
     page_label: 'Page',
-    total_pages_label: 'of'
+    total_pages_label: 'of',
+    go_top: '&laquo;',
+    go_prev: '&larr;',
+    go_next: '&rarr;',
+    go_last: '&raquo;'
 };

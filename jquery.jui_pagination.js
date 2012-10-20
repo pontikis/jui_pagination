@@ -49,15 +49,8 @@
                     elem.data('error_occured', false);
                 }
 
-                if(settings.containerClass != '') {
-                    elem.removeClass().addClass(settings.containerClass);
-                }
-
                 // bind events
                 elem.unbind("onChangePage").bind("onChangePage", settings.onChangePage);
-
-                // set container style
-
 
                 var goto_page;
 
@@ -65,8 +58,6 @@
                 var totalPages = settings.totalPages;
                 var currentPage = settings.currentPage;
                 var visiblePageLinks = settings.visiblePageLinks;
-
-                var useNavButtons = settings.useNavButtons;
 
                 var useNavPane = settings.useNavPane;
                 var navPaneElementID = settings.navPaneElementID;
@@ -76,9 +67,44 @@
                 var useSliderWithPagesCount = settings.useSliderWithPagesCount;
                 var sliderOrientation = settings.sliderOrientation;
 
-                var nav_pane_id = (!navPaneElementID ? settings.nav_pane_id_prefix + container_id : navPaneElementID);
-                var slider_id = (!sliderElementID ? settings.slider_id_prefix + container_id : sliderElementID);
+                var showSliderToggle = settings.showSliderToggle;
+                var showGoToPage = settings.showGoToPage;
+                var showNavButtons = settings.showNavButtons;
+                var showLabelCurrentPage = settings.showLabelCurrentPage;
+                var showCurrentPage = settings.showCurrentPage;
+                var showNavPages = settings.showNavPages;
+                var navPagesMode = settings.navPagesMode;
+                var showLabelTotalPages = settings.showLabelTotalPages;
+                var showTotalPages = settings.showTotalPages;
+                var showRowsPerPage = settings.showRowsPerPage;
+                var showRowsIndicator = settings.showRowsIndicator;
 
+                var sliderToggleHTML = settings.sliderToggleHTML;
+                var btnMoveTopHTML = settings.btnMoveTopHTML;
+                var btnMovePrevHTML = settings.btnMovePrevHTML;
+                var btnMoveNextHTML = settings.btnMoveNextHTML;
+                var btnMoveLastHTML = settings.btnMoveLastHTML;
+
+                var display_order = settings.display_order;
+
+                var containerClass = settings.containerClass;
+                var navPaneClass = settings.navPaneClass;
+                var navSliderToggleClass = settings.navSliderToggleClass;
+                var navSliderToggleClickClass = settings.navSliderToggleClickClass;
+                var navGoToPageClass = settings.navGoToPageClass;
+                var navButtonClass = settings.navButtonClass;
+                var navCurrentPageClass = settings.navCurrentPageClass;
+                var navDotsLeftClass = settings.navDotsLeftClass;
+                var navPagesClass = settings.navPagesClass;
+                var navDotsRightClass = settings.navDotsRightClass;
+                var navTotalPagesClass = settings.navTotalPagesClass;
+                var navRowsPerPageClass = settings.navRowsPerPageClass;
+                var navIndicatorClass = settings.navIndicatorClass;
+                var sliderClass = settings.sliderClass;
+
+                var nav_pane_id = (!navPaneElementID ? settings.nav_pane_id_prefix + container_id : navPaneElementID);
+                var nav_slider_toggle_id_prefix = settings.nav_slider_toggle_id_prefix;
+                var nav_goto_page_id_prefix = settings.nav_goto_page_id_prefix;
                 var current_id = settings.nav_current_page_id_prefix + container_id;
                 var nav_top_id = settings.nav_top_id_prefix + container_id;
                 var nav_prev_id = settings.nav_prev_id_prefix + container_id;
@@ -88,30 +114,25 @@
                 var nav_dots_right_id = settings.nav_dots_right_id_prefix + container_id;
                 var nav_next_id = settings.nav_next_id_prefix + container_id;
                 var nav_last_id = settings.nav_last_id_prefix + container_id;
-                var total_id = settings.nav_total_id_prefix + container_id;
+                var total_id = settings.nav_total_pages_id_prefix + container_id;
+                var nav_rows_per_page_id_prefix = settings.nav_rows_per_page_id_prefix;
+                var nav_rows_indicator_id_prefix = settings.nav_rows_indicator_id_prefix;
+                var slider_id = (!sliderElementID ? settings.slider_id_prefix + container_id : sliderElementID);
 
                 var disableSelectionNavPane = settings.disableSelectionNavPane;
-
-                var showLabelCurrentPage = settings.showLabelCurrentPage;
-                var showCurrentPage = settings.showCurrentPage;
-                var showLabelTotalPages = settings.showLabelTotalPages;
-                var showTotalPages = settings.showTotalPages;
-
-                var navPaneClass = settings.navPaneClass;
-                var navCurrentPageClass = settings.navCurrentPageClass;
-                var navButtonClass = settings.navButtonClass;
-                var navDotsLeftClass = settings.navDotsLeftClass;
-                var navPagesClass = settings.navPagesClass;
-                var navDotsRightClass = settings.navDotsRightClass;
-                var navTotalPagesClass = settings.navTotalPagesClass;
-
-                var sliderClass = settings.sliderClass;
 
                 if(useSlider) {
                     var pageLimit = (useSliderWithPagesCount == 0 ? visiblePageLinks : Math.max(useSliderWithPagesCount, visiblePageLinks));
                     if(totalPages <= pageLimit) {
                         useSlider = false;
                     }
+                }
+
+                // set container style
+                if(containerClass != '') {
+                    elem.removeClass().addClass(settings.containerClass);
+                } else {
+                    elem.removeClass(settings.containerClass);
                 }
 
                 /* CREATE PANEL --------------------------------------------- */
@@ -126,19 +147,16 @@
                     var nav_pane_html = '';
 
 
-
-
-
                     if(showLabelCurrentPage) {
-                        nav_pane_html += '<div id="' + current_id + '">' + rsc_jui_pag.page_label  + '</div>';
+                        nav_pane_html += '<div id="' + current_id + '">' + rsc_jui_pag.page_label + '</div>';
                     }
                     if(showCurrentPage) {
-                        nav_pane_html += '<div id="' + current_id + '">' + rsc_jui_pag.page_label  + '</div>';
+                        nav_pane_html += '<div id="' + current_id + '">' + rsc_jui_pag.page_label + '</div>';
                     }
 
                     if(useNavButtons) {
-                        nav_pane_html += '<div id="' + nav_top_id + '">&laquo;</div>';
-                        nav_pane_html += '<div id="' + nav_prev_id + '">&larr;</div>';
+                        nav_pane_html += '<div id="' + nav_top_id + '">' + btnMoveTopHTML + '</div>';
+                        nav_pane_html += '<div id="' + nav_prev_id + '">' + btnMovePrevHTML + '</div>';
                         nav_pane_html += '<div id="' + nav_dots_left_id + '">...</div>';
                     }
 
@@ -147,8 +165,8 @@
 
                     if(useNavButtons) {
                         nav_pane_html += '<div id="' + nav_dots_right_id + '">...</div>';
-                        nav_pane_html += '<div id="' + nav_next_id + '">&rarr;</div>';
-                        nav_pane_html += '<div id="' + nav_last_id + '">&raquo;</div>';
+                        nav_pane_html += '<div id="' + nav_next_id + '">' + btnMoveNextHTML + '</div>';
+                        nav_pane_html += '<div id="' + nav_last_id + '">' + btnMoveLastHTML + '</div>';
                     }
 
                     if(showTotalPages) {
@@ -277,28 +295,42 @@
             var defaults = {
                 currentPage: 1,
                 visiblePageLinks: 5,
-
-                useNavButtons: false,
+                maxVisiblePageLinks: 20,
 
                 useNavPane: true,
-                navPaneElementID: false,
+                navPaneElementID: false, // if given, nav pane appears outside container inside specified element
 
                 useSlider: true,
-                sliderElementID: false,
-                useSliderWithPagesCount: 0,
+                sliderElementID: false, // if given, slider appears outside container inside specified element
+                useSliderWithPagesCount: 0, // show slider over specified number of pages
                 sliderOrientation: 'horizontal',
 
-                maxVisiblePageLinks: 20,
-                disableSelectionNavPane: false,
-
+                showSliderToggle: true,
+                showGoToPage: false,
+                showNavButtons: false,
                 showLabelCurrentPage: true,
                 showCurrentPage: false,
+                showNavPages: true,
+                navPagesMode: 'first-last-always-visible', // alternative mode is 'continuous'
                 showLabelTotalPages: false,
                 showTotalPages: false,
+                showRowsPerPage: false,
+                showRowsIndicator: false,
+
+                sliderToggleHTML: rsc_jui_pag.slider_toggle,
+                btnMoveTopHTML: rsc_jui_pag.go_top,
+                btnMovePrevHTML: rsc_jui_pag.go_prev,
+                btnMoveNextHTML: rsc_jui_pag.go_next,
+                btnMoveLastHTML: rsc_jui_pag.go_last,
+
+                display_order: ['slider_toggle', 'go_to_page', 'back_buttons', 'current_page', 'nav_items', 'total_pages', 'forward_buttons', 'rows_per_page', 'rows_indicator'],
 
                 navPaneClass: 'nav-pane ui-widget ui-widget-header ui-corner-all',
-                navCurrentPageClass: 'current-page',
+                navSliderToggleClass: 'ui-icon ui-icon-arrowthick-2-e-w ui-widget-header slider-toggle',
+                navSliderToggleClickClass: 'click-slider-toggle',
+                navGoToPageClass: 'goto-page',
                 navButtonClass: 'nav-button ui-widget-header',
+                navCurrentPageClass: 'current-page',
                 navDotsLeftClass: 'nav-dots-left',
                 navPagesClass: 'nav-pages',
                 navItemClass: 'nav-item ui-widget-header ui-corner-all',
@@ -306,10 +338,14 @@
                 navItemHoverClass: 'ui-state-hover',
                 navDotsRightClass: 'nav-dots-right',
                 navTotalPagesClass: 'total-pages',
+                navRowsPerPageClass: 'rows-per-page',
+                navIndicatorClass: 'rows-indicator',
                 sliderClass: 'nav-slider',
 
                 nav_pane_id_prefix: 'nav_pane_',
-                nav_current_page_id_prefix: 'current_',
+                nav_slider_toggle_id_prefix: 'sld_toggle_',
+                nav_goto_page_id_prefix: 'goto_page_',
+                nav_current_page_id_prefix: 'current_page_',
                 nav_top_id_prefix: 'top_',
                 nav_prev_id_prefix: 'prev_',
                 nav_dots_left_id_prefix: 'dots_left_',
@@ -318,9 +354,12 @@
                 nav_dots_right_id_prefix: 'dots_right_',
                 nav_next_id_prefix: 'next_',
                 nav_last_id_prefix: 'last_',
-                nav_total_id_prefix: 'total_',
-                divider_id_prefix: 'clear_',
+                nav_total_pages_id_prefix: 'total_pages_',
+                nav_rows_per_page_id_prefix: 'rows_per_page_',
+                nav_rows_indicator_id_prefix: 'rows_info_',
                 slider_id_prefix: 'sld_',
+
+                disableSelectionNavPane: false, // disable text selection and double click (jquery >= 1.8)
 
                 onChangePage: function() {
                 }

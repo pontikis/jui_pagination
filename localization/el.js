@@ -6,8 +6,13 @@
  *
  */
 var rsc_jui_pag = {
+    slider_toggle: 'Εναλλαγή ολισθαίνοντος μετρητή',
     go_to_page: 'Μετακίνηση',
     rows_per_page: 'Σειρές ανά σελίδα',
     page_label: 'Σελίδα',
-    total_pages_label: 'από'
+    total_pages_label: 'από',
+    go_top: '&laquo;',
+    go_prev: '&larr;',
+    go_next: '&rarr;',
+    go_last: '&raquo;'
 };

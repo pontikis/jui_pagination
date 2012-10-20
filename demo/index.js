@@ -1,6 +1,9 @@
 $(function() {
-// TODO jQuery-UI 1.9.0 themeswitcher not working
-    //$('#switcher').themeswitcher();
+
+    $("#ui-theme-switcher").change(function() {
+        var theme_url = $(this).val();
+        $("#ui-theme").attr("href", theme_url);
+    })
 
 
     /**

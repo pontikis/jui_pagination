@@ -7,6 +7,19 @@ Write your own classes in other css file.
     text-align: center;
 }
 
+.slider-toggle {
+    display: inline-block;
+    margin: 3px 10px 3px 3px;
+    font-size: 13px;
+    text-align: center;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.click-slider-toggle {
+    opacity: .6;
+}
+
 .current-page {
     display: inline-block;
     margin: 3px 10px 3px 3px;
@@ -14,6 +27,17 @@ Write your own classes in other css file.
     text-align: center;
     padding-left: 2px;
     padding-right: 2px;
+}
+
+.goto-page {
+    display: inline-block;
+    background-image: url("images/bullet_go.png");
+    background-repeat: no-repeat;
+    padding-left: 20px;
+    margin-left: 10px;
+    width: 30px;
+    vertical-align: middle;
+    font: 11px Arial, Helvetica, sans-serif !important;
 }
 
 .nav-item {
@@ -63,6 +87,26 @@ Write your own classes in other css file.
 .total-pages {
     display: inline-block;
     margin: 3px 3px 3px 10px;
+    font-size: 13px;
+    text-align: center;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.rows-per-page {
+    display: inline-block;
+    background-image: url("images/page.png");
+    background-repeat: no-repeat;
+    padding-left: 20px;
+    margin-left: 10px;
+    width: 30px;
+    vertical-align: middle;
+    font: 11px Arial, Helvetica, sans-serif !important;
+}
+
+.rows-indicator {
+    display: inline-block;
+    margin: 3px 10px 3px 3px;
     font-size: 13px;
     text-align: center;
     padding-left: 2px;
