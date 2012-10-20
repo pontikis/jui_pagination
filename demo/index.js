@@ -62,17 +62,17 @@ $(function() {
      */
 
     // mode -----------------------------------
-    $('[id$="mode_no_nav"]').click(function() {
+    $('[id$="mode_first-last-always-visible"]').click(function() {
         var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0,1);
         $(elem_selector).jui_pagination({
-            useNavButtons: false
+            navPagesMode: 'first-last-always-visible'
         })
     });
 
-    $('[id$="mode_use_nav"]').click(function() {
+    $('[id$="mode_continuous"]').click(function() {
         var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0,1);
         $(elem_selector).jui_pagination({
-            useNavButtons: true
+            navPagesMode: 'continuous'
         })
     });
 

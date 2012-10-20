@@ -2,11 +2,14 @@
 DO NOT CHANGE this file, as it will be overwritten in next update.
 Write your own classes in other css file.
 */
+
+/* -------------------------------------------------------------------------- */
 .nav-pane {
     overflow: auto;
     text-align: center;
 }
 
+/* -------------------------------------------------------------------------- */
 .slider-toggle {
     display: inline-block;
     margin: 3px 10px 3px 3px;
@@ -18,6 +21,35 @@ Write your own classes in other css file.
 
 .click-slider-toggle {
     opacity: .6;
+}
+
+.nav-button-top {
+    display: inline-block;
+    margin: 3px;
+    font-size: 14px;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    cursor: pointer;
+}
+
+.nav-button-prev {
+    display: inline-block;
+    margin: 3px;
+    font-size: 14px;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    cursor: pointer;
+}
+
+.current-page-label {
+    display: inline-block;
+    margin: 3px 10px 3px 3px;
+    font-size: 13px;
+    text-align: center;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 .current-page {
@@ -40,6 +72,10 @@ Write your own classes in other css file.
     font: 11px Arial, Helvetica, sans-serif !important;
 }
 
+.nav-pages {
+    display: inline-block;
+}
+
 .nav-item {
     display: inline-block;
     margin: 3px;
@@ -47,20 +83,6 @@ Write your own classes in other css file.
     text-align: center;
     padding-left: 5px;
     padding-right: 5px;
-    cursor: pointer;
-}
-
-.nav-pages {
-    display: inline-block;
-}
-
-.nav-button {
-    display: inline-block;
-    margin: 3px;
-    font-size: 14px;
-    text-align: center;
-    padding-left: 10px;
-    padding-right: 10px;
     cursor: pointer;
 }
 
@@ -84,6 +106,15 @@ Write your own classes in other css file.
     padding-right: 2px;
 }
 
+.total-pages-label {
+    display: inline-block;
+    margin: 3px 3px 3px 10px;
+    font-size: 13px;
+    text-align: center;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
 .total-pages {
     display: inline-block;
     margin: 3px 3px 3px 10px;
@@ -91,6 +122,26 @@ Write your own classes in other css file.
     text-align: center;
     padding-left: 2px;
     padding-right: 2px;
+}
+
+.nav-button-next {
+    display: inline-block;
+    margin: 3px;
+    font-size: 14px;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    cursor: pointer;
+}
+
+.nav-button-last {
+    display: inline-block;
+    margin: 3px;
+    font-size: 14px;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    cursor: pointer;
 }
 
 .rows-per-page {
@@ -113,7 +164,9 @@ Write your own classes in other css file.
     padding-right: 2px;
 }
 
+/* -------------------------------------------------------------------------- */
 .nav-slider {
     margin-top: 10px;
     margin-bottom: 10px;
 }
+/* -------------------------------------------------------------------------- */

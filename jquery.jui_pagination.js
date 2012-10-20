@@ -79,25 +79,24 @@
                 var showRowsPerPage = settings.showRowsPerPage;
                 var showRowsIndicator = settings.showRowsIndicator;
 
-                var sliderToggleHTML = settings.sliderToggleHTML;
-                var btnMoveTopHTML = settings.btnMoveTopHTML;
-                var btnMovePrevHTML = settings.btnMovePrevHTML;
-                var btnMoveNextHTML = settings.btnMoveNextHTML;
-                var btnMoveLastHTML = settings.btnMoveLastHTML;
-
-                var display_order = settings.display_order;
+                var nav_pane_display_order = settings.nav_pane_display_order;
 
                 var containerClass = settings.containerClass;
                 var navPaneClass = settings.navPaneClass;
                 var navSliderToggleClass = settings.navSliderToggleClass;
                 var navSliderToggleClickClass = settings.navSliderToggleClickClass;
                 var navGoToPageClass = settings.navGoToPageClass;
-                var navButtonClass = settings.navButtonClass;
+                var navButtonTopClass = settings.navButtonTopClass;
+                var navButtonPrevClass = settings.navButtonPrevClass;
+                var navCurrentPageLabelClass = settings.navCurrentPageLabelClass;
                 var navCurrentPageClass = settings.navCurrentPageClass;
                 var navDotsLeftClass = settings.navDotsLeftClass;
                 var navPagesClass = settings.navPagesClass;
                 var navDotsRightClass = settings.navDotsRightClass;
+                var navTotalPagesLabelClass = settings.navTotalPagesLabelClass;
                 var navTotalPagesClass = settings.navTotalPagesClass;
+                var navButtonNextClass = settings.navButtonNextClass;
+                var navButtonLastClass = settings.navButtonLastClass;
                 var navRowsPerPageClass = settings.navRowsPerPageClass;
                 var navIndicatorClass = settings.navIndicatorClass;
                 var sliderClass = settings.sliderClass;
@@ -105,6 +104,7 @@
                 var nav_pane_id = (!navPaneElementID ? settings.nav_pane_id_prefix + container_id : navPaneElementID);
                 var nav_slider_toggle_id_prefix = settings.nav_slider_toggle_id_prefix;
                 var nav_goto_page_id_prefix = settings.nav_goto_page_id_prefix;
+                var current_label_id = settings.nav_current_page_label_id_prefix + container_id;
                 var current_id = settings.nav_current_page_id_prefix + container_id;
                 var nav_top_id = settings.nav_top_id_prefix + container_id;
                 var nav_prev_id = settings.nav_prev_id_prefix + container_id;
@@ -114,6 +114,7 @@
                 var nav_dots_right_id = settings.nav_dots_right_id_prefix + container_id;
                 var nav_next_id = settings.nav_next_id_prefix + container_id;
                 var nav_last_id = settings.nav_last_id_prefix + container_id;
+                var total_label_id = settings.nav_total_pages_label_id_prefix + container_id;
                 var total_id = settings.nav_total_pages_id_prefix + container_id;
                 var nav_rows_per_page_id_prefix = settings.nav_rows_per_page_id_prefix;
                 var nav_rows_indicator_id_prefix = settings.nav_rows_indicator_id_prefix;
@@ -130,9 +131,9 @@
 
                 // set container style
                 if(containerClass != '') {
-                    elem.removeClass().addClass(settings.containerClass);
+                    elem.removeClass().addClass(containerClass);
                 } else {
-                    elem.removeClass(settings.containerClass);
+                    elem.removeClass(containerClass);
                 }
 
                 /* CREATE PANEL --------------------------------------------- */
@@ -146,32 +147,48 @@
 
                     var nav_pane_html = '';
 
+                    $.each(nav_pane_display_order, function(index, value) {
 
-                    if(showLabelCurrentPage) {
-                        nav_pane_html += '<div id="' + current_id + '">' + rsc_jui_pag.page_label + '</div>';
-                    }
-                    if(showCurrentPage) {
-                        nav_pane_html += '<div id="' + current_id + '">' + rsc_jui_pag.page_label + '</div>';
-                    }
+                        if(value == 'slider_toggle') {
 
-                    if(useNavButtons) {
-                        nav_pane_html += '<div id="' + nav_top_id + '">' + btnMoveTopHTML + '</div>';
-                        nav_pane_html += '<div id="' + nav_prev_id + '">' + btnMovePrevHTML + '</div>';
-                        nav_pane_html += '<div id="' + nav_dots_left_id + '">...</div>';
-                    }
+                        } else if (value == 'go_to_page') {
 
-                    nav_pane_html += '<div id="' + nav_pages_id + '">';
-                    nav_pane_html += '</div>';
+                        } else if (value == 'back_buttons') {
+                            if(showNavButtons) {
+                                nav_pane_html += '<div id="' + nav_top_id + '">' + rsc_jui_pag.go_top + '</div>';
+                                nav_pane_html += '<div id="' + nav_prev_id + '">' + rsc_jui_pag.go_prev + '</div>';
+                            }
+                        } else if (value == 'current_page_label') {
+                            if(showLabelCurrentPage) {
+                                nav_pane_html += '<div id="' + current_label_id + '">' + rsc_jui_pag.page_label+ '</div>';
+                            }
+                        } else if (value == 'current_page') {
+                            if(showCurrentPage) {
+                                nav_pane_html += '<div id="' + current_id + '">' + currentPage + '</div>';
+                            }
+                        } else if (value == 'nav_items') {
+                            nav_pane_html += '<div id="' + nav_pages_id + '"></div>';
+                        } else if (value == 'total_pages_label') {
+                            if(showLabelTotalPages) {
+                                nav_pane_html += '<div id="' + total_label_id + '">' + rsc_jui_pag.total_pages_label + '</div>';
+                            }
+                        } else if (value == 'total_pages') {
+                            if(showTotalPages) {
+                                nav_pane_html += '<div id="' + total_id + '">' + totalPages + '</div>';
+                            }
+                        } else if (value == 'forward_buttons') {
+                            if(showNavButtons) {
+                                nav_pane_html += '<div id="' + nav_next_id + '">' + rsc_jui_pag.go_next + '</div>';
+                                nav_pane_html += '<div id="' + nav_last_id + '">' + rsc_jui_pag.go_last + '</div>';
+                            }
+                        } else if (value == 'rows_per_page') {
 
-                    if(useNavButtons) {
-                        nav_pane_html += '<div id="' + nav_dots_right_id + '">...</div>';
-                        nav_pane_html += '<div id="' + nav_next_id + '">' + btnMoveNextHTML + '</div>';
-                        nav_pane_html += '<div id="' + nav_last_id + '">' + btnMoveLastHTML + '</div>';
-                    }
+                        } else if (value == 'rows_indicator') {
 
-                    if(showTotalPages) {
-                        nav_pane_html += '<div id="' + total_id + '">' + rsc_jui_pag.total_pages_label + ' ' + totalPages + '</div>';
-                    }
+                        }
+
+                    });
+
 
                     // set nav_pane_html
                     $("#" + nav_pane_id).html(nav_pane_html);
@@ -181,15 +198,15 @@
 
                     $("#" + current_id).removeClass().addClass(navCurrentPageClass);
 
-                    $("#" + nav_top_id).removeClass().addClass(navButtonClass);
-                    $("#" + nav_prev_id).removeClass().addClass(navButtonClass);
+                    $("#" + nav_top_id).removeClass().addClass(navButtonTopClass);
+                    $("#" + nav_prev_id).removeClass().addClass(navButtonPrevClass);
                     $("#" + nav_dots_left_id).removeClass().addClass(navDotsLeftClass);
 
                     $("#" + nav_pages_id).removeClass().addClass(navPagesClass);
 
                     $("#" + nav_dots_right_id).removeClass().addClass(navDotsRightClass);
-                    $("#" + nav_next_id).removeClass().addClass(navButtonClass);
-                    $("#" + nav_last_id).removeClass().addClass(navButtonClass);
+                    $("#" + nav_next_id).removeClass().addClass(navButtonNextClass);
+                    $("#" + nav_last_id).removeClass().addClass(navButtonLastClass);
 
                     $("#" + total_id).removeClass().addClass(navTotalPagesClass);
 
@@ -197,7 +214,7 @@
 
                     // panel enents
                     var selector;
-                    if(useNavButtons) {
+                    if(showNavButtons) {
 
                         // click on go to top button
                         selector = "#" + nav_top_id;
@@ -234,9 +251,9 @@
                     $("#" + nav_pane_id).off('click', selector).on('click', selector, function(event) {
                         var len = nav_item_id_prefix.length;
                         goto_page = $(event.target).attr("id").substr(len);
-                        if(useNavButtons) {
+                        if(navPagesMode == 'continuous') {
                             change_page(container_id, goto_page, false, true);
-                        } else {
+                        } else if(navPagesMode == 'first-last-always-visible') {
                             change_page(container_id, goto_page, true, true);
                         }
 
@@ -299,6 +316,19 @@
 
                 useNavPane: true,
                 navPaneElementID: false, // if given, nav pane appears outside container inside specified element
+                nav_pane_display_order: [
+                    'slider_toggle',
+                    'go_to_page',
+                    'back_buttons',
+                    'current_page_label',
+                    'current_page',
+                    'nav_items',
+                    'total_pages_label',
+                    'total_pages',
+                    'forward_buttons',
+                    'rows_per_page',
+                    'rows_indicator'
+                ],
 
                 useSlider: true,
                 sliderElementID: false, // if given, slider appears outside container inside specified element
@@ -317,19 +347,13 @@
                 showRowsPerPage: false,
                 showRowsIndicator: false,
 
-                sliderToggleHTML: rsc_jui_pag.slider_toggle,
-                btnMoveTopHTML: rsc_jui_pag.go_top,
-                btnMovePrevHTML: rsc_jui_pag.go_prev,
-                btnMoveNextHTML: rsc_jui_pag.go_next,
-                btnMoveLastHTML: rsc_jui_pag.go_last,
-
-                display_order: ['slider_toggle', 'go_to_page', 'back_buttons', 'current_page', 'nav_items', 'total_pages', 'forward_buttons', 'rows_per_page', 'rows_indicator'],
-
                 navPaneClass: 'nav-pane ui-widget ui-widget-header ui-corner-all',
                 navSliderToggleClass: 'ui-icon ui-icon-arrowthick-2-e-w ui-widget-header slider-toggle',
                 navSliderToggleClickClass: 'click-slider-toggle',
                 navGoToPageClass: 'goto-page',
-                navButtonClass: 'nav-button ui-widget-header',
+                navButtonTopClass: 'nav-button-top ui-widget-header',
+                navButtonPrevClass: 'nav-button-prev ui-widget-header',
+                navCurrentPageLabelClass: 'current-page-label',
                 navCurrentPageClass: 'current-page',
                 navDotsLeftClass: 'nav-dots-left',
                 navPagesClass: 'nav-pages',
@@ -337,7 +361,10 @@
                 navItemSelectedClass: 'nav-item ui-state-highlight ui-widget-header ui-corner-all',
                 navItemHoverClass: 'ui-state-hover',
                 navDotsRightClass: 'nav-dots-right',
+                navTotalPagesLabelClass: 'total-pages-label',
                 navTotalPagesClass: 'total-pages',
+                navButtonNextClass: 'nav-button-next ui-widget-header',
+                navButtonLastClass: 'nav-button-last ui-widget-header',
                 navRowsPerPageClass: 'rows-per-page',
                 navIndicatorClass: 'rows-indicator',
                 sliderClass: 'nav-slider',
@@ -345,6 +372,7 @@
                 nav_pane_id_prefix: 'nav_pane_',
                 nav_slider_toggle_id_prefix: 'sld_toggle_',
                 nav_goto_page_id_prefix: 'goto_page_',
+                nav_current_page_label_id_prefix: 'current_page_lbl_',
                 nav_current_page_id_prefix: 'current_page_',
                 nav_top_id_prefix: 'top_',
                 nav_prev_id_prefix: 'prev_',
@@ -354,6 +382,7 @@
                 nav_dots_right_id_prefix: 'dots_right_',
                 nav_next_id_prefix: 'next_',
                 nav_last_id_prefix: 'last_',
+                nav_total_pages_label_id_prefix: 'total_pages_lbl_',
                 nav_total_pages_id_prefix: 'total_pages_',
                 nav_rows_per_page_id_prefix: 'rows_per_page_',
                 nav_rows_indicator_id_prefix: 'rows_info_',
@@ -505,7 +534,7 @@
         var elem = $("#" + container_id);
         var s = $(elem).jui_pagination('getAllOptions');
 
-        var useNavButtons = s.useNavButtons;
+        var navPagesMode = s.navPagesMode;
 
         var totalPages = s.totalPages;
         var currentPage = s.currentPage;
@@ -533,7 +562,7 @@
         }
         goto = parseInt(goto);
 
-        if(useNavButtons) {
+        if(navPagesMode == 'continuous') {
 
             var nav_start, nav_end, mod, offset, totalSections;
             nav_start = goto;
@@ -585,7 +614,7 @@
             $("#" + nav_pages_id).html(nav_html);
 
 
-        } else {
+        } else if(navPagesMode == 'first-last-always-visible') {
 
             var noNavButtonLinks = visiblePageLinks;
             if(noNavButtonLinks < 5) {
