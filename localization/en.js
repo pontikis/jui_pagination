@@ -6,13 +6,14 @@
  *
  */
 var rsc_jui_pag = {
-    slider_toggle: 'Slider toggle',
-    go_to_page: 'Go to page',
-    rows_per_page: 'Rows per page',
-    page_label: 'Page',
+    slider_toggle_text: '<->',
+    slider_toggle_title: 'Slider toggle',
+    go_to_page_title: 'Go to page',
+    rows_per_page_title: 'Rows per page',
+    current_page_label: 'Page',
     total_pages_label: 'of',
-    go_top: '&laquo;',
-    go_prev: '&larr;',
-    go_next: '&rarr;',
-    go_last: '&raquo;'
+    go_top_text: '&laquo;',
+    go_prev_text: '&larr;',
+    go_next_text: '&rarr;',
+    go_last_text: '&raquo;'
 };

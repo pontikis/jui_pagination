@@ -13,14 +13,27 @@ Write your own classes in other css file.
 .slider-toggle {
     display: inline-block;
     margin: 3px 10px 3px 3px;
-    font-size: 13px;
+    font-size: 14px;
     text-align: center;
     padding-left: 2px;
     padding-right: 2px;
+    vertical-align: middle;
 }
 
 .click-slider-toggle {
     opacity: .6;
+}
+
+.goto-page {
+    display: inline-block;
+    background-image: url("images/bullet_go.png");
+    background-repeat: no-repeat;
+    padding: 0px 0px 0px 20px !important;
+    margin: 3px 10px 3px 10px;
+    width: 30px;
+    border-width: 1px;
+    font-size: 12px !important;
+    vertical-align: middle;
 }
 
 .nav-button-top {
@@ -31,6 +44,7 @@ Write your own classes in other css file.
     padding-left: 10px;
     padding-right: 10px;
     cursor: pointer;
+    vertical-align: middle;
 }
 
 .nav-button-prev {
@@ -41,6 +55,7 @@ Write your own classes in other css file.
     padding-left: 10px;
     padding-right: 10px;
     cursor: pointer;
+    vertical-align: middle;
 }
 
 .current-page-label {
@@ -50,6 +65,7 @@ Write your own classes in other css file.
     text-align: center;
     padding-left: 2px;
     padding-right: 2px;
+    vertical-align: middle;
 }
 
 .current-page {
@@ -59,31 +75,24 @@ Write your own classes in other css file.
     text-align: center;
     padding-left: 2px;
     padding-right: 2px;
-}
-
-.goto-page {
-    display: inline-block;
-    background-image: url("images/bullet_go.png");
-    background-repeat: no-repeat;
-    padding-left: 20px;
-    margin-left: 10px;
-    width: 30px;
     vertical-align: middle;
-    font: 11px Arial, Helvetica, sans-serif !important;
 }
 
 .nav-pages {
     display: inline-block;
+    vertical-align: middle;
+    margin: 3px 0px 3px 0px;
 }
 
 .nav-item {
     display: inline-block;
-    margin: 3px;
+    margin: 0px 3px 0px 3px !important;
     font-size: 12px;
     text-align: center;
     padding-left: 5px;
     padding-right: 5px;
     cursor: pointer;
+    vertical-align: middle;
 }
 
 .nav-dots-left {
@@ -94,6 +103,7 @@ Write your own classes in other css file.
     text-align: center;
     padding-left: 2px;
     padding-right: 2px;
+    vertical-align: middle;
 }
 
 .nav-dots-right {
@@ -104,6 +114,7 @@ Write your own classes in other css file.
     text-align: center;
     padding-left: 2px;
     padding-right: 2px;
+    vertical-align: middle;
 }
 
 .total-pages-label {
@@ -113,6 +124,7 @@ Write your own classes in other css file.
     text-align: center;
     padding-left: 2px;
     padding-right: 2px;
+    vertical-align: middle;
 }
 
 .total-pages {
@@ -122,6 +134,7 @@ Write your own classes in other css file.
     text-align: center;
     padding-left: 2px;
     padding-right: 2px;
+    vertical-align: middle;
 }
 
 .nav-button-next {
@@ -132,6 +145,7 @@ Write your own classes in other css file.
     padding-left: 10px;
     padding-right: 10px;
     cursor: pointer;
+    vertical-align: middle;
 }
 
 .nav-button-last {
@@ -142,26 +156,29 @@ Write your own classes in other css file.
     padding-left: 10px;
     padding-right: 10px;
     cursor: pointer;
+    vertical-align: middle;
 }
 
 .rows-per-page {
     display: inline-block;
     background-image: url("images/page.png");
     background-repeat: no-repeat;
-    padding-left: 20px;
-    margin-left: 10px;
+    padding: 0px 0px 0px 20px !important;
+    margin: 3px 10px 3px 10px;
     width: 30px;
+    border-width: 1px;
+    font-size: 12px !important;
     vertical-align: middle;
-    font: 11px Arial, Helvetica, sans-serif !important;
 }
 
-.rows-indicator {
+.rows-info {
     display: inline-block;
     margin: 3px 10px 3px 3px;
     font-size: 13px;
     text-align: center;
     padding-left: 2px;
     padding-right: 2px;
+    vertical-align: middle;
 }
 
 /* -------------------------------------------------------------------------- */

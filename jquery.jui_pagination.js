@@ -51,6 +51,8 @@
 
                 // bind events
                 elem.unbind("onChangePage").bind("onChangePage", settings.onChangePage);
+                elem.unbind("onSetRowsPerPage").bind("onSetRowsPerPage", settings.onSetRowsPerPage);
+                elem.unbind("onDisplay").bind("onDisplay", settings.onDisplay);
 
                 var goto_page;
 
@@ -58,6 +60,7 @@
                 var totalPages = settings.totalPages;
                 var currentPage = settings.currentPage;
                 var visiblePageLinks = settings.visiblePageLinks;
+                var rowsPerPage = settings.rowsPerPage;
 
                 var useNavPane = settings.useNavPane;
                 var navPaneElementID = settings.navPaneElementID;
@@ -77,7 +80,7 @@
                 var showLabelTotalPages = settings.showLabelTotalPages;
                 var showTotalPages = settings.showTotalPages;
                 var showRowsPerPage = settings.showRowsPerPage;
-                var showRowsIndicator = settings.showRowsIndicator;
+                var showRowsInfo = settings.showRowsInfo;
 
                 var nav_pane_display_order = settings.nav_pane_display_order;
 
@@ -98,12 +101,12 @@
                 var navButtonNextClass = settings.navButtonNextClass;
                 var navButtonLastClass = settings.navButtonLastClass;
                 var navRowsPerPageClass = settings.navRowsPerPageClass;
-                var navIndicatorClass = settings.navIndicatorClass;
+                var navInfoClass = settings.navInfoClass;
                 var sliderClass = settings.sliderClass;
 
                 var nav_pane_id = (!navPaneElementID ? settings.nav_pane_id_prefix + container_id : navPaneElementID);
-                var nav_slider_toggle_id_prefix = settings.nav_slider_toggle_id_prefix;
-                var nav_goto_page_id_prefix = settings.nav_goto_page_id_prefix;
+                var slider_toggle_id = settings.nav_slider_toggle_id_prefix + container_id;
+                var goto_page_id = settings.nav_goto_page_id_prefix + container_id;
                 var current_label_id = settings.nav_current_page_label_id_prefix + container_id;
                 var current_id = settings.nav_current_page_id_prefix + container_id;
                 var nav_top_id = settings.nav_top_id_prefix + container_id;
@@ -116,8 +119,8 @@
                 var nav_last_id = settings.nav_last_id_prefix + container_id;
                 var total_label_id = settings.nav_total_pages_label_id_prefix + container_id;
                 var total_id = settings.nav_total_pages_id_prefix + container_id;
-                var nav_rows_per_page_id_prefix = settings.nav_rows_per_page_id_prefix;
-                var nav_rows_indicator_id_prefix = settings.nav_rows_indicator_id_prefix;
+                var rows_per_page_id = settings.nav_rows_per_page_id_prefix + container_id;
+                var rows_info_id = settings.nav_rows_info_id_prefix + container_id;
                 var slider_id = (!sliderElementID ? settings.slider_id_prefix + container_id : sliderElementID);
 
                 var disableSelectionNavPane = settings.disableSelectionNavPane;
@@ -151,20 +154,20 @@
 
                         if(value == 'slider_toggle') {
                             if(showSliderToggle) {
-
+                                nav_pane_html += '<div id="' + slider_toggle_id + '" title="' + rsc_jui_pag.slider_toggle_title  + '">' + rsc_jui_pag.slider_toggle_text + '</div>';
                             }
                         } else if(value == 'go_to_page') {
                             if(showGoToPage) {
-
+                                nav_pane_html += '<input type="text" id="' + goto_page_id + '" title="' + rsc_jui_pag.go_to_page_title + '">';
                             }
                         } else if(value == 'back_buttons') {
                             if(showNavButtons) {
-                                nav_pane_html += '<div id="' + nav_top_id + '">' + rsc_jui_pag.go_top + '</div>';
-                                nav_pane_html += '<div id="' + nav_prev_id + '">' + rsc_jui_pag.go_prev + '</div>';
+                                nav_pane_html += '<div id="' + nav_top_id + '">' + rsc_jui_pag.go_top_text + '</div>';
+                                nav_pane_html += '<div id="' + nav_prev_id + '">' + rsc_jui_pag.go_prev_text + '</div>';
                             }
                         } else if(value == 'current_page_label') {
                             if(showLabelCurrentPage) {
-                                nav_pane_html += '<div id="' + current_label_id + '">' + rsc_jui_pag.page_label + '</div>';
+                                nav_pane_html += '<div id="' + current_label_id + '">' + rsc_jui_pag.current_page_label + '</div>';
                             }
                         } else if(value == 'current_page') {
                             if(showCurrentPage) {
@@ -184,13 +187,19 @@
                             }
                         } else if(value == 'forward_buttons') {
                             if(showNavButtons) {
-                                nav_pane_html += '<div id="' + nav_next_id + '">' + rsc_jui_pag.go_next + '</div>';
-                                nav_pane_html += '<div id="' + nav_last_id + '">' + rsc_jui_pag.go_last + '</div>';
+                                nav_pane_html += '<div id="' + nav_next_id + '">' + rsc_jui_pag.go_next_text + '</div>';
+                                nav_pane_html += '<div id="' + nav_last_id + '">' + rsc_jui_pag.go_last_text + '</div>';
                             }
                         } else if(value == 'rows_per_page') {
-
-                        } else if(value == 'rows_indicator') {
-
+                            if(showRowsPerPage) {
+                                nav_pane_html += '<input type="text" id="' + rows_per_page_id + '" ' +
+                                    'value="' + rowsPerPage + '" ' +
+                                    'title="' + rsc_jui_pag.rows_per_page_title + '">';
+                            }
+                        } else if(value == 'rows_info') {
+                            if(showRowsInfo) {
+                                nav_pane_html += '<div id="' + rows_info_id + '"></div>';
+                            }
                         }
 
                     });
@@ -201,21 +210,27 @@
                     // apply style
                     $("#" + nav_pane_id).removeClass().addClass(navPaneClass);
 
+                    $("#" + slider_toggle_id).removeClass().addClass(navSliderToggleClass);
+
+                    $("#" + goto_page_id).removeClass().addClass(navGoToPageClass);
+
                     $("#" + current_label_id).removeClass().addClass(navCurrentPageLabelClass);
                     $("#" + current_id).removeClass().addClass(navCurrentPageClass);
 
                     $("#" + nav_top_id).removeClass().addClass(navButtonTopClass);
                     $("#" + nav_prev_id).removeClass().addClass(navButtonPrevClass);
-                    //$("#" + nav_dots_left_id).removeClass().addClass(navDotsLeftClass);
 
                     $("#" + nav_pages_id).removeClass().addClass(navPagesClass);
 
-                    //$("#" + nav_dots_right_id).removeClass().addClass(navDotsRightClass);
                     $("#" + nav_next_id).removeClass().addClass(navButtonNextClass);
                     $("#" + nav_last_id).removeClass().addClass(navButtonLastClass);
 
                     $("#" + total_label_id).removeClass().addClass(navTotalPagesLabelClass);
                     $("#" + total_id).removeClass().addClass(navTotalPagesClass);
+
+                    $("#" + rows_per_page_id).removeClass().addClass(navRowsPerPageClass);
+
+                    $("#" + rows_info_id).removeClass().addClass(navInfoClass);
 
                     create_nav_items(container_id);
 
@@ -267,8 +282,51 @@
                         } else if(navPagesMode == 'first-last-always-visible') {
                             change_page(container_id, goto_page, true, true);
                         }
-
                     });
+
+                    // go to page event
+                    if(showGoToPage) {
+                        selector = "#" + goto_page_id;
+                        $("#" + nav_pane_id).off('keypress', selector).on('keypress', selector, function(event) {
+                            if(event.which === 13) {
+                                var gtp = parseInt($(event.target).val());
+                                $("#" + goto_page_id).val('');
+                                if(!isNaN(gtp) && gtp > 0) {
+                                    goto_page = gtp;
+                                    if(goto_page > settings.totalPages) {
+                                        goto_page = settings.totalPages;
+                                    }
+                                    change_page(container_id, goto_page, true, true);
+                                } else {
+                                    elem.triggerHandler("onChangePage", gtp);
+                                }
+                            } else {
+                                if(!(event.which === 8 || event.which === 0 || (event.shiftKey === false && (event.which > 47 && event.which < 58)))) {
+                                    event.preventDefault();
+                                }
+                            }
+                        });
+                    }
+
+                    // rows per page event
+                    if(showRowsPerPage) {
+                        selector = "#" + rows_per_page_id;
+                        $("#" + nav_pane_id).off('keypress', selector).on('keypress', selector, function(event) {
+                            if(event.which === 13) {
+                                var rpp = parseInt($(event.target).val());
+                                if(!isNaN(rpp) && rpp > 0) {
+                                    settings.rowsPerPage = rpp;
+                                } else {
+                                    $("#" + rows_per_page_id).val(settings.rowsPerPage);
+                                }
+                                elem.triggerHandler("onSetRowsPerPage", rpp);
+                            } else {
+                                if(!(event.which === 8 || event.which === 0 || (event.shiftKey === false && (event.which > 47 && event.which < 58)))) {
+                                    event.preventDefault();
+                                }
+                            }
+                        });
+                    }
 
                     if(disableSelectionNavPane) {
                         disableSelection($("#" + nav_pane_id));
@@ -310,6 +368,8 @@
                     }
                 }
 
+                elem.triggerHandler('onDisplay');
+
             });
 
         },
@@ -324,6 +384,7 @@
                 currentPage: 1,
                 visiblePageLinks: 5,
                 maxVisiblePageLinks: 20,
+                rowsPerPage: 10,
 
                 useNavPane: true,
                 navPaneElementID: false, // if given, nav pane appears outside container inside specified element
@@ -338,7 +399,7 @@
                     'total_pages',
                     'forward_buttons',
                     'rows_per_page',
-                    'rows_indicator'
+                    'rows_info'
                 ],
 
                 useSlider: true,
@@ -346,7 +407,7 @@
                 useSliderWithPagesCount: 0, // show slider over specified number of pages
                 sliderOrientation: 'horizontal',
 
-                showSliderToggle: true,
+                showSliderToggle: false,
                 showGoToPage: false,
                 showNavButtons: false,
                 showLabelCurrentPage: true,
@@ -356,10 +417,10 @@
                 showLabelTotalPages: false,
                 showTotalPages: false,
                 showRowsPerPage: false,
-                showRowsIndicator: false,
+                showRowsInfo: false,
 
                 navPaneClass: 'nav-pane ui-widget ui-widget-header ui-corner-all',
-                navSliderToggleClass: 'ui-icon ui-icon-arrowthick-2-e-w ui-widget-header slider-toggle',
+                navSliderToggleClass: 'slider-toggle ui-widget-header ui-icon ui-icon-arrowthick-2-e-w',
                 navSliderToggleClickClass: 'click-slider-toggle',
                 navGoToPageClass: 'goto-page',
                 navButtonTopClass: 'nav-button-top ui-widget-header',
@@ -369,7 +430,7 @@
                 navDotsLeftClass: 'nav-dots-left',
                 navPagesClass: 'nav-pages',
                 navItemClass: 'nav-item ui-widget-header ui-corner-all',
-                navItemSelectedClass: 'nav-item ui-state-highlight ui-widget-header ui-corner-all',
+                navItemSelectedClass: 'nav-item ui-widget-header ui-corner-all ui-state-highlight',
                 navItemHoverClass: 'ui-state-hover',
                 navDotsRightClass: 'nav-dots-right',
                 navTotalPagesLabelClass: 'total-pages-label',
@@ -377,7 +438,7 @@
                 navButtonNextClass: 'nav-button-next ui-widget-header',
                 navButtonLastClass: 'nav-button-last ui-widget-header',
                 navRowsPerPageClass: 'rows-per-page',
-                navIndicatorClass: 'rows-indicator',
+                navInfoClass: 'rows-info',
                 sliderClass: 'nav-slider',
 
                 nav_pane_id_prefix: 'nav_pane_',
@@ -396,12 +457,16 @@
                 nav_total_pages_label_id_prefix: 'total_pages_lbl_',
                 nav_total_pages_id_prefix: 'total_pages_',
                 nav_rows_per_page_id_prefix: 'rows_per_page_',
-                nav_rows_indicator_id_prefix: 'rows_info_',
+                nav_rows_info_id_prefix: 'rows_info_',
                 slider_id_prefix: 'sld_',
 
                 disableSelectionNavPane: false, // disable text selection and double click (jquery >= 1.8)
 
                 onChangePage: function() {
+                },
+                onSetRowsPerPage: function() {
+                },
+                onDisplay: function() {
                 }
             };
             return defaults;

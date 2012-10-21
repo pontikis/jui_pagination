@@ -21,7 +21,28 @@ $(function() {
         disableSelectionNavPane: true,
 
         onChangePage: function(event, page_num) {
-            $("#result").html('Page changed to: ' + page_num);
+            if(isNaN(page_num) || page_num <= 0) {
+                alert('Invalid page' + ' (' + page_num + ')');
+            } else {
+                $("#result").html('Page changed to: ' + page_num);
+            }
+        },
+        onSetRowsPerPage: function(event, rpp) {
+            if(isNaN(rpp) || rpp <= 0) {
+                alert('Invalid rows per page' + ' (' + rpp + ')');
+            } else {
+                alert('rows per page successfully changed' + ' (' + rpp + ')');
+                $(this).jui_pagination({
+                    rowsPerPage: rpp
+                })
+            }
+        },
+        onDisplay: function() {
+            var showRowsInfo = $(this).jui_pagination('getOption', 'showRowsInfo');
+            if(showRowsInfo) {
+                var prefix = $(this).jui_pagination('getOption', 'nav_rows_info_id_prefix');
+                $("#" + prefix + $(this).attr("id")).text('Test info');
+            }
         }
     });
 
@@ -61,16 +82,16 @@ $(function() {
      * various tests -----------------------------------------------------------
      */
 
-    // mode -----------------------------------
+        // mode -----------------------------------
     $('[id$="mode_first-last-always-visible"]').click(function() {
-        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0,1);
+        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0, 1);
         $(elem_selector).jui_pagination({
             navPagesMode: 'first-last-always-visible'
         })
     });
 
     $('[id$="mode_continuous"]').click(function() {
-        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0,1);
+        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0, 1);
         $(elem_selector).jui_pagination({
             navPagesMode: 'continuous'
         })
@@ -79,7 +100,7 @@ $(function() {
     // show ----------------------------------
     $('[id$="show_panel"]').click(function() {
         var state = $(this).is(":checked");
-        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0,1);
+        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0, 1);
         $(elem_selector).jui_pagination({
             useNavPane: state
         })
@@ -87,15 +108,31 @@ $(function() {
 
     $('[id$="show_slider"]').click(function() {
         var state = $(this).is(":checked");
-        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0,1);
+        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0, 1);
         $(elem_selector).jui_pagination({
             useSlider: state
         })
     });
 
+    $('[id$="show_slider_toggle"]').click(function() {
+        var state = $(this).is(":checked");
+        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0, 1);
+        $(elem_selector).jui_pagination({
+            showSliderToggle: state
+        })
+    });
+
+    $('[id$="show_goto_page"]').click(function() {
+        var state = $(this).is(":checked");
+        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0, 1);
+        $(elem_selector).jui_pagination({
+            showGoToPage: state
+        })
+    });
+
     $('[id$="show_nav_buttons"]').click(function() {
         var state = $(this).is(":checked");
-        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0,1);
+        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0, 1);
         $(elem_selector).jui_pagination({
             showNavButtons: state
         })
@@ -103,7 +140,7 @@ $(function() {
 
     $('[id$="show_label_page"]').click(function() {
         var state = $(this).is(":checked");
-        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0,1);
+        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0, 1);
         $(elem_selector).jui_pagination({
             showLabelCurrentPage: state
         })
@@ -111,7 +148,7 @@ $(function() {
 
     $('[id$="show_page"]').click(function() {
         var state = $(this).is(":checked");
-        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0,1);
+        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0, 1);
         $(elem_selector).jui_pagination({
             showCurrentPage: state
         })
@@ -119,7 +156,7 @@ $(function() {
 
     $('[id$="show_nav_pages"]').click(function() {
         var state = $(this).is(":checked");
-        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0,1);
+        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0, 1);
         $(elem_selector).jui_pagination({
             showNavPages: state
         })
@@ -128,7 +165,7 @@ $(function() {
 
     $('[id$="show_label_total_pages"]').click(function() {
         var state = $(this).is(":checked");
-        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0,1);
+        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0, 1);
         $(elem_selector).jui_pagination({
             showLabelTotalPages: state
         })
@@ -136,7 +173,7 @@ $(function() {
 
     $('[id$="show_total_pages"]').click(function() {
         var state = $(this).is(":checked");
-        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0,1);
+        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0, 1);
         $(elem_selector).jui_pagination({
             showTotalPages: state
         })
@@ -144,13 +181,27 @@ $(function() {
 
     $('[id$="show_total_pages"]').click(function() {
         var state = $(this).is(":checked");
-        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0,1);
+        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0, 1);
         $(elem_selector).jui_pagination({
             showTotalPages: state
         })
     });
 
+    $('[id$="show_rows_per_page"]').click(function() {
+        var state = $(this).is(":checked");
+        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0, 1);
+        $(elem_selector).jui_pagination({
+            showRowsPerPage: state
+        })
+    });
 
+    $('[id$="show_rows_info"]').click(function() {
+        var state = $(this).is(":checked");
+        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0, 1);
+        $(elem_selector).jui_pagination({
+            showRowsInfo: state
+        })
+    });
 
     // test some options (demo_pag1) ----------------------------
     $("#1visiblePageLinks_set").click(function() {
