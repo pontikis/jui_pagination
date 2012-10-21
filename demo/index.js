@@ -93,11 +93,52 @@ $(function() {
         })
     });
 
+    $('[id$="show_nav_buttons"]').click(function() {
+        var state = $(this).is(":checked");
+        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0,1);
+        $(elem_selector).jui_pagination({
+            showNavButtons: state
+        })
+    });
+
     $('[id$="show_label_page"]').click(function() {
         var state = $(this).is(":checked");
         var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0,1);
         $(elem_selector).jui_pagination({
-            showLabelPage: state
+            showLabelCurrentPage: state
+        })
+    });
+
+    $('[id$="show_page"]').click(function() {
+        var state = $(this).is(":checked");
+        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0,1);
+        $(elem_selector).jui_pagination({
+            showCurrentPage: state
+        })
+    });
+
+    $('[id$="show_nav_pages"]').click(function() {
+        var state = $(this).is(":checked");
+        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0,1);
+        $(elem_selector).jui_pagination({
+            showNavPages: state
+        })
+    });
+
+
+    $('[id$="show_label_total_pages"]').click(function() {
+        var state = $(this).is(":checked");
+        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0,1);
+        $(elem_selector).jui_pagination({
+            showLabelTotalPages: state
+        })
+    });
+
+    $('[id$="show_total_pages"]').click(function() {
+        var state = $(this).is(":checked");
+        var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0,1);
+        $(elem_selector).jui_pagination({
+            showTotalPages: state
         })
     });
 

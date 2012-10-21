@@ -150,45 +150,50 @@
                     $.each(nav_pane_display_order, function(index, value) {
 
                         if(value == 'slider_toggle') {
+                            if(showSliderToggle) {
 
-                        } else if (value == 'go_to_page') {
+                            }
+                        } else if(value == 'go_to_page') {
+                            if(showGoToPage) {
 
-                        } else if (value == 'back_buttons') {
+                            }
+                        } else if(value == 'back_buttons') {
                             if(showNavButtons) {
                                 nav_pane_html += '<div id="' + nav_top_id + '">' + rsc_jui_pag.go_top + '</div>';
                                 nav_pane_html += '<div id="' + nav_prev_id + '">' + rsc_jui_pag.go_prev + '</div>';
                             }
-                        } else if (value == 'current_page_label') {
+                        } else if(value == 'current_page_label') {
                             if(showLabelCurrentPage) {
-                                nav_pane_html += '<div id="' + current_label_id + '">' + rsc_jui_pag.page_label+ '</div>';
+                                nav_pane_html += '<div id="' + current_label_id + '">' + rsc_jui_pag.page_label + '</div>';
                             }
-                        } else if (value == 'current_page') {
+                        } else if(value == 'current_page') {
                             if(showCurrentPage) {
                                 nav_pane_html += '<div id="' + current_id + '">' + currentPage + '</div>';
                             }
-                        } else if (value == 'nav_items') {
-                            nav_pane_html += '<div id="' + nav_pages_id + '"></div>';
-                        } else if (value == 'total_pages_label') {
+                        } else if(value == 'nav_items') {
+                            if(showNavPages) {
+                                nav_pane_html += '<div id="' + nav_pages_id + '"></div>';
+                            }
+                        } else if(value == 'total_pages_label') {
                             if(showLabelTotalPages) {
                                 nav_pane_html += '<div id="' + total_label_id + '">' + rsc_jui_pag.total_pages_label + '</div>';
                             }
-                        } else if (value == 'total_pages') {
+                        } else if(value == 'total_pages') {
                             if(showTotalPages) {
                                 nav_pane_html += '<div id="' + total_id + '">' + totalPages + '</div>';
                             }
-                        } else if (value == 'forward_buttons') {
+                        } else if(value == 'forward_buttons') {
                             if(showNavButtons) {
                                 nav_pane_html += '<div id="' + nav_next_id + '">' + rsc_jui_pag.go_next + '</div>';
                                 nav_pane_html += '<div id="' + nav_last_id + '">' + rsc_jui_pag.go_last + '</div>';
                             }
-                        } else if (value == 'rows_per_page') {
+                        } else if(value == 'rows_per_page') {
 
-                        } else if (value == 'rows_indicator') {
+                        } else if(value == 'rows_indicator') {
 
                         }
 
                     });
-
 
                     // set nav_pane_html
                     $("#" + nav_pane_id).html(nav_pane_html);
@@ -196,18 +201,20 @@
                     // apply style
                     $("#" + nav_pane_id).removeClass().addClass(navPaneClass);
 
+                    $("#" + current_label_id).removeClass().addClass(navCurrentPageLabelClass);
                     $("#" + current_id).removeClass().addClass(navCurrentPageClass);
 
                     $("#" + nav_top_id).removeClass().addClass(navButtonTopClass);
                     $("#" + nav_prev_id).removeClass().addClass(navButtonPrevClass);
-                    $("#" + nav_dots_left_id).removeClass().addClass(navDotsLeftClass);
+                    //$("#" + nav_dots_left_id).removeClass().addClass(navDotsLeftClass);
 
                     $("#" + nav_pages_id).removeClass().addClass(navPagesClass);
 
-                    $("#" + nav_dots_right_id).removeClass().addClass(navDotsRightClass);
+                    //$("#" + nav_dots_right_id).removeClass().addClass(navDotsRightClass);
                     $("#" + nav_next_id).removeClass().addClass(navButtonNextClass);
                     $("#" + nav_last_id).removeClass().addClass(navButtonLastClass);
 
+                    $("#" + total_label_id).removeClass().addClass(navTotalPagesLabelClass);
                     $("#" + total_id).removeClass().addClass(navTotalPagesClass);
 
                     create_nav_items(container_id);
@@ -226,15 +233,19 @@
                         // click on go to prev button
                         selector = "#" + nav_prev_id;
                         $("#" + nav_pane_id).off('click', selector).on('click', selector, function() {
-                            goto_page = parseInt(settings.currentPage) - 1;
-                            change_page(container_id, goto_page, true, true);
+                            if(settings.currentPage > 1) {
+                                goto_page = parseInt(settings.currentPage) - 1;
+                                change_page(container_id, goto_page, true, true);
+                            }
                         });
 
                         // click on go to next button
                         selector = "#" + nav_next_id;
                         $("#" + nav_pane_id).off('click', selector).on('click', selector, function() {
-                            goto_page = parseInt(settings.currentPage) + 1;
-                            change_page(container_id, goto_page, true, true);
+                            if(settings.currentPage < settings.totalPages) {
+                                goto_page = parseInt(settings.currentPage) + 1;
+                                change_page(container_id, goto_page, true, true);
+                            }
                         });
 
                         // click on go to end button
@@ -540,6 +551,15 @@
         var currentPage = s.currentPage;
         var visiblePageLinks = s.visiblePageLinks;
 
+        var showNavPages = s.showNavPages;
+        var showNavButtons = s.showNavButtons;
+
+        var navItemClass = s.navItemClass;
+        var navItemSelectedClass = s.navItemSelectedClass;
+        var navItemHoverClass = s.navItemHoverClass;
+        var navDotsLeftClass = s.navDotsLeftClass;
+        var navDotsRightClass = s.navDotsRightClass;
+
         var nav_top_id = s.nav_top_id_prefix + container_id;
         var nav_prev_id = s.nav_prev_id_prefix + container_id;
         var nav_dots_left_id = s.nav_dots_left_id_prefix + container_id;
@@ -548,12 +568,6 @@
         var nav_dots_right_id = s.nav_dots_right_id_prefix + container_id;
         var nav_next_id = s.nav_next_id_prefix + container_id;
         var nav_last_id = s.nav_last_id_prefix + container_id;
-
-        var navItemClass = s.navItemClass;
-        var navItemSelectedClass = s.navItemSelectedClass;
-        var navItemHoverClass = s.navItemHoverClass;
-        var navDotsLeftClass = s.navDotsLeftClass;
-        var navDotsRightClass = s.navDotsRightClass;
 
         var nav_html = '';
         var goto = elem.data('goto');
@@ -592,24 +606,34 @@
             elem.data('nav_end', nav_end);
 
             // show - hide nav controls
-            var selector = '';
-            selector = "#" + nav_top_id + ', ' + "#" + nav_prev_id + ', ' + "#" + nav_dots_left_id;
-            if(nav_start > 1) {
-                $(selector).show();
-            } else {
-                $(selector).hide();
-            }
+            if(showNavButtons) {
+                var tmp = (showNavPages ? nav_start : goto);
+                var selector = '';
+                selector = "#" + nav_top_id + ', ' + "#" + nav_prev_id;
+                if(tmp > 1) {
+                    $(selector).show();
+                } else {
+                    $(selector).hide();
+                }
 
-            selector = "#" + nav_dots_right_id + ', ' + "#" + nav_next_id + ', ' + "#" + nav_last_id;
-            if(nav_end < totalPages) {
-                $(selector).show();
-            } else {
-                $(selector).hide();
+                tmp = (showNavPages ? nav_end : goto);
+                selector = "#" + nav_next_id + ', ' + "#" + nav_last_id;
+                if(tmp < totalPages) {
+                    $(selector).show();
+                } else {
+                    $(selector).hide();
+                }
             }
 
             // create nav pages html
+            if(nav_start > 1) {
+                nav_html += '<div id="' + nav_dots_left_id + '">...</div>';
+            }
             for(var i = nav_start; i <= nav_end; i++) {
                 nav_html += '<div id="' + nav_item_id_prefix + i + '">' + i + '</div>';
+            }
+            if(nav_end < totalPages) {
+                nav_html += '<div id="' + nav_dots_right_id + '">...</div>';
             }
             $("#" + nav_pages_id).html(nav_html);
 
@@ -648,12 +672,29 @@
             }
             $("#" + nav_pages_id).html(nav_html);
 
+            // show - hide nav controls
+            if(showNavButtons) {
+                var selector = '';
+                selector = "#" + nav_top_id + ', ' + "#" + nav_prev_id;
+                if(goto > 1) {
+                    $(selector).show();
+                } else {
+                    $(selector).hide();
+                }
 
-            $("#" + nav_dots_left_id).removeClass().addClass(navDotsLeftClass);
-            $("#" + nav_dots_right_id).removeClass().addClass(navDotsRightClass);
+                selector = "#" + nav_next_id + ', ' + "#" + nav_last_id;
+                if(goto < totalPages) {
+                    $(selector).show();
+                } else {
+                    $(selector).hide();
+                }
+            }
         }
 
         // apply style for navigation items (pages)
+        $("#" + nav_dots_left_id).removeClass().addClass(navDotsLeftClass);
+        $("#" + nav_dots_right_id).removeClass().addClass(navDotsRightClass);
+
         $('[id^="' + nav_item_id_prefix + '"]').removeClass().addClass(navItemClass);
         $("#" + nav_item_id_prefix + goto).removeClass().addClass(navItemSelectedClass);
 
@@ -683,6 +724,8 @@
 
         var totalPages = s.totalPages;
 
+        var showCurrentPage = s.showCurrentPage;
+
         var sliderElementID = s.sliderElementID;
         var slider_id = (!sliderElementID ? s.slider_id_prefix + container_id : sliderElementID);
         var sliderOrientation = s.sliderOrientation;
@@ -696,6 +739,11 @@
         // change selected page, applying appropriate styles
         $('[id^="' + nav_item_id_prefix + '"]').removeClass().addClass(navItemClass);
         $("#" + nav_item_id_prefix + goto_page).removeClass().addClass(navItemSelectedClass);
+
+        // update current page indicator
+        if(showCurrentPage) {
+            $("#" + current_id).text(goto_page);
+        }
 
         // update slider if exists
         if(update_slider) {
