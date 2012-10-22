@@ -6,8 +6,6 @@
  *
  */
 var rsc_jui_pag = {
-    slider_toggle_text: '<->',
-    slider_toggle_title: 'Slider toggle',
     go_to_page_title: 'Go to page',
     rows_per_page_title: 'Rows per page',
     current_page_label: 'Page',
@@ -15,5 +13,8 @@ var rsc_jui_pag = {
     go_top_text: '&laquo;',
     go_prev_text: '&larr;',
     go_next_text: '&rarr;',
-    go_last_text: '&raquo;'
+    go_last_text: '&raquo;',
+    preferences_text: '&equiv;',
+    preferences_title: 'Preferences',
+    preferences_close: 'Close'
 };

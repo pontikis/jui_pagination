@@ -10,20 +10,6 @@ Write your own classes in other css file.
 }
 
 /* -------------------------------------------------------------------------- */
-.slider-toggle {
-    display: inline-block;
-    margin: 3px 10px 3px 3px;
-    font-size: 14px;
-    text-align: center;
-    padding-left: 2px;
-    padding-right: 2px;
-    vertical-align: middle;
-}
-
-.click-slider-toggle {
-    opacity: .6;
-}
-
 .goto-page {
     display: inline-block;
     background-image: url("images/bullet_go.png");
@@ -179,6 +165,12 @@ Write your own classes in other css file.
     padding-left: 2px;
     padding-right: 2px;
     vertical-align: middle;
+}
+
+.preferences {
+    float: right;
+    margin-top: 4px;
+    margin-right: 1px;
 }
 
 /* -------------------------------------------------------------------------- */

@@ -70,7 +70,6 @@
                 var useSliderWithPagesCount = settings.useSliderWithPagesCount;
                 var sliderOrientation = settings.sliderOrientation;
 
-                var showSliderToggle = settings.showSliderToggle;
                 var showGoToPage = settings.showGoToPage;
                 var showNavButtons = settings.showNavButtons;
                 var showLabelCurrentPage = settings.showLabelCurrentPage;
@@ -81,13 +80,12 @@
                 var showTotalPages = settings.showTotalPages;
                 var showRowsPerPage = settings.showRowsPerPage;
                 var showRowsInfo = settings.showRowsInfo;
+                var showPreferences = settings.showPreferences;
 
                 var nav_pane_display_order = settings.nav_pane_display_order;
 
                 var containerClass = settings.containerClass;
                 var navPaneClass = settings.navPaneClass;
-                var navSliderToggleClass = settings.navSliderToggleClass;
-                var navSliderToggleClickClass = settings.navSliderToggleClickClass;
                 var navGoToPageClass = settings.navGoToPageClass;
                 var navButtonTopClass = settings.navButtonTopClass;
                 var navButtonPrevClass = settings.navButtonPrevClass;
@@ -102,10 +100,10 @@
                 var navButtonLastClass = settings.navButtonLastClass;
                 var navRowsPerPageClass = settings.navRowsPerPageClass;
                 var navInfoClass = settings.navInfoClass;
+                var navPreferencesClass = settings.navPreferencesClass;
                 var sliderClass = settings.sliderClass;
 
                 var nav_pane_id = (!navPaneElementID ? settings.nav_pane_id_prefix + container_id : navPaneElementID);
-                var slider_toggle_id = settings.nav_slider_toggle_id_prefix + container_id;
                 var goto_page_id = settings.nav_goto_page_id_prefix + container_id;
                 var current_label_id = settings.nav_current_page_label_id_prefix + container_id;
                 var current_id = settings.nav_current_page_id_prefix + container_id;
@@ -121,6 +119,8 @@
                 var total_id = settings.nav_total_pages_id_prefix + container_id;
                 var rows_per_page_id = settings.nav_rows_per_page_id_prefix + container_id;
                 var rows_info_id = settings.nav_rows_info_id_prefix + container_id;
+                var preferences_id = settings.nav_preferences_id_prefix + container_id;
+                var pref_dialog_id = settings.nav_pref_dialog_id_prefix + container_id;
                 var slider_id = (!sliderElementID ? settings.slider_id_prefix + container_id : sliderElementID);
 
                 var disableSelectionNavPane = settings.disableSelectionNavPane;
@@ -150,13 +150,15 @@
 
                     var nav_pane_html = '';
 
+                    if(showPreferences) {
+                        nav_pane_html += '<div id="' + preferences_id +
+                            '" title="' + rsc_jui_pag.preferences_title + '">'
+                            + rsc_jui_pag.preferences_text + '</div>';
+                    }
+
                     $.each(nav_pane_display_order, function(index, value) {
 
-                        if(value == 'slider_toggle') {
-                            if(showSliderToggle) {
-                                nav_pane_html += '<div id="' + slider_toggle_id + '" title="' + rsc_jui_pag.slider_toggle_title  + '">' + rsc_jui_pag.slider_toggle_text + '</div>';
-                            }
-                        } else if(value == 'go_to_page') {
+                        if(value == 'go_to_page') {
                             if(showGoToPage) {
                                 nav_pane_html += '<input type="text" id="' + goto_page_id + '" title="' + rsc_jui_pag.go_to_page_title + '">';
                             }
@@ -210,8 +212,6 @@
                     // apply style
                     $("#" + nav_pane_id).removeClass().addClass(navPaneClass);
 
-                    $("#" + slider_toggle_id).removeClass().addClass(navSliderToggleClass);
-
                     $("#" + goto_page_id).removeClass().addClass(navGoToPageClass);
 
                     $("#" + current_label_id).removeClass().addClass(navCurrentPageLabelClass);
@@ -231,6 +231,8 @@
                     $("#" + rows_per_page_id).removeClass().addClass(navRowsPerPageClass);
 
                     $("#" + rows_info_id).removeClass().addClass(navInfoClass);
+
+                    $("#" + preferences_id).removeClass().addClass(navPreferencesClass);
 
                     create_nav_items(container_id);
 
@@ -328,6 +330,8 @@
                         });
                     }
 
+
+
                     if(disableSelectionNavPane) {
                         disableSelection($("#" + nav_pane_id));
                     }
@@ -368,6 +372,42 @@
                     }
                 }
 
+                /* CREATE PREFERENCES DIALOG -------------------------------- */
+                if($('#' + pref_dialog_id).length == 0) {
+                    var pref_html = '<div id="' + pref_dialog_id + '"></div>';
+                    elem.append(pref_html);
+
+                    $("#" + pref_dialog_id).dialog({
+                        autoOpen: false,
+                        show: "blind",
+                        hide: "explode",
+                        position: {
+                            my: "top",
+                            at: "bottom",
+                            of: '#' + container_id
+                        },
+                        title: rsc_jui_pag.preferences_title,
+                        buttons:
+                        [{
+                            text: rsc_jui_pag.preferences_close,
+                            click: function() {
+                                $(this).dialog("close");
+                            }
+
+                        }],
+                        open: create_preferences(container_id)
+                    })
+                }
+
+                if(showPreferences) {
+
+                    selector = "#" + preferences_id;
+                    $("#" + nav_pane_id).off('click', selector).on('click', selector, function(event) {
+                        $("#" + pref_dialog_id).dialog("open");
+                        return false;
+                    });
+                }
+
                 elem.triggerHandler('onDisplay');
 
             });
@@ -389,7 +429,6 @@
                 useNavPane: true,
                 navPaneElementID: false, // if given, nav pane appears outside container inside specified element
                 nav_pane_display_order: [
-                    'slider_toggle',
                     'go_to_page',
                     'back_buttons',
                     'current_page_label',
@@ -407,7 +446,7 @@
                 useSliderWithPagesCount: 0, // show slider over specified number of pages
                 sliderOrientation: 'horizontal',
 
-                showSliderToggle: false,
+                showPreferences: true,
                 showGoToPage: false,
                 showNavButtons: false,
                 showLabelCurrentPage: true,
@@ -420,9 +459,7 @@
                 showRowsInfo: false,
 
                 navPaneClass: 'nav-pane ui-widget ui-widget-header ui-corner-all',
-                navSliderToggleClass: 'slider-toggle ui-widget-header ui-icon ui-icon-arrowthick-2-e-w',
-                navSliderToggleClickClass: 'click-slider-toggle',
-                navGoToPageClass: 'goto-page',
+                navGoToPageClass: 'goto-page ui-corner-all',
                 navButtonTopClass: 'nav-button-top ui-widget-header',
                 navButtonPrevClass: 'nav-button-prev ui-widget-header',
                 navCurrentPageLabelClass: 'current-page-label',
@@ -437,12 +474,14 @@
                 navTotalPagesClass: 'total-pages',
                 navButtonNextClass: 'nav-button-next ui-widget-header',
                 navButtonLastClass: 'nav-button-last ui-widget-header',
-                navRowsPerPageClass: 'rows-per-page',
+                navRowsPerPageClass: 'rows-per-page ui-corner-all',
                 navInfoClass: 'rows-info',
+                navPreferencesClass: 'preferences ui-icon ui-icon-signal',
                 sliderClass: 'nav-slider',
 
                 nav_pane_id_prefix: 'nav_pane_',
-                nav_slider_toggle_id_prefix: 'sld_toggle_',
+                nav_preferences_id_prefix: 'pref_',
+                nav_pref_dialog_id_prefix: 'pref_dlg_',
                 nav_goto_page_id_prefix: 'goto_page_',
                 nav_current_page_label_id_prefix: 'current_page_lbl_',
                 nav_current_page_id_prefix: 'current_page_',
@@ -598,6 +637,18 @@
             $("#" + container_id).data('error_occured', true);
             $.error(err_msg);
         }
+    }
+
+
+    /**
+     * Create preferences
+     * @param plugin_container_id
+     */
+    var create_preferences = function(plugin_container_id) {
+        var prefix = $("#" + plugin_container_id).jui_pagination('getOption', 'nav_pref_dialog_id_prefix');
+        var dialog_id = prefix + plugin_container_id;
+
+        $("#" + dialog_id).html('test1 test2 test3');
     }
 
     /**
