@@ -16,5 +16,8 @@ var rsc_jui_pag = {
     go_last_text: '&raquo;',
     preferences_text: '&equiv;',
     preferences_title: 'Preferences',
-    preferences_close: 'Close'
+    preferences_close: 'Close',
+    pref_show_slider: 'Show slider',
+    pref_show_goto_page: 'Show go to page',
+    pref_show_rows_per_page: 'Show rows per page'
 };

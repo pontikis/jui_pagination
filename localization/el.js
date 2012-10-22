@@ -16,5 +16,8 @@ var rsc_jui_pag = {
     go_last_text: '&raquo;',
     preferences_text: '&equiv;',
     preferences_title: 'Προτιμήσεις',
-    preferences_close: 'Εντάξει'
+    preferences_close: 'Εντάξει',
+    pref_show_slider: 'Ολισθαίνων μετρητής',
+    pref_show_goto_page: 'Μετακίνηση στη σελίδα',
+    pref_show_rows_per_page: 'Εγγραφές ανά σελίδα'
 };

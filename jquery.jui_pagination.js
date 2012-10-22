@@ -100,7 +100,7 @@
                 var navButtonLastClass = settings.navButtonLastClass;
                 var navRowsPerPageClass = settings.navRowsPerPageClass;
                 var navInfoClass = settings.navInfoClass;
-                var navPreferencesClass = settings.navPreferencesClass;
+                var preferencesClass = settings.preferencesClass;
                 var sliderClass = settings.sliderClass;
 
                 var nav_pane_id = (!navPaneElementID ? settings.nav_pane_id_prefix + container_id : navPaneElementID);
@@ -119,8 +119,8 @@
                 var total_id = settings.nav_total_pages_id_prefix + container_id;
                 var rows_per_page_id = settings.nav_rows_per_page_id_prefix + container_id;
                 var rows_info_id = settings.nav_rows_info_id_prefix + container_id;
-                var preferences_id = settings.nav_preferences_id_prefix + container_id;
-                var pref_dialog_id = settings.nav_pref_dialog_id_prefix + container_id;
+                var preferences_id = settings.preferences_id_prefix + container_id;
+                var pref_dialog_id = settings.pref_dialog_id_prefix + container_id;
                 var slider_id = (!sliderElementID ? settings.slider_id_prefix + container_id : sliderElementID);
 
                 var disableSelectionNavPane = settings.disableSelectionNavPane;
@@ -232,7 +232,7 @@
 
                     $("#" + rows_info_id).removeClass().addClass(navInfoClass);
 
-                    $("#" + preferences_id).removeClass().addClass(navPreferencesClass);
+                    $("#" + preferences_id).removeClass().addClass(preferencesClass);
 
                     create_nav_items(container_id);
 
@@ -377,36 +377,60 @@
                     var pref_html = '<div id="' + pref_dialog_id + '"></div>';
                     elem.append(pref_html);
 
-                    $("#" + pref_dialog_id).dialog({
-                        autoOpen: false,
-                        show: "blind",
-                        hide: "explode",
-                        position: {
-                            my: "top",
-                            at: "bottom",
-                            of: '#' + container_id
-                        },
-                        title: rsc_jui_pag.preferences_title,
-                        buttons:
-                        [{
-                            text: rsc_jui_pag.preferences_close,
-                            click: function() {
-                                $(this).dialog("close");
-                            }
 
-                        }],
-                        open: create_preferences(container_id)
-                    })
                 }
 
                 if(showPreferences) {
 
                     selector = "#" + preferences_id;
                     $("#" + nav_pane_id).off('click', selector).on('click', selector, function(event) {
-                        $("#" + pref_dialog_id).dialog("open");
-                        return false;
+                        $("#" + pref_dialog_id).dialog({
+                            autoOpen: true,
+                            show: "blind",
+                            hide: "explode",
+                            position: {
+                                my: "top",
+                                at: "bottom",
+                                of: '#' + container_id
+                            },
+                            title: rsc_jui_pag.preferences_title,
+                            buttons:
+                                [{
+                                    text: rsc_jui_pag.preferences_close,
+                                    click: function() {
+                                        $(this).dialog("close");
+                                        $(this).dialog('destroy');
+                                    }
+
+                                }],
+                            open: create_preferences(container_id)
+                        })
                     });
                 }
+
+                selector = "#" + pref_dialog_id + '_slider';
+                $("#" + pref_dialog_id).off('click', selector).on('click', selector, function(event) {
+                    var state = $(event.target).is(":checked");
+                    elem.jui_pagination({
+                        useSlider: state
+                    })
+                });
+
+                selector = "#" + pref_dialog_id + '_goto_page';
+                $("#" + pref_dialog_id).off('click', selector).on('click', selector, function(event) {
+                    var state = $(event.target).is(":checked");
+                    elem.jui_pagination({
+                        showGoToPage: state
+                    })
+                });
+
+                selector = "#" + pref_dialog_id + '_rows_per_page';
+                $("#" + pref_dialog_id).off('click', selector).on('click', selector, function(event) {
+                    var state = $(event.target).is(":checked");
+                    elem.jui_pagination({
+                        showRowsPerPage: state
+                    })
+                });
 
                 elem.triggerHandler('onDisplay');
 
@@ -446,7 +470,6 @@
                 useSliderWithPagesCount: 0, // show slider over specified number of pages
                 sliderOrientation: 'horizontal',
 
-                showPreferences: true,
                 showGoToPage: false,
                 showNavButtons: false,
                 showLabelCurrentPage: true,
@@ -457,11 +480,12 @@
                 showTotalPages: false,
                 showRowsPerPage: false,
                 showRowsInfo: false,
+                showPreferences: true,
 
                 navPaneClass: 'nav-pane ui-widget ui-widget-header ui-corner-all',
                 navGoToPageClass: 'goto-page ui-corner-all',
-                navButtonTopClass: 'nav-button-top ui-widget-header',
-                navButtonPrevClass: 'nav-button-prev ui-widget-header',
+                navButtonTopClass: 'nav-button-top ui-icon ui-icon-seek-first',
+                navButtonPrevClass: 'nav-button-prev ui-icon ui-icon-seek-prev',
                 navCurrentPageLabelClass: 'current-page-label',
                 navCurrentPageClass: 'current-page',
                 navDotsLeftClass: 'nav-dots-left',
@@ -472,16 +496,14 @@
                 navDotsRightClass: 'nav-dots-right',
                 navTotalPagesLabelClass: 'total-pages-label',
                 navTotalPagesClass: 'total-pages',
-                navButtonNextClass: 'nav-button-next ui-widget-header',
-                navButtonLastClass: 'nav-button-last ui-widget-header',
+                navButtonNextClass: 'nav-button-next  ui-icon ui-icon-seek-next',
+                navButtonLastClass: 'nav-button-last  ui-icon ui-icon-seek-end',
                 navRowsPerPageClass: 'rows-per-page ui-corner-all',
                 navInfoClass: 'rows-info',
-                navPreferencesClass: 'preferences ui-icon ui-icon-signal',
                 sliderClass: 'nav-slider',
+                preferencesClass: 'preferences ui-icon ui-icon-signal',
 
                 nav_pane_id_prefix: 'nav_pane_',
-                nav_preferences_id_prefix: 'pref_',
-                nav_pref_dialog_id_prefix: 'pref_dlg_',
                 nav_goto_page_id_prefix: 'goto_page_',
                 nav_current_page_label_id_prefix: 'current_page_lbl_',
                 nav_current_page_id_prefix: 'current_page_',
@@ -498,6 +520,8 @@
                 nav_rows_per_page_id_prefix: 'rows_per_page_',
                 nav_rows_info_id_prefix: 'rows_info_',
                 slider_id_prefix: 'sld_',
+                preferences_id_prefix: 'pref_',
+                pref_dialog_id_prefix: 'pref_dlg_',
 
                 disableSelectionNavPane: false, // disable text selection and double click (jquery >= 1.8)
 
@@ -645,10 +669,44 @@
      * @param plugin_container_id
      */
     var create_preferences = function(plugin_container_id) {
-        var prefix = $("#" + plugin_container_id).jui_pagination('getOption', 'nav_pref_dialog_id_prefix');
+        var prefix = $("#" + plugin_container_id).jui_pagination('getOption', 'pref_dialog_id_prefix');
         var dialog_id = prefix + plugin_container_id;
+        var pref_id = '';
+        var state;
 
-        $("#" + dialog_id).html('test1 test2 test3');
+        var pref_html = '';
+        pref_html += '<ul>';
+
+        pref_id = dialog_id + '_slider';
+        pref_html += '<li>';
+        pref_html += '<input type="checkbox" id="' + pref_id + '"><label for="' + pref_id + '">' + rsc_jui_pag.pref_show_slider + '</label>';
+        pref_html += '</li>';
+
+        pref_id = dialog_id + '_goto_page';
+        pref_html += '<li>';
+        pref_html += '<input type="checkbox" id="' + pref_id + '"><label for="' + pref_id + '">' + rsc_jui_pag.pref_show_goto_page + '</label>';
+        pref_html += '</li>';
+
+        pref_id = dialog_id + '_rows_per_page';
+        pref_html += '<li>';
+        pref_html += '<input type="checkbox" id="' + pref_id + '"><label for="' + pref_id + '">' + rsc_jui_pag.pref_show_rows_per_page + '</label>';
+        pref_html += '</li>';
+
+        pref_html += '</ul>';
+
+        $("#" + dialog_id).html(pref_html);
+
+        pref_id = dialog_id + '_slider';
+        state = $("#" + plugin_container_id).jui_pagination('getOption', 'useSlider');
+        $("#" + pref_id).attr("checked", state);
+
+        pref_id = dialog_id + '_goto_page';
+        state = $("#" + plugin_container_id).jui_pagination('getOption', 'showGoToPage');
+        $("#" + pref_id).attr("checked", state);
+
+        pref_id = dialog_id + '_rows_per_page';
+        state = $("#" + plugin_container_id).jui_pagination('getOption', 'showRowsPerPage');
+        $("#" + pref_id).attr("checked", state);
     }
 
     /**
