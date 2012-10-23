@@ -331,7 +331,6 @@
                     }
 
 
-
                     if(disableSelectionNavPane) {
                         disableSelection($("#" + nav_pane_id));
                     }
@@ -384,6 +383,11 @@
 
                     selector = "#" + preferences_id;
                     $("#" + nav_pane_id).off('click', selector).on('click', selector, function(event) {
+
+                        if(typeof($("#" + pref_dialog_id).data('dialog')) == 'object') {
+                            $("#" + pref_dialog_id).dialog('destroy');
+                        }
+
                         $("#" + pref_dialog_id).dialog({
                             autoOpen: true,
                             show: "blind",
@@ -394,15 +398,14 @@
                                 of: '#' + container_id
                             },
                             title: rsc_jui_pag.preferences_title,
-                            buttons:
-                                [{
+                            buttons: [
+                                {
                                     text: rsc_jui_pag.preferences_close,
                                     click: function() {
                                         $(this).dialog("close");
-                                        $(this).dialog('destroy');
                                     }
-
-                                }],
+                                }
+                            ],
                             open: create_preferences(container_id)
                         })
                     });
@@ -675,21 +678,21 @@
         var state;
 
         var pref_html = '';
-        pref_html += '<ul>';
+        pref_html += '<ul style="list-style-type: none;">';
 
         pref_id = dialog_id + '_slider';
         pref_html += '<li>';
-        pref_html += '<input type="checkbox" id="' + pref_id + '"><label for="' + pref_id + '">' + rsc_jui_pag.pref_show_slider + '</label>';
+        pref_html += '<input type="checkbox" id="' + pref_id + '" /><label for="' + pref_id + '">' + rsc_jui_pag.pref_show_slider + '</label>';
         pref_html += '</li>';
 
         pref_id = dialog_id + '_goto_page';
         pref_html += '<li>';
-        pref_html += '<input type="checkbox" id="' + pref_id + '"><label for="' + pref_id + '">' + rsc_jui_pag.pref_show_goto_page + '</label>';
+        pref_html += '<input type="checkbox" id="' + pref_id + '" /><label for="' + pref_id + '">' + rsc_jui_pag.pref_show_goto_page + '</label>';
         pref_html += '</li>';
 
         pref_id = dialog_id + '_rows_per_page';
         pref_html += '<li>';
-        pref_html += '<input type="checkbox" id="' + pref_id + '"><label for="' + pref_id + '">' + rsc_jui_pag.pref_show_rows_per_page + '</label>';
+        pref_html += '<input type="checkbox" id="' + pref_id + '" /><label for="' + pref_id + '">' + rsc_jui_pag.pref_show_rows_per_page + '</label>';
         pref_html += '</li>';
 
         pref_html += '</ul>';

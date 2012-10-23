@@ -86,14 +86,20 @@ $(function() {
     $('[id$="mode_first-last-always-visible"]').click(function() {
         var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0, 1);
         $(elem_selector).jui_pagination({
-            navPagesMode: 'first-last-always-visible'
+            navPagesMode: 'first-last-always-visible',
+            showLabelTotalPages: false,
+            showTotalPages: false,
+            showNavButtons: false
         })
     });
 
     $('[id$="mode_continuous"]').click(function() {
         var elem_selector = '#' + 'demo_pag' + $(this).attr("id").substr(0, 1);
         $(elem_selector).jui_pagination({
-            navPagesMode: 'continuous'
+            navPagesMode: 'continuous',
+            showLabelTotalPages: true,
+            showTotalPages: true,
+            showNavButtons: true
         })
     });
 

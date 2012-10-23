@@ -17,42 +17,38 @@ Write your own classes in other css file.
     padding: 0px 0px 0px 20px !important;
     margin: 3px 10px 3px 10px;
     width: 30px;
-    border-width: 1px;
+    border-width: 0px;
     font-size: 12px !important;
     vertical-align: middle;
 }
 
 .nav-button-top {
     display: inline-block;
-    margin: 3px 3px 3px 10px;
+    margin: 3px 3px 3px 5px;
     cursor: pointer;
     vertical-align: middle;
 }
 
 .nav-button-prev {
     display: inline-block;
-    margin: 3px 10px 3px 3px;
+    margin: 3px 5px 3px 3px;
     cursor: pointer;
     vertical-align: middle;
 }
 
 .current-page-label {
     display: inline-block;
-    margin: 3px 0px 3px 10px;
+    margin: 3px 2px 3px 5px;
     font-size: 13px;
     text-align: center;
-    padding-left: 2px;
-    padding-right: 2px;
     vertical-align: middle;
 }
 
 .current-page {
     display: inline-block;
-    margin: 3px 3px 3px 0px;
+    margin: 3px 3px 3px 2px;
     font-size: 13px;
     text-align: center;
-    padding-left: 2px;
-    padding-right: 2px;
     vertical-align: middle;
 }
 
@@ -67,8 +63,7 @@ Write your own classes in other css file.
     margin: 0px 3px 0px 3px !important;
     font-size: 12px;
     text-align: center;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding: 0px 5px 0px 5px;
     cursor: pointer;
     vertical-align: middle;
 }
@@ -79,8 +74,6 @@ Write your own classes in other css file.
     font-size: 12px;
     font-weight: normal;
     text-align: center;
-    padding-left: 2px;
-    padding-right: 2px;
     vertical-align: middle;
 }
 
@@ -90,41 +83,35 @@ Write your own classes in other css file.
     font-size: 12px;
     font-weight: normal;
     text-align: center;
-    padding-left: 2px;
-    padding-right: 2px;
     vertical-align: middle;
 }
 
 .total-pages-label {
     display: inline-block;
-    margin: 3px 0px 3px 3px;
+    margin: 3px 2px 3px 3px;
     font-size: 13px;
     text-align: center;
-    padding-left: 2px;
-    padding-right: 2px;
     vertical-align: middle;
 }
 
 .total-pages {
     display: inline-block;
-    margin: 3px 3px 3px 0px;
+    margin: 3px 5px 3px 2px;
     font-size: 13px;
     text-align: center;
-    padding-left: 2px;
-    padding-right: 2px;
     vertical-align: middle;
 }
 
 .nav-button-next {
     display: inline-block;
-    margin: 3px 3px 3px 10px;
+    margin: 3px 3px 3px 5px;
     cursor: pointer;
     vertical-align: middle;
 }
 
 .nav-button-last {
     display: inline-block;
-    margin: 3px 10px 3px 3px;
+    margin: 3px 5px 3px 3px;
     cursor: pointer;
     vertical-align: middle;
 }
@@ -136,18 +123,16 @@ Write your own classes in other css file.
     padding: 0px 0px 0px 20px !important;
     margin: 3px 10px 3px 10px;
     width: 30px;
-    border-width: 1px;
+    border-width: 0px;
     font-size: 12px !important;
     vertical-align: middle;
 }
 
 .rows-info {
     display: inline-block;
-    margin: 3px 10px 3px 3px;
+    margin: 3px 5px 3px 5px;
     font-size: 13px;
     text-align: center;
-    padding-left: 2px;
-    padding-right: 2px;
     vertical-align: middle;
 }
 
