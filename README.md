@@ -34,7 +34,7 @@ SCREENSHOTS
 -----------
 
 ![jui_pagination sample1][sample1]
-[sample1]: https://raw.github.com/pontikis/jui_pagination/dev/demo/samples/sample_001_v1.10.png
+[sample1]: https://raw.github.com/pontikis/jui_pagination/dev/demo/samples/v1.10/sample_001_v1.10.png
 
 ![jui_pagination sample2][sample2]
 [sample2]: https://raw.github.com/pontikis/jui_pagination/dev/demo/samples/v1.10/sample_002_v1.10.png
