@@ -4,7 +4,7 @@
  * For touch event support jquery.ui.touch-punch.min.js could be used (see folder /lib)
  * Copyright 2012 Christos Pontikis http://pontikis.net
  * Project page https://github.com/pontikis/jui_pagination
- * UPCOMING Release 1.01
+ * Release 1.10 (23 Oct 2012)
  * License MIT
  */
 "use strict";
@@ -91,9 +91,7 @@
                 var navButtonPrevClass = settings.navButtonPrevClass;
                 var navCurrentPageLabelClass = settings.navCurrentPageLabelClass;
                 var navCurrentPageClass = settings.navCurrentPageClass;
-                var navDotsLeftClass = settings.navDotsLeftClass;
                 var navPagesClass = settings.navPagesClass;
-                var navDotsRightClass = settings.navDotsRightClass;
                 var navTotalPagesLabelClass = settings.navTotalPagesLabelClass;
                 var navTotalPagesClass = settings.navTotalPagesClass;
                 var navButtonNextClass = settings.navButtonNextClass;
@@ -109,10 +107,8 @@
                 var current_id = create_id(settings.nav_current_page_id_prefix, container_id);
                 var nav_top_id = create_id(settings.nav_top_id_prefix, container_id);
                 var nav_prev_id = create_id(settings.nav_prev_id_prefix, container_id);
-                var nav_dots_left_id = create_id(settings.nav_dots_left_id_prefix, container_id);
                 var nav_pages_id = create_id(settings.nav_pages_id_prefix, container_id);
                 var nav_item_id_prefix = create_id(settings.nav_item_id_prefix, container_id) + '_';
-                var nav_dots_right_id = create_id(settings.nav_dots_right_id_prefix, container_id);
                 var nav_next_id = create_id(settings.nav_next_id_prefix, container_id);
                 var nav_last_id = create_id(settings.nav_last_id_prefix, container_id);
                 var total_label_id = create_id(settings.nav_total_pages_label_id_prefix, container_id);
@@ -372,14 +368,12 @@
                 }
 
                 /* CREATE PREFERENCES DIALOG -------------------------------- */
-                if($('#' + pref_dialog_id).length == 0) {
-                    var pref_html = '<div id="' + pref_dialog_id + '"></div>';
-                    elem.append(pref_html);
-
-
-                }
-
                 if(showPreferences) {
+
+                    if($('#' + pref_dialog_id).length == 0) {
+                        var pref_html = '<div id="' + pref_dialog_id + '"></div>';
+                        elem.append(pref_html);
+                    }
 
                     selector = "#" + preferences_id;
                     $("#" + nav_pane_id).off('click', selector).on('click', selector, function(event) {
@@ -403,37 +397,38 @@
                                     text: rsc_jui_pag.preferences_close,
                                     click: function() {
                                         $(this).dialog("close");
+                                        $(this).dialog("destroy");
                                     }
                                 }
                             ],
                             open: create_preferences(container_id)
                         })
                     });
+
+                    selector = "#" + pref_dialog_id + '_slider';
+                    $("#" + pref_dialog_id).off('click', selector).on('click', selector, function(event) {
+                        var state = $(event.target).is(":checked");
+                        elem.jui_pagination({
+                            useSlider: state
+                        })
+                    });
+
+                    selector = "#" + pref_dialog_id + '_goto_page';
+                    $("#" + pref_dialog_id).off('click', selector).on('click', selector, function(event) {
+                        var state = $(event.target).is(":checked");
+                        elem.jui_pagination({
+                            showGoToPage: state
+                        })
+                    });
+
+                    selector = "#" + pref_dialog_id + '_rows_per_page';
+                    $("#" + pref_dialog_id).off('click', selector).on('click', selector, function(event) {
+                        var state = $(event.target).is(":checked");
+                        elem.jui_pagination({
+                            showRowsPerPage: state
+                        })
+                    });
                 }
-
-                selector = "#" + pref_dialog_id + '_slider';
-                $("#" + pref_dialog_id).off('click', selector).on('click', selector, function(event) {
-                    var state = $(event.target).is(":checked");
-                    elem.jui_pagination({
-                        useSlider: state
-                    })
-                });
-
-                selector = "#" + pref_dialog_id + '_goto_page';
-                $("#" + pref_dialog_id).off('click', selector).on('click', selector, function(event) {
-                    var state = $(event.target).is(":checked");
-                    elem.jui_pagination({
-                        showGoToPage: state
-                    })
-                });
-
-                selector = "#" + pref_dialog_id + '_rows_per_page';
-                $("#" + pref_dialog_id).off('click', selector).on('click', selector, function(event) {
-                    var state = $(event.target).is(":checked");
-                    elem.jui_pagination({
-                        showRowsPerPage: state
-                    })
-                });
 
                 elem.triggerHandler('onDisplay');
 
@@ -495,7 +490,7 @@
                 navPagesClass: 'nav-pages',
                 navItemClass: 'nav-item ui-widget-header ui-corner-all',
                 navItemSelectedClass: 'nav-item ui-widget-header ui-corner-all ui-state-highlight',
-                navItemHoverClass: 'ui-state-hover',
+                navItemHoverClass: 'ui-state-hover',  // if empty, no hover applied
                 navDotsRightClass: 'nav-dots-right',
                 navTotalPagesLabelClass: 'total-pages-label',
                 navTotalPagesClass: 'total-pages',
@@ -674,7 +669,7 @@
     var create_preferences = function(plugin_container_id) {
         var prefix = $("#" + plugin_container_id).jui_pagination('getOption', 'pref_dialog_id_prefix');
         var dialog_id = create_id(prefix, plugin_container_id);
-        var pref_id = '';
+        var pref_id;
         var state;
 
         var pref_html = '';
