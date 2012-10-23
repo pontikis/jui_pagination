@@ -37,19 +37,19 @@ SCREENSHOTS
 [sample1]: https://raw.github.com/pontikis/jui_pagination/dev/demo/samples/sample_001_v1.10.png
 
 ![jui_pagination sample2][sample2]
-[sample2]: https://raw.github.com/pontikis/jui_pagination/dev/demo/samples/sample_002_v1.10.png
+[sample2]: https://raw.github.com/pontikis/jui_pagination/dev/demo/samples/v1.10/sample_002_v1.10.png
 
 ![jui_pagination sample3][sample3]
-[sample3]: https://raw.github.com/pontikis/jui_pagination/dev/demo/samples/sample_003_v1.10.png
+[sample3]: https://raw.github.com/pontikis/jui_pagination/dev/demo/samples/v1.10/sample_003_v1.10.png
 
 ![jui_pagination sample4][sample4]
-[sample4]: https://raw.github.com/pontikis/jui_pagination/dev/demo/samples/sample_004_v1.10.png
+[sample4]: https://raw.github.com/pontikis/jui_pagination/dev/demo/samples/v1.10/sample_004_v1.10.png
 
 ![jui_pagination sample5][sample5]
-[sample5]: https://raw.github.com/pontikis/jui_pagination/dev/demo/samples/sample_005_v1.10.png
+[sample5]: https://raw.github.com/pontikis/jui_pagination/dev/demo/samples/v1.10/sample_005_v1.10.png
 
 ![jui_pagination sample6][sample6]
-[sample6]: https://raw.github.com/pontikis/jui_pagination/dev/demo/samples/sample_006_v1.10.png
+[sample6]: https://raw.github.com/pontikis/jui_pagination/dev/demo/samples/v1.10/sample_006_v1.10.png
 
 ![jui_pagination sample7][sample7]
-[sample7]: https://raw.github.com/pontikis/jui_pagination/dev/demo/samples/sample_007_v1.10.png
+[sample7]: https://raw.github.com/pontikis/jui_pagination/dev/demo/samples/v1.10/sample_007_v1.10.png
