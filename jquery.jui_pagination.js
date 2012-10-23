@@ -463,7 +463,7 @@
                     'rows_info'
                 ],
 
-                useSlider: true,
+                useSlider: false,
                 sliderElementID: false, // if given, slider appears outside container inside specified element
                 useSliderWithPagesCount: 0, // show slider over specified number of pages
                 sliderOrientation: 'horizontal',

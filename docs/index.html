@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jui_pagination documentation (v1.10)</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <link href="syntaxhighlighter_3.0.83/styles/shCore.css"
+          rel="stylesheet" type="text/css"/>
+    <link href="syntaxhighlighter_3.0.83/styles/shThemeDefault.css"
+          rel="stylesheet" type="text/css"/>
+    <link href="index.css" rel="stylesheet" type="text/css"/>
+
+    <script src="syntaxhighlighter_3.0.83/scripts/shCore.js"
+            type="text/javascript"></script>
+    <script src="syntaxhighlighter_3.0.83/scripts/shBrushJScript.js"
+            type="text/javascript"></script>
+    <script src="syntaxhighlighter_3.0.83/scripts/shBrushXml.js"
+            type="text/javascript"></script>
+    <script src="syntaxhighlighter_3.0.83/scripts/shBrushCss.js"
+            type="text/javascript"></script>
+    <script src="syntaxhighlighter_3.0.83/scripts/shBrushPlain.js"
+            type="text/javascript"></script>
+    <script src="syntaxhighlighter_3.0.83/scripts/shAutoloader.js"
+            type="text/javascript"></script>
+
+    <script type="text/javascript">
+        SyntaxHighlighter.defaults['tab-size'] = 2;
+        SyntaxHighlighter.defaults['toolbar'] = false;
+        SyntaxHighlighter.all()
+    </script>
+
+</head>
+<body>
+
+<p><a href="http://pontikis.github.com">pontikis.github.com</a>
+
+    <a href="https://github.com/pontikis/jui_pagination"><img
+            style="position: absolute; top: 0; right: 0; border: 0;"
+            src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"
+            alt="Fork me on GitHub"></a>
+
+<h1>jui_pagination documentation (v1.10)</h1>
+
+<div class="level1">
+    <p>jQuery pagination plugin (jQuery UI themes compatible)
+
+    <p>Project page: <a href="https://github.com/pontikis/jui_pagination">https://github.com/pontikis/jui_pagination</a>
+
+    <p>Copyright &copy; Christos Pontikis <a href="http://pontikis.net"
+                                      target="_blank">http://pontikis.net</a>
+
+    <p>License <a
+            href="https://raw.github.com/pontikis/jui_pagination/master/MIT_LICENSE">MIT</a>
+
+    <p>Requires
+    <ul>
+        <li><a href="http://jquery.com" target="_blank">jquery</a>
+        <li><a href="http://jqueryui.com" target="_blank">jquery-ui</a>
+        <li><a href="http://jqueryui.com/themeroller/" target="_blank">jquery-ui
+            themes</a>
+        <li>For touch event support <a href="http://touchpunch.furf.com/"
+                                       target="_blank">jquery.ui.touch-punch.min.js</a>
+            could be used (see folder /lib)
+    </ul>
+
+    <p>Tested with jquery 1.8.2 and jquery-ui 1.9.0
+
+    <p>Release 1.10 (23 Oct 2012) Download <a
+            href="https://github.com/pontikis/jui_pagination/zipball/v1.1.0">here</a>
+
+    <p>CHANGELOG <a
+            href="https://github.com/pontikis/jui_pagination/blob/master/CHANGELOG.md">here</a>
+
+    <p>DEMO <a href="http://pontikis.github.com/jui_pagination/v1.10/demo/">http://pontikis.github.com/jui_pagination/v1.10/demo/</a>
+
+    <p>JSFIDDLE <a href="http://jsfiddle.net/pontikis/zwL4F/" target="_blank">http://jsfiddle.net/pontikis/zwL4F/</a>
+        (not working with
+        Internet Explorer)
+
+    <p>
+        <small>Syntax highlight using <a
+                href="http://alexgorbatchev.com/SyntaxHighlighter/"
+                target="_blank">http://alexgorbatchev.com/SyntaxHighlighter/</a>
+        </small>
+
+</div>
+
+<h2>Usage</h2>
+
+<h3>HTML (head section)</h3>
+
+<div class="level3">
+    <pre class="brush: xml">
+    &lt;link rel="stylesheet" href="/path/to/jqueryui_theme/jquery-ui.css">
+    &lt;link rel="stylesheet" href="/path/to/jquery.jui_pagination.css">
+    &lt;!&ndash; if custom classes used &ndash;&gt;
+    &lt;link rel="stylesheet" href="/path/to/custom.css">
+
+    &lt;script type="text/javascript" src="/path/to/jquery.js"
+            type="text/javascript">&lt;/script>
+    &lt;script type="text/javascript" src="/path/to/jquery-ui.js"
+            type="text/javascript">&lt;/script>
+
+    &lt;!&ndash; if touch event support for touch devices is needed (see folder /lib) &ndash;&gt;
+    &lt;script src="/path/to/jquery.ui.touch-punch.min.js"
+            type="text/javascript">&lt;/script>
+
+    &lt;script type="text/javascript" src="/path/to/jquery.jui_pagination.js"
+            type="text/javascript">&lt;/script>
+    &lt;script src="/path/to/localization/en.js" type="text/javascript">&lt;/script>
+    </pre>
+</div>
+
+<h3>JS code</h3>
+
+<div class="level3">
+    <p>Common
+
+    <pre class="brush: js">
+    $("#element_id").jui_pagination({
+        totalPages: 103, // REQUIRED
+        containerClass: 'some_class' // NOT MANDATORY
+        currentPage: 8,
+        disableSelectionNavPane: true,
+
+        onChangePage: function(event, page_num) {
+            if(isNaN(page_num) || page_num <= 0) {
+                alert('Invalid page' + ' (' + page_num + ')');
+            } else {
+                $("#result").html('Page changed to: ' + page_num);
+            }
+        }
+    });
+    </pre>
+
+    <p>Preview:
+</div>
+
+<div class="level3">
+    <img src="../demo/samples/v1.10/sample_001_v1.10.png" title="jui_pagination common usage">
+</div>
+
+<div class="level3">
+    <p>Nav pane and slider inside their own divs
+
+    <pre class="brush: js">
+    $("#element_id").jui_pagination({
+        totalPages: 24, // REQUIRED
+        containerClass: 'some_class' // NOT MANDATORY
+        currentPage: 7,
+        visiblePageLinks: 6,
+
+        navPaneElementID: 'navpane2',
+        navPaneClass: 'navpane2 nav-pane ui-widget ui-widget-header ui-corner-all',
+
+        useSlider: true,
+        sliderElementID: 'slider2',
+        sliderClass: 'slider2',
+        sliderOrientation: 'vertical',
+
+        disableSelectionNavPane: true,
+
+        onChangePage: function(event, page_num) {
+            if(isNaN(page_num) || page_num <= 0) {
+                alert('Invalid page' + ' (' + page_num + ')');
+            } else {
+                $("#result").html('Page changed to: ' + page_num);
+            }
+        }
+    });
+    </pre>
+
+    <p>Preview:
+</div>
+
+<div class="level3">
+    <img src="../demo/samples/v1.10/sample_002_v1.10.png"
+         title="jui_pagination with pane and slider inside their own divs">
+</div>
+
+<h2>Options</h2>
+
+<div class="level2">
+    <pre class="brush: js">
+    $("#element_id").jui_pagination({
+        totalPages: 100, // REQUIRED
+
+        containerClass: 'some_class', // NOT MANDATORY
+
+        // DEFAULTS
+        currentPage: 1,
+        visiblePageLinks: 5,
+        maxVisiblePageLinks: 20,
+        rowsPerPage: 10,
+
+        useNavPane: true,
+        navPaneElementID: false, // if given, nav pane appears outside container inside specified element
+        nav_pane_display_order: [
+            'go_to_page',
+            'back_buttons',
+            'current_page_label',
+            'current_page',
+            'nav_items',
+            'total_pages_label',
+            'total_pages',
+            'forward_buttons',
+            'rows_per_page',
+            'rows_info'
+        ],
+
+        useSlider: false,
+        sliderElementID: false, // if given, slider appears outside container inside specified element
+        useSliderWithPagesCount: 0, // show slider over specified number of pages
+        sliderOrientation: 'horizontal',
+
+        showGoToPage: false,
+        showNavButtons: false,
+        showLabelCurrentPage: true,
+        showCurrentPage: false,
+        showNavPages: true,
+        navPagesMode: 'first-last-always-visible', // alternative mode is 'continuous'
+        showLabelTotalPages: false,
+        showTotalPages: false,
+        showRowsPerPage: false,
+        showRowsInfo: false,
+        showPreferences: true,
+
+        navPaneClass: 'nav-pane ui-widget ui-widget-header ui-corner-all',
+        navGoToPageClass: 'goto-page ui-corner-all',
+        navButtonTopClass: 'nav-button-top ui-icon ui-icon-seek-first',
+        navButtonPrevClass: 'nav-button-prev ui-icon ui-icon-seek-prev',
+        navCurrentPageLabelClass: 'current-page-label',
+        navCurrentPageClass: 'current-page',
+        navDotsLeftClass: 'nav-dots-left',
+        navPagesClass: 'nav-pages',
+        navItemClass: 'nav-item ui-widget-header ui-corner-all',
+        navItemSelectedClass: 'nav-item ui-widget-header ui-corner-all ui-state-highlight',
+        navItemHoverClass: 'ui-state-hover',  // if empty, no hover applied
+        navDotsRightClass: 'nav-dots-right',
+        navTotalPagesLabelClass: 'total-pages-label',
+        navTotalPagesClass: 'total-pages',
+        navButtonNextClass: 'nav-button-next  ui-icon ui-icon-seek-next',
+        navButtonLastClass: 'nav-button-last  ui-icon ui-icon-seek-end',
+        navRowsPerPageClass: 'rows-per-page ui-corner-all',
+        navInfoClass: 'rows-info',
+        sliderClass: 'nav-slider',
+        preferencesClass: 'preferences ui-icon ui-icon-signal',
+
+        nav_pane_id_prefix: 'nav_pane_',
+        nav_goto_page_id_prefix: 'goto_page_',
+        nav_current_page_label_id_prefix: 'current_page_lbl_',
+        nav_current_page_id_prefix: 'current_page_',
+        nav_top_id_prefix: 'top_',
+        nav_prev_id_prefix: 'prev_',
+        nav_dots_left_id_prefix: 'dots_left_',
+        nav_pages_id_prefix: 'pages_',
+        nav_item_id_prefix: 'page_',
+        nav_dots_right_id_prefix: 'dots_right_',
+        nav_next_id_prefix: 'next_',
+        nav_last_id_prefix: 'last_',
+        nav_total_pages_label_id_prefix: 'total_pages_lbl_',
+        nav_total_pages_id_prefix: 'total_pages_',
+        nav_rows_per_page_id_prefix: 'rows_per_page_',
+        nav_rows_info_id_prefix: 'rows_info_',
+        slider_id_prefix: 'sld_',
+        preferences_id_prefix: 'pref_',
+        pref_dialog_id_prefix: 'pref_dlg_',
+
+        disableSelectionNavPane: false, // disable text selection and double click (jquery >= 1.8)
+
+        onChangePage: function() {
+        },
+        onSetRowsPerPage: function() {
+        },
+        onDisplay: function() {
+        }
+    });
+    </pre>
+
+</div>
+
+
+<h2>Methods</h2>
+
+
+<h3>getDefaults</h3>
+
+<div class="level3">
+    <pre class="brush: js">
+    $("#element_id").jui_pagination('getDefaults');
+    </pre>
+</div>
+
+
+<h3>getOption</h3>
+
+<div class="level3">
+    <pre class="brush: js">
+    $("#element_id").jui_pagination('getOption', 'option_name');
+    </pre>
+</div>
+
+
+<h3>getAllOptions</h3>
+
+<div class="level3">
+    <pre class="brush: js">
+    $("#element_id").jui_pagination('getAllOptions');
+    </pre>
+</div>
+
+
+<h3>setOption</h3>
+
+<div class="level3">
+    <pre class="brush: js">
+    $("#element_id").jui_pagination('setOption', 'option_name', option_value, reinit);
+    </pre>
+</div>
+
+<div class="level3">
+    <p>Alternative way to set one or more options
+</div>
+
+<div class="level3">
+    <pre class="brush: js">
+    $("#element_id").jui_pagination({option1_name: option1_value, etc});
+    </pre>
+</div>
+
+<h3>destroy</h3>
+
+<div class="level3">
+    <pre class="brush: js">
+    $("#element_id").jui_pagination('destroy');
+    </pre>
+</div>
+
+
+<h2>Events</h2>
+
+<h3>onChangePage</h3>
+
+<div class="level3">
+    <pre class="brush: js">
+    $("#element_id").jui_pagination({
+        onChangePage: function(event, page_num) {
+        // your code here
+        }
+    });
+    </pre>
+</div>
+
+<h3>onSetRowsPerPage</h3>
+
+<div class="level3">
+    <pre class="brush: js">
+    $("#element_id").jui_pagination({
+        onSetRowsPerPage: function(event, rows_per_page) {
+        // your code here
+        }
+    });
+    </pre>
+</div>
+
+<h3>onDisplay</h3>
+
+<div class="level3">
+    <pre class="brush: js">
+    $("#element_id").jui_pagination({
+        onDisplay: function() {
+        // your code here
+        }
+    });
+    </pre>
+</div>
+
+</body>
+</html>
