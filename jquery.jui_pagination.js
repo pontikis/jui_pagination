@@ -103,25 +103,25 @@
                 var preferencesClass = settings.preferencesClass;
                 var sliderClass = settings.sliderClass;
 
-                var nav_pane_id = (!navPaneElementID ? settings.nav_pane_id_prefix + container_id : navPaneElementID);
-                var goto_page_id = settings.nav_goto_page_id_prefix + container_id;
-                var current_label_id = settings.nav_current_page_label_id_prefix + container_id;
-                var current_id = settings.nav_current_page_id_prefix + container_id;
-                var nav_top_id = settings.nav_top_id_prefix + container_id;
-                var nav_prev_id = settings.nav_prev_id_prefix + container_id;
-                var nav_dots_left_id = settings.nav_dots_left_id_prefix + container_id;
-                var nav_pages_id = settings.nav_pages_id_prefix + container_id;
-                var nav_item_id_prefix = settings.nav_item_id_prefix + container_id + '_';
-                var nav_dots_right_id = settings.nav_dots_right_id_prefix + container_id;
-                var nav_next_id = settings.nav_next_id_prefix + container_id;
-                var nav_last_id = settings.nav_last_id_prefix + container_id;
-                var total_label_id = settings.nav_total_pages_label_id_prefix + container_id;
-                var total_id = settings.nav_total_pages_id_prefix + container_id;
-                var rows_per_page_id = settings.nav_rows_per_page_id_prefix + container_id;
-                var rows_info_id = settings.nav_rows_info_id_prefix + container_id;
-                var preferences_id = settings.preferences_id_prefix + container_id;
-                var pref_dialog_id = settings.pref_dialog_id_prefix + container_id;
-                var slider_id = (!sliderElementID ? settings.slider_id_prefix + container_id : sliderElementID);
+                var nav_pane_id = (!navPaneElementID ? create_id(settings.nav_pane_id_prefix, container_id) : navPaneElementID);
+                var goto_page_id = create_id(settings.nav_goto_page_id_prefix, container_id);
+                var current_label_id = create_id(settings.nav_current_page_label_id_prefix, container_id);
+                var current_id = create_id(settings.nav_current_page_id_prefix, container_id);
+                var nav_top_id = create_id(settings.nav_top_id_prefix, container_id);
+                var nav_prev_id = create_id(settings.nav_prev_id_prefix, container_id);
+                var nav_dots_left_id = create_id(settings.nav_dots_left_id_prefix, container_id);
+                var nav_pages_id = create_id(settings.nav_pages_id_prefix, container_id);
+                var nav_item_id_prefix = create_id(settings.nav_item_id_prefix, container_id) + '_';
+                var nav_dots_right_id = create_id(settings.nav_dots_right_id_prefix, container_id);
+                var nav_next_id = create_id(settings.nav_next_id_prefix, container_id);
+                var nav_last_id = create_id(settings.nav_last_id_prefix, container_id);
+                var total_label_id = create_id(settings.nav_total_pages_label_id_prefix, container_id);
+                var total_id = create_id(settings.nav_total_pages_id_prefix, container_id);
+                var rows_per_page_id = create_id(settings.nav_rows_per_page_id_prefix, container_id);
+                var rows_info_id = create_id(settings.nav_rows_info_id_prefix, container_id);
+                var preferences_id = create_id(settings.preferences_id_prefix, container_id);
+                var pref_dialog_id = create_id(settings.pref_dialog_id_prefix, container_id);
+                var slider_id = (!sliderElementID ? create_id(settings.slider_id_prefix, container_id) : sliderElementID);
 
                 var disableSelectionNavPane = settings.disableSelectionNavPane;
 
@@ -673,7 +673,7 @@
      */
     var create_preferences = function(plugin_container_id) {
         var prefix = $("#" + plugin_container_id).jui_pagination('getOption', 'pref_dialog_id_prefix');
-        var dialog_id = prefix + plugin_container_id;
+        var dialog_id = create_id(prefix, plugin_container_id);
         var pref_id = '';
         var state;
 
@@ -737,14 +737,14 @@
         var navDotsLeftClass = s.navDotsLeftClass;
         var navDotsRightClass = s.navDotsRightClass;
 
-        var nav_top_id = s.nav_top_id_prefix + container_id;
-        var nav_prev_id = s.nav_prev_id_prefix + container_id;
-        var nav_dots_left_id = s.nav_dots_left_id_prefix + container_id;
-        var nav_pages_id = s.nav_pages_id_prefix + container_id;
-        var nav_item_id_prefix = s.nav_item_id_prefix + container_id + '_';
-        var nav_dots_right_id = s.nav_dots_right_id_prefix + container_id;
-        var nav_next_id = s.nav_next_id_prefix + container_id;
-        var nav_last_id = s.nav_last_id_prefix + container_id;
+        var nav_top_id = create_id(s.nav_top_id_prefix, container_id);
+        var nav_prev_id = create_id(s.nav_prev_id_prefix, container_id);
+        var nav_dots_left_id = create_id(s.nav_dots_left_id_prefix, container_id);
+        var nav_pages_id = create_id(s.nav_pages_id_prefix, container_id);
+        var nav_item_id_prefix = create_id(s.nav_item_id_prefix, container_id) + '_';
+        var nav_dots_right_id = create_id(s.nav_dots_right_id_prefix, container_id);
+        var nav_next_id = create_id(s.nav_next_id_prefix, container_id);
+        var nav_last_id = create_id(s.nav_last_id_prefix, container_id);
 
         var nav_html = '';
         var goto = elem.data('goto');
@@ -904,11 +904,11 @@
         var showCurrentPage = s.showCurrentPage;
 
         var sliderElementID = s.sliderElementID;
-        var slider_id = (!sliderElementID ? s.slider_id_prefix + container_id : sliderElementID);
+        var slider_id = (!sliderElementID ? create_id(s.slider_id_prefix, container_id) : sliderElementID);
         var sliderOrientation = s.sliderOrientation;
 
-        var current_id = s.nav_current_page_id_prefix + container_id;
-        var nav_item_id_prefix = s.nav_item_id_prefix + container_id + '_';
+        var current_id = create_id(s.nav_current_page_id_prefix, container_id);
+        var nav_item_id_prefix = create_id(s.nav_item_id_prefix, container_id) + '_';
 
         var navItemClass = s.navItemClass;
         var navItemSelectedClass = s.navItemSelectedClass;
