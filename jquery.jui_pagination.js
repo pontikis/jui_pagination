@@ -480,7 +480,7 @@
                 showRowsInfo: false,
                 showPreferences: true,
 
-                navPaneClass: 'nav-pane ui-widget ui-widget-header ui-corner-all',
+                navPaneClass: 'nav-pane ui-state-default ui-corner-all',
                 navGoToPageClass: 'goto-page ui-corner-all',
                 navButtonTopClass: 'nav-button-top ui-icon ui-icon-seek-first',
                 navButtonPrevClass: 'nav-button-prev ui-icon ui-icon-seek-prev',
@@ -488,8 +488,8 @@
                 navCurrentPageClass: 'current-page',
                 navDotsLeftClass: 'nav-dots-left',
                 navPagesClass: 'nav-pages',
-                navItemClass: 'nav-item ui-widget-header ui-corner-all',
-                navItemSelectedClass: 'nav-item ui-widget-header ui-corner-all ui-state-highlight',
+                navItemClass: 'nav-item ui-state-default ui-corner-all',
+                navItemSelectedClass: 'nav-item ui-state-default ui-corner-all ui-state-highlight',
                 navItemHoverClass: 'ui-state-hover',  // if empty, no hover applied
                 navDotsRightClass: 'nav-dots-right',
                 navTotalPagesLabelClass: 'total-pages-label',

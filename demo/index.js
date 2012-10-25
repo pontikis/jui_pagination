@@ -59,7 +59,7 @@ $(function() {
         containerClass: 'container2',
 
         navPaneElementID: 'navpane2',
-        navPaneClass: 'navpane2 nav-pane ui-widget ui-widget-header ui-corner-all',
+        navPaneClass: 'navpane2 nav-pane ui-state-default ui-corner-all',
         navItemHoverClass: '',
 
         useSlider: true,
