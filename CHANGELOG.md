@@ -7,7 +7,7 @@ Copyright Christos Pontikis http://pontikis.net
 
 License MIT
 
-Release 1.11 (25 Oct 2012)
+Release 1.12 (25 Oct 2012)
 ---------------------------
 * Use ui-state-default instead of ui-widget-header (more fine interface)
 
