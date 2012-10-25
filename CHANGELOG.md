@@ -10,6 +10,7 @@ License MIT
 UPCOMING Release 1.14 (?? Oct 2012)
 ---------------------------
 * CSS improvements
+* jquery-ui 1.9.1
 
 Release 1.12 (25 Oct 2012)
 ---------------------------
