@@ -120,6 +120,22 @@ $(function() {
     });
 
 
+    $("#1currentPage_set").click(function() {
+        $("#demo_pag1").jui_pagination({
+            currentPage: parseInt($("#1currentPage_value").val())
+        })
+    });
+    $("#1currentPage_reset").click(function() {
+        $("#1currentPage_value").val('');
+        $("#demo_pag1").jui_pagination({
+            currentPage: 8
+        })
+    });
+    $("#1visiblePageLinks_get").click(function() {
+        alert($("#demo_pag1").jui_pagination('getOption', 'visiblePageLinks'));
+    });
+
+
     $("#1totalPages_set").click(function() {
         $("#demo_pag1").jui_pagination({
             totalPages: parseInt($("#1totalPages_value").val())
