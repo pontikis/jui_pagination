@@ -374,7 +374,7 @@
                     }
 
                     selector = "#" + preferences_id;
-                    $("#" + nav_pane_id).off('click', selector).on('click', selector, function(event) {
+                    $("#" + nav_pane_id).off('click', selector).on('click', selector, function() {
 
                         if(typeof($("#" + pref_dialog_id).data('dialog')) == 'object') {
                             $("#" + pref_dialog_id).dialog('destroy');
@@ -440,7 +440,7 @@
          * @return {Object}
          */
         getDefaults: function() {
-            var defaults = {
+            return {
                 currentPage: 1,
                 visiblePageLinks: 5,
                 maxVisiblePageLinks: 20,
@@ -488,7 +488,7 @@
                 navPagesClass: 'nav-pages',
                 navItemClass: 'nav-item ui-state-default ui-corner-all',
                 navItemSelectedClass: 'nav-item ui-state-default ui-corner-all ui-state-highlight',
-                navItemHoverClass: 'ui-state-hover',  // if empty, no hover applied
+                navItemHoverClass: 'ui-state-hover', // if empty, no hover applied
                 navDotsRightClass: 'nav-dots-right',
                 navTotalPagesLabelClass: 'total-pages-label',
                 navTotalPagesClass: 'total-pages',
@@ -528,7 +528,6 @@
                 onDisplay: function() {
                 }
             };
-            return defaults;
         },
 
         /**
@@ -570,10 +569,9 @@
         /**
          * Destroy plugin
          * Usage: $(element).jui_pagination('destroy');
-         * @param options
          * @return {*|jQuery}
          */
-        destroy: function(options) {
+        destroy: function() {
             return $(this).each(function() {
                 var $this = $(this);
 
@@ -592,7 +590,7 @@
      */
     var create_id = function(prefix, plugin_container_id) {
         return prefix + plugin_container_id;
-    }
+    };
 
     /**
      * Disable selection (jquery 1.8)
@@ -612,9 +610,10 @@
      * @param container_id
      */
     var validate_input = function(container_id) {
+        var err_msg;
         var totalPages = $("#" + container_id).jui_pagination('getOption', 'totalPages');
         if(parseInt(totalPages) <= 0 || isNaN(parseInt(totalPages))) {
-            var err_msg = 'Invalid totalPages';
+            err_msg = 'Invalid totalPages';
             $("#" + container_id).html('<span style="color: red;">' + 'ERROR: ' + err_msg + '</span>');
             $("#" + container_id).data('error_occured', true);
             $.error(err_msg);
@@ -622,7 +621,7 @@
 
         var currentPage = $("#" + container_id).jui_pagination('getOption', 'currentPage');
         if(parseInt(currentPage) <= 0 || isNaN(parseInt(currentPage))) {
-            var err_msg = 'Invalid currentPage';
+            err_msg = 'Invalid currentPage';
             $("#" + container_id).html('<span style="color: red;">' + 'ERROR: ' + err_msg + '</span>');
             $("#" + container_id).data('error_occured', true);
             $.error(err_msg);
@@ -630,21 +629,21 @@
 
         var visiblePageLinks = $("#" + container_id).jui_pagination('getOption', 'visiblePageLinks');
         if(parseInt(visiblePageLinks) <= 0 || isNaN(parseInt(visiblePageLinks))) {
-            var err_msg = 'Invalid visiblePageLinks';
+            err_msg = 'Invalid visiblePageLinks';
             $("#" + container_id).html('<span style="color: red;">' + 'ERROR: ' + err_msg + '</span>');
             $("#" + container_id).data('error_occured', true);
             $.error(err_msg);
         }
 
         if(parseInt(currentPage) > parseInt(totalPages)) {
-            var err_msg = 'Invalid currentPage > totalPages';
+            err_msg = 'Invalid currentPage > totalPages';
             $("#" + container_id).html('<span style="color: red;">' + 'ERROR: ' + err_msg + '</span>');
             $("#" + container_id).data('error_occured', true);
             $.error(err_msg);
         }
 
         if(parseInt(visiblePageLinks) > parseInt(totalPages)) {
-            var err_msg = 'Invalid visiblePageLinks > totalPages';
+            err_msg = 'Invalid visiblePageLinks > totalPages';
             $("#" + container_id).html('<span style="color: red;">' + 'ERROR: ' + err_msg + '</span>');
             $("#" + container_id).data('error_occured', true);
             $.error(err_msg);
@@ -652,12 +651,12 @@
 
         var maxVisiblePageLinks = $("#" + container_id).jui_pagination('getOption', 'maxVisiblePageLinks');
         if(parseInt(visiblePageLinks) > parseInt(maxVisiblePageLinks)) {
-            var err_msg = 'Invalid visiblePageLinks > maxVisiblePageLinks';
+            err_msg = 'Invalid visiblePageLinks > maxVisiblePageLinks';
             $("#" + container_id).html('<span style="color: red;">' + 'ERROR: ' + err_msg + '</span>');
             $("#" + container_id).data('error_occured', true);
             $.error(err_msg);
         }
-    }
+    };
 
 
     /**
@@ -703,7 +702,7 @@
         pref_id = dialog_id + '_rows_per_page';
         state = $("#" + plugin_container_id).jui_pagination('getOption', 'showRowsPerPage');
         $("#" + pref_id).attr("checked", state);
-    }
+    };
 
     /**
      * Create nagivation pages
@@ -739,6 +738,8 @@
         var nav_next_id = create_id(s.nav_next_id_prefix, container_id);
         var nav_last_id = create_id(s.nav_last_id_prefix, container_id);
 
+        var selector = '';
+        var i;
         var nav_html = '';
         var goto = parseInt(currentPage);
 
@@ -774,7 +775,6 @@
             // show - hide nav controls
             if(showNavButtons) {
                 var tmp = (showNavPages ? nav_start : goto);
-                var selector = '';
                 selector = "#" + nav_top_id + ', ' + "#" + nav_prev_id;
                 if(tmp > 1) {
                     $(selector).show();
@@ -795,7 +795,7 @@
             if(nav_start > 1) {
                 nav_html += '<div id="' + nav_dots_left_id + '">...</div>';
             }
-            for(var i = nav_start; i <= nav_end; i++) {
+            for(i = nav_start; i <= nav_end; i++) {
                 nav_html += '<div id="' + nav_item_id_prefix + i + '">' + i + '</div>';
             }
             if(nav_end < totalPages) {
@@ -816,7 +816,7 @@
 
             // create nav pages html
             if(goto <= median_links) {
-                for(var i = 1; i <= median_links + 1; i++) {
+                for(i = 1; i <= median_links + 1; i++) {
                     nav_html += '<div id="' + nav_item_id_prefix + i + '">' + i + '</div>';
                 }
                 nav_html += '<div id="' + nav_dots_right_id + '">...</div>';
@@ -824,13 +824,13 @@
             } else if(goto > totalPages - median_links) {
                 nav_html += '<div id="' + nav_item_id_prefix + '1' + '">1</div>';
                 nav_html += '<div id="' + nav_dots_left_id + '">...</div>';
-                for(var i = totalPages - median_links; i <= totalPages; i++) {
+                for(i = totalPages - median_links; i <= totalPages; i++) {
                     nav_html += '<div id="' + nav_item_id_prefix + i + '">' + i + '</div>';
                 }
             } else {
                 nav_html += '<div id="' + nav_item_id_prefix + '1' + '">1</div>';
                 nav_html += '<div id="' + nav_dots_left_id + '">...</div>';
-                for(var i = goto - left_links; i <= goto + right_links; i++) {
+                for(i = goto - left_links; i <= goto + right_links; i++) {
                     nav_html += '<div id="' + nav_item_id_prefix + i + '">' + i + '</div>';
                 }
                 nav_html += '<div id="' + nav_dots_right_id + '">...</div>';
@@ -840,7 +840,6 @@
 
             // show - hide nav controls
             if(showNavButtons) {
-                var selector = '';
                 selector = "#" + nav_top_id + ', ' + "#" + nav_prev_id;
                 if(goto > 1) {
                     $(selector).show();
@@ -936,7 +935,7 @@
             create_nav_items(container_id);
         }
         update_current_page(container_id, goto_page, update_slider);
-    }
+    };
 
     $.fn.jui_pagination = function(method) {
 
