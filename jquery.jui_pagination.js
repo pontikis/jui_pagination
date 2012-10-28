@@ -642,12 +642,12 @@
             $.error(err_msg);
         }
 
-        if(parseInt(visiblePageLinks) > parseInt(totalPages)) {
+/*        if(parseInt(visiblePageLinks) > parseInt(totalPages)) {
             err_msg = 'Invalid visiblePageLinks > totalPages';
             $("#" + container_id).html('<span style="color: red;">' + 'ERROR: ' + err_msg + '</span>');
             $("#" + container_id).data('error_occured', true);
             $.error(err_msg);
-        }
+        }*/
 
         var maxVisiblePageLinks = $("#" + container_id).jui_pagination('getOption', 'maxVisiblePageLinks');
         if(parseInt(visiblePageLinks) > parseInt(maxVisiblePageLinks)) {
