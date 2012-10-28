@@ -54,8 +54,6 @@
                 elem.unbind("onSetRowsPerPage").bind("onSetRowsPerPage", settings.onSetRowsPerPage);
                 elem.unbind("onDisplay").bind("onDisplay", settings.onDisplay);
 
-                var goto_page;
-
                 // retrieve options
                 var totalPages = settings.totalPages;
                 var currentPage = settings.currentPage;
@@ -239,16 +237,16 @@
                         // click on go to top button
                         selector = "#" + nav_top_id;
                         $("#" + nav_pane_id).off('click', selector).on('click', selector, function() {
-                            goto_page = 1;
-                            change_page(container_id, goto_page, true, true);
+                            settings.currentPage = 1;
+                            change_page(container_id, settings.currentPage, true, true);
                         });
 
                         // click on go to prev button
                         selector = "#" + nav_prev_id;
                         $("#" + nav_pane_id).off('click', selector).on('click', selector, function() {
                             if(settings.currentPage > 1) {
-                                goto_page = parseInt(settings.currentPage) - 1;
-                                change_page(container_id, goto_page, true, true);
+                                settings.currentPage = parseInt(settings.currentPage) - 1;
+                                change_page(container_id, settings.currentPage, true, true);
                             }
                         });
 
@@ -256,16 +254,16 @@
                         selector = "#" + nav_next_id;
                         $("#" + nav_pane_id).off('click', selector).on('click', selector, function() {
                             if(settings.currentPage < settings.totalPages) {
-                                goto_page = parseInt(settings.currentPage) + 1;
-                                change_page(container_id, goto_page, true, true);
+                                settings.currentPage = parseInt(settings.currentPage) + 1;
+                                change_page(container_id, settings.currentPage, true, true);
                             }
                         });
 
                         // click on go to end button
                         selector = "#" + nav_last_id;
                         $("#" + nav_pane_id).off('click', selector).on('click', selector, function() {
-                            goto_page = parseInt(settings.totalPages);
-                            change_page(container_id, goto_page, true, true);
+                            settings.currentPage = parseInt(settings.totalPages);
+                            change_page(container_id, settings.currentPage, true, true);
                         });
 
                     }
@@ -274,11 +272,11 @@
                     selector = '[id^="' + nav_item_id_prefix + '"]';
                     $("#" + nav_pane_id).off('click', selector).on('click', selector, function(event) {
                         var len = nav_item_id_prefix.length;
-                        goto_page = $(event.target).attr("id").substr(len);
+                        settings.currentPage = parseInt($(event.target).attr("id").substr(len));
                         if(navPagesMode == 'continuous') {
-                            change_page(container_id, goto_page, false, true);
+                            change_page(container_id, settings.currentPage, false, true);
                         } else if(navPagesMode == 'first-last-always-visible') {
-                            change_page(container_id, goto_page, true, true);
+                            change_page(container_id, settings.currentPage, true, true);
                         }
                     });
 
@@ -290,13 +288,13 @@
                                 var gtp = parseInt($(event.target).val());
                                 $("#" + goto_page_id).val('');
                                 if(!isNaN(gtp) && gtp > 0) {
-                                    goto_page = gtp;
-                                    if(goto_page > settings.totalPages) {
-                                        goto_page = settings.totalPages;
+                                    settings.currentPage = gtp;
+                                    if(settings.currentPage > settings.totalPages) {
+                                        settings.currentPage = settings.totalPages;
                                     }
-                                    change_page(container_id, goto_page, true, true);
+                                    change_page(container_id, settings.currentPage, true, true);
                                 } else {
-                                    elem.triggerHandler("onChangePage", gtp);
+                                    elem.triggerHandler("onChangePage", settings.currentPage);
                                 }
                             } else {
                                 if(!(event.which === 8 || event.which === 0 || (event.shiftKey === false && (event.which > 47 && event.which < 58)))) {
@@ -355,8 +353,8 @@
                         range: (sliderOrientation == 'horizontal' ? 'min' : 'max'),
                         orientation: sliderOrientation,
                         stop: function(event, ui) {
-                            goto_page = (sliderOrientation == 'horizontal' ? ui.value : totalPages - ui.value + 1);
-                            change_page(container_id, goto_page, true, false);
+                            settings.currentPage = (sliderOrientation == 'horizontal' ? parseInt(ui.value) : parseInt(totalPages) - parseInt(ui.value) + 1);
+                            change_page(container_id, settings.currentPage, true, false);
                         }
                     });
 
@@ -589,7 +587,7 @@
     /**
      * Create element id
      * @param prefix
-     * @param container_id
+     * @param plugin_container_id
      * @return {*}
      */
     var create_id = function(prefix, plugin_container_id) {
@@ -742,11 +740,7 @@
         var nav_last_id = create_id(s.nav_last_id_prefix, container_id);
 
         var nav_html = '';
-        var goto = elem.data('goto');
-        if(typeof(goto) == 'undefined') {
-            goto = currentPage;
-        }
-        goto = parseInt(goto);
+        var goto = parseInt(currentPage);
 
         if(navPagesMode == 'continuous') {
 
@@ -926,9 +920,6 @@
             }
         }
 
-        // update currentPage option
-        elem.jui_pagination('setOption', 'currentPage', goto_page, false);
-
         // trigger event onChangePage
         elem.triggerHandler("onChangePage", goto_page);
     };
@@ -936,11 +927,11 @@
     /**
      * Change page
      * @param container_id
-     * @param page_num
+     * @param goto_page
+     * @param update_nav_items
      * @param update_slider
      */
     var change_page = function(container_id, goto_page, update_nav_items, update_slider) {
-        $("#" + container_id).data('goto', goto_page);
         if(update_nav_items) {
             create_nav_items(container_id);
         }
