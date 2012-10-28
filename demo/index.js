@@ -131,8 +131,8 @@ $(function() {
             currentPage: 8
         })
     });
-    $("#1visiblePageLinks_get").click(function() {
-        alert($("#demo_pag1").jui_pagination('getOption', 'visiblePageLinks'));
+    $("#1currentPage_get").click(function() {
+        alert($("#demo_pag1").jui_pagination('getOption', 'currentPage'));
     });
 
 
