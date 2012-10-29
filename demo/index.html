@@ -31,9 +31,7 @@
 
 <p><a href="http://pontikis.github.com">pontikis.github.com</a>
 
-<p>VERSION 1.10
-
-<p>Project page: <a href="https://github.com/pontikis/jui_pagination">https://github.com/pontikis/jui_pagination</a>
+<p>VERSION 1.10 - Project page: <a href="https://github.com/pontikis/jui_pagination">https://github.com/pontikis/jui_pagination</a>
 </p>
 
 <label for="ui-theme-switcher">Select theme:</label>
@@ -81,14 +79,22 @@
 <div id="demo_pag1_tools" class="tools">
     <p id="result"></p>
 
-    <fieldset style="width: 400px;" class="ui-corner-all">
-        <legend>Nav pages Mode</legend>
+    <div style="margin-bottom: 10px;">
+    <fieldset style="width: 360px; display: inline-block;" class="ui-state-default ui-corner-all">
+        <legend class="ui-widget-header ui-corner-all">Nav pages Mode</legend>
         <label for="1mode_first-last-always-visible">first-last-always-visible (default)</label><input type="radio" name="1mode" id="1mode_first-last-always-visible" checked="checked">
         <label for="1mode_continuous" style="margin-left: 30px;">continuous</label><input type="radio" name="1mode" id="1mode_continuous">
     </fieldset>
 
-    <fieldset class="ui-corner-all">
-        <legend>Test some Options</legend>
+    <fieldset style="width: 360px; display: inline-block;" class="ui-state-default ui-corner-all">
+        <legend class="ui-widget-header ui-corner-all">Slider position</legend>
+        <label for="1inside">inside pane (default)</label><input type="radio" name="1slider_postion" id="1inside" checked="checked">
+        <label for="1outside" style="margin-left: 30px;">outside</label><input type="radio" name="1slider_postion" id="1outside">
+    </fieldset>
+    </div>
+
+    <fieldset class="ui-state-default ui-corner-all" style="width: 850px;">
+        <legend class="ui-widget-header ui-corner-all">Test some Options</legend>
         <span>visiblePageLinks:</span>
         <input type="button" value="Set" id="1visiblePageLinks_set"><input type="text" id="1visiblePageLinks_value" style="width: 50px;">
         <input type="button" value="Reset (5)" id="1visiblePageLinks_reset">
@@ -112,7 +118,7 @@
 </div>
 
 <div id="wrap2" class="wrap2">
-    <div id="list2" class="list2"></div>
+    <div id="list2" class="ui-state-default list2"></div>
     <div id="slider2"></div>
 </div>
 <div id="demo_pag2"></div>
@@ -121,11 +127,20 @@
 <div id="demo_pag2_tools" class="tools">
     <p id="result2"></p>
 
-    <fieldset style="width: 400px;" class="ui-corner-all">
-        <legend>Nav pages Mode</legend>
-        <label for="2mode_first-last-always-visible">first-last-always-visible (default)</label><input type="radio" name="2mode" id="2mode_first-last-always-visible" checked="checked">
-        <label for="2mode_continuous" style="margin-left: 30px;">continuous</label><input type="radio" name="2mode" id="2mode_continuous">
-    </fieldset>
+    <div style="margin-bottom: 10px;">
+        <fieldset style="width: 360px; display: inline-block;" class="ui-state-default ui-corner-all">
+            <legend class="ui-widget-header ui-corner-all">Nav pages Mode</legend>
+            <label for="2mode_first-last-always-visible">first-last-always-visible (default)</label><input type="radio" name="2mode" id="2mode_first-last-always-visible" checked="checked">
+            <label for="2mode_continuous" style="margin-left: 30px;">continuous</label><input type="radio" name="2mode" id="2mode_continuous">
+        </fieldset>
+
+        <fieldset style="width: 500px; display: inline-block;" class="ui-state-default ui-corner-all">
+            <legend class="ui-widget-header ui-corner-all">Slider position</legend>
+            <label for="2inside">inside pane (default)</label><input type="radio" name="2slider_postion" id="2inside">
+            <label for="2outside" style="margin-left: 30px;">outside</label><input type="radio" name="2slider_postion" id="2outside">
+            <label for="2user_defined" style="margin-left: 30px;">outside, user-defined</label><input type="radio" name="2slider_postion" id="2user_defined" checked="checked">
+        </fieldset>
+    </div>
 
 </div>
 

@@ -15,7 +15,8 @@ $(function() {
         totalPages: 103,
         containerClass: 'container1',
 
-        useSlider: false,
+        useSlider: true,
+        sliderInsidePane: true,
         sliderClass: 'slider1',
 
         disableSelectionNavPane: true,
@@ -66,6 +67,7 @@ $(function() {
         sliderElementID: 'slider2',
         sliderClass: 'slider2',
         sliderOrientation: 'vertical',
+        sliderInsidePane: false,
 
         disableSelectionNavPane: true,
 
@@ -100,6 +102,47 @@ $(function() {
             showLabelTotalPages: true,
             showTotalPages: true,
             showNavButtons: true
+        })
+    });
+
+    // slider position -----------------------------------
+    $('#1inside').click(function() {
+        $("#demo_pag1").jui_pagination({
+            sliderInsidePane: true
+        })
+    });
+
+    $('#1outside').click(function() {
+        $("#demo_pag1").jui_pagination({
+            sliderInsidePane: false
+        })
+    });
+
+
+    $('#2inside').click(function() {
+        $("#demo_pag2").jui_pagination({
+            sliderElementID: '',
+            sliderClass: '',
+            sliderOrientation: 'horizontal',
+            sliderInsidePane: true
+        })
+    });
+
+    $('#2outside').click(function() {
+        $("#demo_pag2").jui_pagination({
+            sliderElementID: '',
+            sliderClass: '',
+            sliderOrientation: 'horizontal',
+            sliderInsidePane: false
+        })
+    });
+
+    $('#2user_defined').click(function() {
+        $("#demo_pag2").jui_pagination({
+            sliderElementID: 'slider2',
+            sliderClass: 'slider2',
+            sliderOrientation: 'vertical',
+            sliderInsidePane: false
         })
     });
 

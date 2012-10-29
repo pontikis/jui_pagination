@@ -68,6 +68,7 @@
                 var useSliderWithPagesCount = settings.useSliderWithPagesCount;
                 var sliderOrientation = settings.sliderOrientation;
                 var sliderAnimation = settings.sliderAnimation;
+                var sliderInsidePane = settings.sliderInsidePane;
 
                 var showGoToPage = settings.showGoToPage;
                 var showNavButtons = settings.showNavButtons;
@@ -98,7 +99,7 @@
                 var navRowsPerPageClass = settings.navRowsPerPageClass;
                 var navInfoClass = settings.navInfoClass;
                 var preferencesClass = settings.preferencesClass;
-                var sliderClass = settings.sliderClass;
+                var sliderClass = (settings.sliderInsidePane ? settings.sliderInsidePaneClass : settings.sliderClass);
 
                 var nav_pane_id = (!navPaneElementID ? create_id(settings.nav_pane_id_prefix, container_id) : navPaneElementID);
                 var goto_page_id = create_id(settings.nav_goto_page_id_prefix, container_id);
@@ -156,6 +157,14 @@
                         if(value == 'go_to_page') {
                             if(showGoToPage) {
                                 nav_pane_html += '<input type="text" id="' + goto_page_id + '" title="' + rsc_jui_pag.go_to_page_title + '">';
+                            }
+                        } else if(value == 'slider') {
+                            if(sliderInsidePane) {
+                                if(typeof($("#" + slider_id).data("slider")) == 'object') {
+                                    $("#" + slider_id).slider('destroy');
+                                    $("#" + slider_id).html('');
+                                }
+                                nav_pane_html += '<div id="' + slider_id + '"></div>';
                             }
                         } else if(value == 'back_buttons') {
                             if(showNavButtons) {
@@ -338,7 +347,7 @@
                 /* CREATE SLIDER -------------------------------------------- */
                 if(useSlider) {
 
-                    if(!sliderElementID) {
+                    if(!sliderElementID && !sliderInsidePane) {
                         if($("#" + slider_id).length == 0) {
                             elem.append('<div id="' + slider_id + '"></div>');
                         }
@@ -451,6 +460,7 @@
                 navPaneElementID: false, // if given, nav pane appears outside container inside specified element
                 nav_pane_display_order: [
                     'go_to_page',
+                    'slider',
                     'back_buttons',
                     'current_page_label',
                     'current_page',
@@ -463,6 +473,7 @@
                 ],
 
                 useSlider: false,
+                sliderInsidePane: true,
                 sliderElementID: false, // if given, slider appears outside container inside specified element
                 useSliderWithPagesCount: 0, // show slider over specified number of pages
                 sliderOrientation: 'horizontal',
@@ -499,6 +510,7 @@
                 navRowsPerPageClass: 'rows-per-page  ui-state-default ui-corner-all',
                 navInfoClass: 'rows-info',
                 sliderClass: 'nav-slider',
+                sliderInsidePaneClass: 'nav-slider-inside-pane',
                 preferencesClass: 'preferences ui-icon ui-icon-signal',
 
                 nav_pane_id_prefix: 'nav_pane_',

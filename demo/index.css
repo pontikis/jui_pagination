@@ -5,12 +5,12 @@ body {
 
 /* -------------------------------------------------------------------------- */
 .container1 {
-    width: 500px;
+    width: 700px;
     padding: 10px;
 }
 
 .container1_alt {
-    width: 700px;
+    width: 900px;
     padding: 40px;
     border: solid blue 1px;
 }
@@ -39,7 +39,6 @@ body {
 .list2 {
     width: 800px;
     height: 200px;
-    border: solid black 1px;
     float: left;
 }
 

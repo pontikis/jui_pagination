@@ -138,7 +138,15 @@ Write your own classes in other css file.
 
 /* -------------------------------------------------------------------------- */
 .nav-slider {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    width: 85%;
+    margin: 10px auto;
 }
+
+.nav-slider-inside-pane {
+    display: inline-block;
+    width: 20%;
+    margin: auto 10px;
+    vertical-align: middle;
+}
+
 /* -------------------------------------------------------------------------- */
