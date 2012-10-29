@@ -67,6 +67,7 @@
                 var sliderElementID = settings.sliderElementID;
                 var useSliderWithPagesCount = settings.useSliderWithPagesCount;
                 var sliderOrientation = settings.sliderOrientation;
+                var sliderAnimation = settings.sliderAnimation;
 
                 var showGoToPage = settings.showGoToPage;
                 var showNavButtons = settings.showNavButtons;
@@ -349,7 +350,7 @@
                         min: 1,
                         max: totalPages,
                         value: (sliderOrientation == 'horizontal' ? currentPage : totalPages - currentPage + 1),
-                        animate: 'slow',
+                        animate: sliderAnimation,
                         range: (sliderOrientation == 'horizontal' ? 'min' : 'max'),
                         orientation: sliderOrientation,
                         stop: function(event, ui) {
@@ -465,6 +466,7 @@
                 sliderElementID: false, // if given, slider appears outside container inside specified element
                 useSliderWithPagesCount: 0, // show slider over specified number of pages
                 sliderOrientation: 'horizontal',
+                sliderAnimation: 'slow', // true (or 'slow' or 'fast' or duration in milliseconds) or false
 
                 showGoToPage: false,
                 showNavButtons: false,
