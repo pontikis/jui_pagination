@@ -462,8 +462,8 @@
 
                 useNavPane: true,
                 nav_pane_display_order: [
-                    'go_to_page',
                     'slider',
+                    'go_to_page',
                     'back_buttons',
                     'current_page_label',
                     'current_page',

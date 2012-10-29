@@ -59,7 +59,6 @@ $(function() {
         totalPages: 24,
         containerClass: 'container2',
 
-        //navPaneClass: 'navpane2 nav-pane ui-state-default ui-corner-all',
         navItemHoverClass: '',
 
         useSlider: true,

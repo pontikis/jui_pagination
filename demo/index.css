@@ -42,7 +42,7 @@ body {
 .slider2_inside {
     float: left;
     width: 20%;
-    margin: 6px 15px auto 15px;
+    margin: 6px 15px 1px 15px;
 }
 
 .slider2_outside {
