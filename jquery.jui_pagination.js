@@ -61,7 +61,6 @@
                 var rowsPerPage = settings.rowsPerPage;
 
                 var useNavPane = settings.useNavPane;
-                var navPaneElementID = settings.navPaneElementID;
 
                 var useSlider = settings.useSlider;
                 var sliderElementID = settings.sliderElementID;
@@ -101,7 +100,7 @@
                 var preferencesClass = settings.preferencesClass;
                 var sliderClass = (settings.sliderInsidePane ? settings.sliderInsidePaneClass : settings.sliderClass);
 
-                var nav_pane_id = (!navPaneElementID ? create_id(settings.nav_pane_id_prefix, container_id) : navPaneElementID);
+                var nav_pane_id = create_id(settings.nav_pane_id_prefix, container_id);
                 var goto_page_id = create_id(settings.nav_goto_page_id_prefix, container_id);
                 var current_label_id = create_id(settings.nav_current_page_label_id_prefix, container_id);
                 var current_id = create_id(settings.nav_current_page_id_prefix, container_id);
@@ -121,6 +120,8 @@
 
                 var disableSelectionNavPane = settings.disableSelectionNavPane;
 
+                var selector;
+
                 if(useSlider) {
                     var pageLimit = (useSliderWithPagesCount == 0 ? visiblePageLinks : Math.max(useSliderWithPagesCount, visiblePageLinks));
                     if(totalPages <= pageLimit) {
@@ -131,17 +132,13 @@
                 // set container style
                 if(containerClass != '') {
                     elem.removeClass().addClass(containerClass);
-                } else {
-                    elem.removeClass(containerClass);
                 }
 
                 /* CREATE PANEL --------------------------------------------- */
                 if(useNavPane) {
 
-                    if(!navPaneElementID) {
-                        if($("#" + nav_pane_id).length == 0) {
-                            elem.html('<div id="' + nav_pane_id + '"></div>' + elem.html());
-                        }
+                    if($("#" + nav_pane_id).length == 0) {
+                        elem.html('<div id="' + nav_pane_id + '"></div>' + elem.html());
                     }
 
                     var nav_pane_html = '';
@@ -159,7 +156,7 @@
                                 nav_pane_html += '<input type="text" id="' + goto_page_id + '" title="' + rsc_jui_pag.go_to_page_title + '">';
                             }
                         } else if(value == 'slider') {
-                            if(sliderInsidePane) {
+                            if(useSlider && sliderInsidePane) {
                                 if(typeof($("#" + slider_id).data("slider")) == 'object') {
                                     $("#" + slider_id).slider('destroy');
                                     $("#" + slider_id).html('');
@@ -241,7 +238,6 @@
                     create_nav_items(container_id);
 
                     // panel enents
-                    var selector;
                     if(showNavButtons) {
 
                         // click on go to top button
@@ -353,6 +349,14 @@
                         }
                     }
 
+                    if(sliderElementID) {
+                        selector = "#" + create_id(settings.slider_id_prefix, container_id);
+                        if(typeof($(selector).data("slider")) == 'object') {
+                            $(selector).slider('destroy');
+                            $(selector).html('');
+                        }
+                    }
+
                     $("#" + slider_id).removeClass(sliderClass).addClass(sliderClass);
 
                     $("#" + slider_id).slider({
@@ -457,7 +461,6 @@
                 rowsPerPage: 10,
 
                 useNavPane: true,
-                navPaneElementID: false, // if given, nav pane appears outside container inside specified element
                 nav_pane_display_order: [
                     'go_to_page',
                     'slider',
@@ -667,12 +670,12 @@
             $.error(err_msg);
         }
 
-/*        if(parseInt(visiblePageLinks) > parseInt(totalPages)) {
-            err_msg = 'Invalid visiblePageLinks > totalPages';
-            $("#" + container_id).html('<span style="color: red;">' + 'ERROR: ' + err_msg + '</span>');
-            $("#" + container_id).data('error_occured', true);
-            $.error(err_msg);
-        }*/
+        /*        if(parseInt(visiblePageLinks) > parseInt(totalPages)) {
+         err_msg = 'Invalid visiblePageLinks > totalPages';
+         $("#" + container_id).html('<span style="color: red;">' + 'ERROR: ' + err_msg + '</span>');
+         $("#" + container_id).data('error_occured', true);
+         $.error(err_msg);
+         }*/
 
         var maxVisiblePageLinks = $("#" + container_id).jui_pagination('getOption', 'maxVisiblePageLinks');
         if(parseInt(visiblePageLinks) > parseInt(maxVisiblePageLinks)) {
