@@ -17,10 +17,7 @@ body {
 
 .slider1 {
     width: 400px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-right: auto;
-    margin-left: auto;
+    margin: 10px auto;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -42,12 +39,28 @@ body {
     float: left;
 }
 
-.slider2 {
+.slider2_inside {
+    float: left;
+    width: 20%;
+    margin: 6px 15px auto 15px;
+}
+
+.slider2_outside {
+    width: 85%;
+    margin: 10px auto;
+}
+
+.slider2_user_defined {
     height: 170px;
     float: left;
     margin-left: 10px;
     margin-top: 15px;
     margin-bottom: 10px;
+}
+
+.container2 {
+    width: 780px;
+    padding: 10px;
 }
 
 .navpane2 {

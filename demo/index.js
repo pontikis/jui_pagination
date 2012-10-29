@@ -3,7 +3,7 @@ $(function() {
     $("#ui-theme-switcher").change(function() {
         var theme_url = $(this).val();
         $("#ui-theme").attr("href", theme_url);
-    })
+    });
 
 
     /**
@@ -59,13 +59,12 @@ $(function() {
         totalPages: 24,
         containerClass: 'container2',
 
-        navPaneElementID: 'navpane2',
-        navPaneClass: 'navpane2 nav-pane ui-state-default ui-corner-all',
+        //navPaneClass: 'navpane2 nav-pane ui-state-default ui-corner-all',
         navItemHoverClass: '',
 
         useSlider: true,
         sliderElementID: 'slider2',
-        sliderClass: 'slider2',
+        sliderClass: 'slider2_user_defined',
         sliderOrientation: 'vertical',
         sliderInsidePane: false,
 
@@ -120,18 +119,26 @@ $(function() {
 
 
     $('#2inside').click(function() {
+        if(typeof($("#slider2").data("slider")) == 'object') {
+            $("#slider2").slider('destroy');
+            $("#slider2").html('');
+        }
         $("#demo_pag2").jui_pagination({
-            sliderElementID: '',
-            sliderClass: '',
+            sliderElementID: false,
+            sliderInsidePaneClass: 'slider2_inside',
             sliderOrientation: 'horizontal',
             sliderInsidePane: true
         })
     });
 
     $('#2outside').click(function() {
+        if(typeof($("#slider2").data("slider")) == 'object') {
+            $("#slider2").slider('destroy');
+            $("#slider2").html('');
+        }
         $("#demo_pag2").jui_pagination({
-            sliderElementID: '',
-            sliderClass: '',
+            sliderElementID: false,
+            sliderClass: 'slider2_outside',
             sliderOrientation: 'horizontal',
             sliderInsidePane: false
         })
@@ -140,7 +147,7 @@ $(function() {
     $('#2user_defined').click(function() {
         $("#demo_pag2").jui_pagination({
             sliderElementID: 'slider2',
-            sliderClass: 'slider2',
+            sliderClass: 'slider2_user_defined',
             sliderOrientation: 'vertical',
             sliderInsidePane: false
         })
