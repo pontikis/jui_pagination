@@ -194,9 +194,9 @@
         rowsPerPage: 10,
 
         useNavPane: true,
-        navPaneElementID: false, // if given, nav pane appears outside container inside specified element
         nav_pane_display_order: [
             'go_to_page',
+            'slider',
             'back_buttons',
             'current_page_label',
             'current_page',
@@ -209,9 +209,11 @@
         ],
 
         useSlider: false,
+        sliderInsidePane: true,
         sliderElementID: false, // if given, slider appears outside container inside specified element
         useSliderWithPagesCount: 0, // show slider over specified number of pages
         sliderOrientation: 'horizontal',
+        sliderAnimation: 'slow', // true (or 'slow' or 'fast' or duration in milliseconds) or false
 
         showGoToPage: false,
         showNavButtons: false,
@@ -235,7 +237,7 @@
         navPagesClass: 'nav-pages',
         navItemClass: 'nav-item ui-state-default ui-corner-all',
         navItemSelectedClass: 'nav-item ui-state-default ui-corner-all ui-state-highlight',
-        navItemHoverClass: 'ui-state-hover',  // if empty, no hover applied
+        navItemHoverClass: 'ui-state-hover', // if empty, no hover applied
         navDotsRightClass: 'nav-dots-right',
         navTotalPagesLabelClass: 'total-pages-label',
         navTotalPagesClass: 'total-pages',
@@ -244,6 +246,7 @@
         navRowsPerPageClass: 'rows-per-page  ui-state-default ui-corner-all',
         navInfoClass: 'rows-info',
         sliderClass: 'nav-slider',
+        sliderInsidePaneClass: 'nav-slider-inside-pane',
         preferencesClass: 'preferences ui-icon ui-icon-signal',
 
         nav_pane_id_prefix: 'nav_pane_',
