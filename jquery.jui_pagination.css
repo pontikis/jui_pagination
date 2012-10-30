@@ -5,7 +5,6 @@ Write your own classes in other css file.
 
 /* -------------------------------------------------------------------------- */
 .nav-pane {
-    overflow: auto;
     text-align: center;
 }
 
