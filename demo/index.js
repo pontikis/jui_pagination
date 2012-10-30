@@ -42,7 +42,7 @@ $(function() {
             var showRowsInfo = $(this).jui_pagination('getOption', 'showRowsInfo');
             if(showRowsInfo) {
                 var prefix = $(this).jui_pagination('getOption', 'nav_rows_info_id_prefix');
-                $("#" + prefix + $(this).attr("id")).text('Test info');
+                $("#" + prefix + $(this).attr("id")).text('Total rows: XXX');
             }
         }
     });
