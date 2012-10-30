@@ -40,9 +40,10 @@ body {
 }
 
 .slider2_inside {
-    float: left;
+    display: inline-block;
     width: 20%;
-    margin: 6px 15px 1px 15px;
+    margin: auto 10px;
+    vertical-align: middle;
 }
 
 .slider2_outside {
