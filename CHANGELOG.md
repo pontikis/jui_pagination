@@ -9,7 +9,7 @@ License MIT
 
 UPCOMING Release 1.14 (?? Oct 2012)
 ---------------------------
-* minified version added
+* minified version added (http://dean.edwards.name/packer/)
 * sliderInsidePane property (slider can be placed inside nav pane - it becomes default)
 * sliderAnimation property
 * navPaneElementID property removed (nav pane always inside plugin container)
