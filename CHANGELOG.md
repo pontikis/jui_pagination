@@ -14,6 +14,7 @@ UPCOMING Release 1.14 (?? Oct 2012)
 * sliderAnimation property
 * navPaneElementID property removed (nav pane always inside plugin container)
 * CSS improvements
+* option useNavPane removed
 * jquery-ui 1.9.1
 
 Release 1.12 (25 Oct 2012)

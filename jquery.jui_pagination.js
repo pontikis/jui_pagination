@@ -60,8 +60,6 @@
                 var visiblePageLinks = settings.visiblePageLinks;
                 var rowsPerPage = settings.rowsPerPage;
 
-                var useNavPane = settings.useNavPane;
-
                 var useSlider = settings.useSlider;
                 var sliderElementID = settings.sliderElementID;
                 var useSliderWithPagesCount = settings.useSliderWithPagesCount;
@@ -135,212 +133,208 @@
                 }
 
                 /* CREATE PANEL --------------------------------------------- */
-                if(useNavPane) {
-
-                    if($("#" + nav_pane_id).length == 0) {
-                        elem.html('<div id="' + nav_pane_id + '"></div>' + elem.html());
-                    }
-
-                    var nav_pane_html = '';
-
-                    if(showPreferences) {
-                        nav_pane_html += '<div id="' + preferences_id +
-                            '" title="' + rsc_jui_pag.preferences_title + '">'
-                            + rsc_jui_pag.preferences_text + '</div>';
-                    }
-
-                    $.each(nav_pane_display_order, function(index, value) {
-
-                        if(value == 'go_to_page') {
-                            if(showGoToPage) {
-                                nav_pane_html += '<input type="text" id="' + goto_page_id + '" title="' + rsc_jui_pag.go_to_page_title + '">';
-                            }
-                        } else if(value == 'slider') {
-                            if(useSlider && sliderInsidePane) {
-                                if(typeof($("#" + slider_id).data("slider")) == 'object') {
-                                    $("#" + slider_id).slider('destroy');
-                                    $("#" + slider_id).html('');
-                                }
-                                nav_pane_html += '<div id="' + slider_id + '"></div>';
-                            }
-                        } else if(value == 'back_buttons') {
-                            if(showNavButtons) {
-                                nav_pane_html += '<div id="' + nav_top_id + '">' + rsc_jui_pag.go_top_text + '</div>';
-                                nav_pane_html += '<div id="' + nav_prev_id + '">' + rsc_jui_pag.go_prev_text + '</div>';
-                            }
-                        } else if(value == 'current_page_label') {
-                            if(showLabelCurrentPage) {
-                                nav_pane_html += '<div id="' + current_label_id + '">' + rsc_jui_pag.current_page_label + '</div>';
-                            }
-                        } else if(value == 'current_page') {
-                            if(showCurrentPage) {
-                                nav_pane_html += '<div id="' + current_id + '">' + currentPage + '</div>';
-                            }
-                        } else if(value == 'nav_items') {
-                            if(showNavPages) {
-                                nav_pane_html += '<div id="' + nav_pages_id + '"></div>';
-                            }
-                        } else if(value == 'total_pages_label') {
-                            if(showLabelTotalPages) {
-                                nav_pane_html += '<div id="' + total_label_id + '">' + rsc_jui_pag.total_pages_label + '</div>';
-                            }
-                        } else if(value == 'total_pages') {
-                            if(showTotalPages) {
-                                nav_pane_html += '<div id="' + total_id + '">' + totalPages + '</div>';
-                            }
-                        } else if(value == 'forward_buttons') {
-                            if(showNavButtons) {
-                                nav_pane_html += '<div id="' + nav_next_id + '">' + rsc_jui_pag.go_next_text + '</div>';
-                                nav_pane_html += '<div id="' + nav_last_id + '">' + rsc_jui_pag.go_last_text + '</div>';
-                            }
-                        } else if(value == 'rows_per_page') {
-                            if(showRowsPerPage) {
-                                nav_pane_html += '<input type="text" id="' + rows_per_page_id + '" ' +
-                                    'value="' + rowsPerPage + '" ' +
-                                    'title="' + rsc_jui_pag.rows_per_page_title + '">';
-                            }
-                        } else if(value == 'rows_info') {
-                            if(showRowsInfo) {
-                                nav_pane_html += '<div id="' + rows_info_id + '"></div>';
-                            }
-                        }
-
-                    });
-
-                    // set nav_pane_html
-                    $("#" + nav_pane_id).html(nav_pane_html);
-
-                    // apply style
-                    $("#" + nav_pane_id).removeClass().addClass(navPaneClass);
-
-                    $("#" + goto_page_id).removeClass().addClass(navGoToPageClass);
-
-                    $("#" + current_label_id).removeClass().addClass(navCurrentPageLabelClass);
-                    $("#" + current_id).removeClass().addClass(navCurrentPageClass);
-
-                    $("#" + nav_top_id).removeClass().addClass(navButtonTopClass);
-                    $("#" + nav_prev_id).removeClass().addClass(navButtonPrevClass);
-
-                    $("#" + nav_pages_id).removeClass().addClass(navPagesClass);
-
-                    $("#" + nav_next_id).removeClass().addClass(navButtonNextClass);
-                    $("#" + nav_last_id).removeClass().addClass(navButtonLastClass);
-
-                    $("#" + total_label_id).removeClass().addClass(navTotalPagesLabelClass);
-                    $("#" + total_id).removeClass().addClass(navTotalPagesClass);
-
-                    $("#" + rows_per_page_id).removeClass().addClass(navRowsPerPageClass);
-
-                    $("#" + rows_info_id).removeClass().addClass(navInfoClass);
-
-                    $("#" + preferences_id).removeClass().addClass(preferencesClass);
-
-                    create_nav_items(container_id);
-
-                    // panel enents
-                    if(showNavButtons) {
-
-                        // click on go to top button
-                        selector = "#" + nav_top_id;
-                        $("#" + nav_pane_id).off('click', selector).on('click', selector, function() {
-                            settings.currentPage = 1;
-                            change_page(container_id, settings.currentPage, true, true);
-                        });
-
-                        // click on go to prev button
-                        selector = "#" + nav_prev_id;
-                        $("#" + nav_pane_id).off('click', selector).on('click', selector, function() {
-                            if(settings.currentPage > 1) {
-                                settings.currentPage = parseInt(settings.currentPage) - 1;
-                                change_page(container_id, settings.currentPage, true, true);
-                            }
-                        });
-
-                        // click on go to next button
-                        selector = "#" + nav_next_id;
-                        $("#" + nav_pane_id).off('click', selector).on('click', selector, function() {
-                            if(settings.currentPage < settings.totalPages) {
-                                settings.currentPage = parseInt(settings.currentPage) + 1;
-                                change_page(container_id, settings.currentPage, true, true);
-                            }
-                        });
-
-                        // click on go to end button
-                        selector = "#" + nav_last_id;
-                        $("#" + nav_pane_id).off('click', selector).on('click', selector, function() {
-                            settings.currentPage = parseInt(settings.totalPages);
-                            change_page(container_id, settings.currentPage, true, true);
-                        });
-
-                    }
-
-                    // click on nav page item
-                    selector = '[id^="' + nav_item_id_prefix + '"]';
-                    $("#" + nav_pane_id).off('click', selector).on('click', selector, function(event) {
-                        var len = nav_item_id_prefix.length;
-                        settings.currentPage = parseInt($(event.target).attr("id").substr(len));
-                        if(navPagesMode == 'continuous') {
-                            change_page(container_id, settings.currentPage, false, true);
-                        } else if(navPagesMode == 'first-last-always-visible') {
-                            change_page(container_id, settings.currentPage, true, true);
-                        }
-                    });
-
-                    // go to page event
-                    if(showGoToPage) {
-                        selector = "#" + goto_page_id;
-                        $("#" + nav_pane_id).off('keypress', selector).on('keypress', selector, function(event) {
-                            if(event.which === 13) {
-                                var gtp = parseInt($(event.target).val());
-                                $("#" + goto_page_id).val('');
-                                if(!isNaN(gtp) && gtp > 0) {
-                                    settings.currentPage = gtp;
-                                    if(settings.currentPage > settings.totalPages) {
-                                        settings.currentPage = settings.totalPages;
-                                    }
-                                    change_page(container_id, settings.currentPage, true, true);
-                                } else {
-                                    elem.triggerHandler("onChangePage", settings.currentPage);
-                                }
-                                event.preventDefault(); // MSIE strange behaviour
-                            } else {
-                                if(!(event.which === 8 || event.which === 0 || (event.shiftKey === false && (event.which > 47 && event.which < 58)))) {
-                                    event.preventDefault();
-                                }
-                            }
-                        });
-                    }
-
-                    // rows per page event
-                    if(showRowsPerPage) {
-                        selector = "#" + rows_per_page_id;
-                        $("#" + nav_pane_id).off('keypress', selector).on('keypress', selector, function(event) {
-                            if(event.which === 13) {
-                                var rpp = parseInt($(event.target).val());
-                                if(!isNaN(rpp) && rpp > 0) {
-                                    settings.rowsPerPage = rpp;
-                                } else {
-                                    $("#" + rows_per_page_id).val(settings.rowsPerPage);
-                                }
-                                elem.triggerHandler("onSetRowsPerPage", rpp);
-                                event.preventDefault(); // MSIE strange behaviour
-                            } else {
-                                if(!(event.which === 8 || event.which === 0 || (event.shiftKey === false && (event.which > 47 && event.which < 58)))) {
-                                    event.preventDefault();
-                                }
-                            }
-                        });
-                    }
-
-
-                    if(disableSelectionNavPane) {
-                        disableSelection($("#" + nav_pane_id));
-                    }
-
-                } else {
-                    $("#" + nav_pane_id).removeClass();
-                    $("#" + nav_pane_id).html('');
+                if($("#" + nav_pane_id).length == 0) {
+                    elem.html('<div id="' + nav_pane_id + '"></div>' + elem.html());
                 }
+
+                var nav_pane_html = '';
+
+                if(showPreferences) {
+                    nav_pane_html += '<div id="' + preferences_id +
+                        '" title="' + rsc_jui_pag.preferences_title + '">'
+                        + rsc_jui_pag.preferences_text + '</div>';
+                }
+
+                $.each(nav_pane_display_order, function(index, value) {
+
+                    if(value == 'go_to_page') {
+                        if(showGoToPage) {
+                            nav_pane_html += '<input type="text" id="' + goto_page_id + '" title="' + rsc_jui_pag.go_to_page_title + '">';
+                        }
+                    } else if(value == 'slider') {
+                        if(useSlider && sliderInsidePane) {
+                            if(typeof($("#" + slider_id).data("slider")) == 'object') {
+                                $("#" + slider_id).slider('destroy');
+                                $("#" + slider_id).html('');
+                            }
+                            nav_pane_html += '<div id="' + slider_id + '"></div>';
+                        }
+                    } else if(value == 'back_buttons') {
+                        if(showNavButtons) {
+                            nav_pane_html += '<div id="' + nav_top_id + '">' + rsc_jui_pag.go_top_text + '</div>';
+                            nav_pane_html += '<div id="' + nav_prev_id + '">' + rsc_jui_pag.go_prev_text + '</div>';
+                        }
+                    } else if(value == 'current_page_label') {
+                        if(showLabelCurrentPage) {
+                            nav_pane_html += '<div id="' + current_label_id + '">' + rsc_jui_pag.current_page_label + '</div>';
+                        }
+                    } else if(value == 'current_page') {
+                        if(showCurrentPage) {
+                            nav_pane_html += '<div id="' + current_id + '">' + currentPage + '</div>';
+                        }
+                    } else if(value == 'nav_items') {
+                        if(showNavPages) {
+                            nav_pane_html += '<div id="' + nav_pages_id + '"></div>';
+                        }
+                    } else if(value == 'total_pages_label') {
+                        if(showLabelTotalPages) {
+                            nav_pane_html += '<div id="' + total_label_id + '">' + rsc_jui_pag.total_pages_label + '</div>';
+                        }
+                    } else if(value == 'total_pages') {
+                        if(showTotalPages) {
+                            nav_pane_html += '<div id="' + total_id + '">' + totalPages + '</div>';
+                        }
+                    } else if(value == 'forward_buttons') {
+                        if(showNavButtons) {
+                            nav_pane_html += '<div id="' + nav_next_id + '">' + rsc_jui_pag.go_next_text + '</div>';
+                            nav_pane_html += '<div id="' + nav_last_id + '">' + rsc_jui_pag.go_last_text + '</div>';
+                        }
+                    } else if(value == 'rows_per_page') {
+                        if(showRowsPerPage) {
+                            nav_pane_html += '<input type="text" id="' + rows_per_page_id + '" ' +
+                                'value="' + rowsPerPage + '" ' +
+                                'title="' + rsc_jui_pag.rows_per_page_title + '">';
+                        }
+                    } else if(value == 'rows_info') {
+                        if(showRowsInfo) {
+                            nav_pane_html += '<div id="' + rows_info_id + '"></div>';
+                        }
+                    }
+
+                });
+
+                var elem_nav_pane = $("#" + nav_pane_id);
+
+                // set nav_pane_html
+                elem_nav_pane.html(nav_pane_html);
+
+                // apply style
+                elem_nav_pane.removeClass().addClass(navPaneClass);
+
+                $("#" + goto_page_id).removeClass().addClass(navGoToPageClass);
+
+                $("#" + current_label_id).removeClass().addClass(navCurrentPageLabelClass);
+                $("#" + current_id).removeClass().addClass(navCurrentPageClass);
+
+                $("#" + nav_top_id).removeClass().addClass(navButtonTopClass);
+                $("#" + nav_prev_id).removeClass().addClass(navButtonPrevClass);
+
+                $("#" + nav_pages_id).removeClass().addClass(navPagesClass);
+
+                $("#" + nav_next_id).removeClass().addClass(navButtonNextClass);
+                $("#" + nav_last_id).removeClass().addClass(navButtonLastClass);
+
+                $("#" + total_label_id).removeClass().addClass(navTotalPagesLabelClass);
+                $("#" + total_id).removeClass().addClass(navTotalPagesClass);
+
+                $("#" + rows_per_page_id).removeClass().addClass(navRowsPerPageClass);
+
+                $("#" + rows_info_id).removeClass().addClass(navInfoClass);
+
+                $("#" + preferences_id).removeClass().addClass(preferencesClass);
+
+                create_nav_items(container_id);
+
+                // panel enents
+                if(showNavButtons) {
+
+                    // click on go to top button
+                    selector = "#" + nav_top_id;
+                    elem_nav_pane.off('click', selector).on('click', selector, function() {
+                        settings.currentPage = 1;
+                        change_page(container_id, settings.currentPage, true, true);
+                    });
+
+                    // click on go to prev button
+                    selector = "#" + nav_prev_id;
+                    elem_nav_pane.off('click', selector).on('click', selector, function() {
+                        if(settings.currentPage > 1) {
+                            settings.currentPage = parseInt(settings.currentPage) - 1;
+                            change_page(container_id, settings.currentPage, true, true);
+                        }
+                    });
+
+                    // click on go to next button
+                    selector = "#" + nav_next_id;
+                    elem_nav_pane.off('click', selector).on('click', selector, function() {
+                        if(settings.currentPage < settings.totalPages) {
+                            settings.currentPage = parseInt(settings.currentPage) + 1;
+                            change_page(container_id, settings.currentPage, true, true);
+                        }
+                    });
+
+                    // click on go to end button
+                    selector = "#" + nav_last_id;
+                    elem_nav_pane.off('click', selector).on('click', selector, function() {
+                        settings.currentPage = parseInt(settings.totalPages);
+                        change_page(container_id, settings.currentPage, true, true);
+                    });
+
+                }
+
+                // click on nav page item
+                selector = '[id^="' + nav_item_id_prefix + '"]';
+                elem_nav_pane.off('click', selector).on('click', selector, function(event) {
+                    var len = nav_item_id_prefix.length;
+                    settings.currentPage = parseInt($(event.target).attr("id").substr(len));
+                    if(navPagesMode == 'continuous') {
+                        change_page(container_id, settings.currentPage, false, true);
+                    } else if(navPagesMode == 'first-last-always-visible') {
+                        change_page(container_id, settings.currentPage, true, true);
+                    }
+                });
+
+                // go to page event
+                if(showGoToPage) {
+                    selector = "#" + goto_page_id;
+                    elem_nav_pane.off('keypress', selector).on('keypress', selector, function(event) {
+                        if(event.which === 13) {
+                            var gtp = parseInt($(event.target).val());
+                            $("#" + goto_page_id).val('');
+                            if(!isNaN(gtp) && gtp > 0) {
+                                settings.currentPage = gtp;
+                                if(settings.currentPage > settings.totalPages) {
+                                    settings.currentPage = settings.totalPages;
+                                }
+                                change_page(container_id, settings.currentPage, true, true);
+                            } else {
+                                elem.triggerHandler("onChangePage", settings.currentPage);
+                            }
+                            event.preventDefault(); // MSIE strange behaviour
+                        } else {
+                            if(!(event.which === 8 || event.which === 0 || (event.shiftKey === false && (event.which > 47 && event.which < 58)))) {
+                                event.preventDefault();
+                            }
+                        }
+                    });
+                }
+
+                // rows per page event
+                if(showRowsPerPage) {
+                    selector = "#" + rows_per_page_id;
+                    elem_nav_pane.off('keypress', selector).on('keypress', selector, function(event) {
+                        if(event.which === 13) {
+                            var rpp = parseInt($(event.target).val());
+                            if(!isNaN(rpp) && rpp > 0) {
+                                settings.rowsPerPage = rpp;
+                            } else {
+                                $("#" + rows_per_page_id).val(settings.rowsPerPage);
+                            }
+                            elem.triggerHandler("onSetRowsPerPage", rpp);
+                            event.preventDefault(); // MSIE strange behaviour
+                        } else {
+                            if(!(event.which === 8 || event.which === 0 || (event.shiftKey === false && (event.which > 47 && event.which < 58)))) {
+                                event.preventDefault();
+                            }
+                        }
+                    });
+                }
+
+
+                if(disableSelectionNavPane) {
+                    disableSelection(elem_nav_pane);
+                }
+
 
                 /* CREATE SLIDER -------------------------------------------- */
                 if(useSlider) {
@@ -479,7 +473,6 @@
                 maxVisiblePageLinks: 20,
                 rowsPerPage: 10,
 
-                useNavPane: true,
                 nav_pane_display_order: [
                     'slider',
                     'go_to_page',
