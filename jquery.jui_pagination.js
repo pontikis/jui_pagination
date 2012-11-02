@@ -136,6 +136,7 @@
                 if($("#" + nav_pane_id).length == 0) {
                     elem.html('<div id="' + nav_pane_id + '"></div>' + elem.html());
                 }
+                var elem_nav_pane = $("#" + nav_pane_id);
 
                 var nav_pane_html = '';
 
@@ -202,8 +203,6 @@
                     }
 
                 });
-
-                var elem_nav_pane = $("#" + nav_pane_id);
 
                 // set nav_pane_html
                 elem_nav_pane.html(nav_pane_html);
@@ -384,6 +383,7 @@
                     }
 
                     selector = "#" + preferences_id;
+
                     $("#" + nav_pane_id).off('click', selector).on('click', selector, function() {
 
                         if(typeof($("#" + pref_dialog_id).data('dialog')) == 'object') {
