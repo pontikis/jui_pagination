@@ -920,11 +920,12 @@
         $("#" + nav_dots_left_id).removeClass().addClass(navDotsLeftClass);
         $("#" + nav_dots_right_id).removeClass().addClass(navDotsRightClass);
 
-        $('[id^="' + nav_item_id_prefix + '"]').removeClass().addClass(navItemClass);
+        var elem_nav_items = $('[id^="' + nav_item_id_prefix + '"]');
+        elem_nav_items.removeClass().addClass(navItemClass);
         $("#" + nav_item_id_prefix + goto).removeClass().addClass(navItemSelectedClass);
 
         if(navItemHoverClass != '') {
-            $('[id^="' + nav_item_id_prefix + '"]').hover(
+            elem_nav_items.hover(
                 function() {
                     $(this).addClass(navItemHoverClass);
                 },
