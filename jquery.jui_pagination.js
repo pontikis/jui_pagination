@@ -658,49 +658,44 @@
      */
     var validate_input = function(container_id) {
         var err_msg;
-        var totalPages = $("#" + container_id).jui_pagination('getOption', 'totalPages');
+        var elem = $("#" + container_id);
+
+        var totalPages = elem.jui_pagination('getOption', 'totalPages');
         if(parseInt(totalPages) <= 0 || isNaN(parseInt(totalPages))) {
             err_msg = 'Invalid totalPages';
-            $("#" + container_id).html('<span style="color: red;">' + 'ERROR: ' + err_msg + '</span>');
-            $("#" + container_id).data('error_occured', true);
+            elem.html('<span style="color: red;">' + 'ERROR: ' + err_msg + '</span>');
+            elem.data('error_occured', true);
             $.error(err_msg);
         }
 
-        var currentPage = $("#" + container_id).jui_pagination('getOption', 'currentPage');
+        var currentPage = elem.jui_pagination('getOption', 'currentPage');
         if(parseInt(currentPage) <= 0 || isNaN(parseInt(currentPage))) {
             err_msg = 'Invalid currentPage';
-            $("#" + container_id).html('<span style="color: red;">' + 'ERROR: ' + err_msg + '</span>');
-            $("#" + container_id).data('error_occured', true);
+            elem.html('<span style="color: red;">' + 'ERROR: ' + err_msg + '</span>');
+            elem.data('error_occured', true);
             $.error(err_msg);
         }
 
-        var visiblePageLinks = $("#" + container_id).jui_pagination('getOption', 'visiblePageLinks');
+        var visiblePageLinks = elem.jui_pagination('getOption', 'visiblePageLinks');
         if(parseInt(visiblePageLinks) <= 0 || isNaN(parseInt(visiblePageLinks))) {
             err_msg = 'Invalid visiblePageLinks';
-            $("#" + container_id).html('<span style="color: red;">' + 'ERROR: ' + err_msg + '</span>');
-            $("#" + container_id).data('error_occured', true);
+            elem.html('<span style="color: red;">' + 'ERROR: ' + err_msg + '</span>');
+            elem.data('error_occured', true);
             $.error(err_msg);
         }
 
         if(parseInt(currentPage) > parseInt(totalPages)) {
             err_msg = 'Invalid currentPage > totalPages';
-            $("#" + container_id).html('<span style="color: red;">' + 'ERROR: ' + err_msg + '</span>');
-            $("#" + container_id).data('error_occured', true);
+            elem.html('<span style="color: red;">' + 'ERROR: ' + err_msg + '</span>');
+            elem.data('error_occured', true);
             $.error(err_msg);
         }
 
-        /*        if(parseInt(visiblePageLinks) > parseInt(totalPages)) {
-         err_msg = 'Invalid visiblePageLinks > totalPages';
-         $("#" + container_id).html('<span style="color: red;">' + 'ERROR: ' + err_msg + '</span>');
-         $("#" + container_id).data('error_occured', true);
-         $.error(err_msg);
-         }*/
-
-        var maxVisiblePageLinks = $("#" + container_id).jui_pagination('getOption', 'maxVisiblePageLinks');
+        var maxVisiblePageLinks = elem.jui_pagination('getOption', 'maxVisiblePageLinks');
         if(parseInt(visiblePageLinks) > parseInt(maxVisiblePageLinks)) {
             err_msg = 'Invalid visiblePageLinks > maxVisiblePageLinks';
-            $("#" + container_id).html('<span style="color: red;">' + 'ERROR: ' + err_msg + '</span>');
-            $("#" + container_id).data('error_occured', true);
+            elem.html('<span style="color: red;">' + 'ERROR: ' + err_msg + '</span>');
+            elem.data('error_occured', true);
             $.error(err_msg);
         }
     };
