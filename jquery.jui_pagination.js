@@ -744,25 +744,15 @@
 
         $("#" + dialog_id).html(pref_html);
 
-        pref_id = dialog_id + '_slider';
-        state = elem.jui_pagination('getOption', 'useSlider');
-        $("#" + pref_id).attr("checked", state);
+        var a_id_ext = ['_slider', '_goto_page', '_rows_per_page', '_rows_info', '_nav_buttons'];
+        var a_opt = ['useSlider', 'showGoToPage', 'showRowsPerPage', 'showRowsInfo', 'showNavButtons'];
 
-        pref_id = dialog_id + '_goto_page';
-        state = elem.jui_pagination('getOption', 'showGoToPage');
-        $("#" + pref_id).attr("checked", state);
+        for(var i in a_id_ext) {
+            pref_id = dialog_id + a_id_ext[i];
+            state = elem.jui_pagination('getOption', a_opt[i]);
+            $("#" + pref_id).attr("checked", state);
+        }
 
-        pref_id = dialog_id + '_rows_per_page';
-        state = elem.jui_pagination('getOption', 'showRowsPerPage');
-        $("#" + pref_id).attr("checked", state);
-
-        pref_id = dialog_id + '_rows_info';
-        state = elem.jui_pagination('getOption', 'showRowsInfo');
-        $("#" + pref_id).attr("checked", state);
-
-        pref_id = dialog_id + '_rows_per_page';
-        state = elem.jui_pagination('getOption', 'showNavButtons');
-        $("#" + pref_id).attr("checked", state);
     };
 
     /**
