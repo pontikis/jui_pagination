@@ -383,14 +383,15 @@
                     }
 
                     selector = "#" + preferences_id;
+                    var elem_pref_dialog = $("#" + pref_dialog_id);
 
-                    $("#" + nav_pane_id).off('click', selector).on('click', selector, function() {
+                    elem_nav_pane.off('click', selector).on('click', selector, function() {
 
-                        if(typeof($("#" + pref_dialog_id).data('dialog')) == 'object') {
-                            $("#" + pref_dialog_id).dialog('destroy');
+                        if(typeof(elem_pref_dialog.data('dialog')) == 'object') {
+                            elem_pref_dialog.dialog('destroy');
                         }
 
-                        $("#" + pref_dialog_id).dialog({
+                        elem_pref_dialog.dialog({
                             autoOpen: true,
                             show: "blind",
                             hide: "explode",
@@ -414,7 +415,7 @@
                     });
 
                     selector = "#" + pref_dialog_id + '_slider';
-                    $("#" + pref_dialog_id).off('click', selector).on('click', selector, function(event) {
+                    elem_pref_dialog.off('click', selector).on('click', selector, function(event) {
                         var state = $(event.target).is(":checked");
                         elem.jui_pagination({
                             useSlider: state
@@ -422,7 +423,7 @@
                     });
 
                     selector = "#" + pref_dialog_id + '_goto_page';
-                    $("#" + pref_dialog_id).off('click', selector).on('click', selector, function(event) {
+                    elem_pref_dialog.off('click', selector).on('click', selector, function(event) {
                         var state = $(event.target).is(":checked");
                         elem.jui_pagination({
                             showGoToPage: state
@@ -430,7 +431,7 @@
                     });
 
                     selector = "#" + pref_dialog_id + '_rows_per_page';
-                    $("#" + pref_dialog_id).off('click', selector).on('click', selector, function(event) {
+                    elem_pref_dialog.off('click', selector).on('click', selector, function(event) {
                         var state = $(event.target).is(":checked");
                         elem.jui_pagination({
                             showRowsPerPage: state
@@ -438,7 +439,7 @@
                     });
 
                     selector = "#" + pref_dialog_id + '_rows_info';
-                    $("#" + pref_dialog_id).off('click', selector).on('click', selector, function(event) {
+                    elem_pref_dialog.off('click', selector).on('click', selector, function(event) {
                         var state = $(event.target).is(":checked");
                         elem.jui_pagination({
                             showRowsInfo: state
@@ -446,7 +447,7 @@
                     });
 
                     selector = "#" + pref_dialog_id + '_nav_buttons';
-                    $("#" + pref_dialog_id).off('click', selector).on('click', selector, function(event) {
+                    elem_pref_dialog.off('click', selector).on('click', selector, function(event) {
                         var state = $(event.target).is(":checked");
                         elem.jui_pagination({
                             showNavButtons: state
