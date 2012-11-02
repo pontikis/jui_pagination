@@ -118,6 +118,8 @@
 
                 var disableSelectionNavPane = settings.disableSelectionNavPane;
 
+                var elem_nav_pane;
+                var elem_slider;
                 var selector;
 
                 if(useSlider) {
@@ -136,7 +138,7 @@
                 if($("#" + nav_pane_id).length == 0) {
                     elem.html('<div id="' + nav_pane_id + '"></div>' + elem.html());
                 }
-                var elem_nav_pane = $("#" + nav_pane_id);
+                elem_nav_pane = $("#" + nav_pane_id);
 
                 var nav_pane_html = '';
 
@@ -154,9 +156,10 @@
                         }
                     } else if(value == 'slider') {
                         if(useSlider && sliderInsidePane) {
-                            if(typeof($("#" + slider_id).data("slider")) == 'object') {
-                                $("#" + slider_id).slider('destroy');
-                                $("#" + slider_id).html('');
+                            elem_slider = $("#" + slider_id);
+                            if(typeof(elem_slider.data("slider")) == 'object') {
+                                elem_slider.slider('destroy');
+                                elem_slider.html('');
                             }
                             nav_pane_html += '<div id="' + slider_id + '"></div>';
                         }
@@ -343,7 +346,7 @@
                             elem.append('<div id="' + slider_id + '"></div>');
                         }
                     }
-                    var elem_slider = $("#" + slider_id);
+                    elem_slider = $("#" + slider_id);
 
                     if(sliderElementID) {
                         selector = "#" + create_id(settings.slider_id_prefix, container_id);
@@ -369,7 +372,7 @@
                     });
 
                 } else {
-                    var elem_slider = $("#" + slider_id);
+                    elem_slider = $("#" + slider_id);
                     if(typeof(elem_slider.data("slider")) == 'object') {
                         elem_slider.slider('destroy');
                         elem_slider.html('');
