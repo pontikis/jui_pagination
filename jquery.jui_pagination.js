@@ -790,6 +790,8 @@
         var nav_html = '';
         var goto = parseInt(currentPage);
 
+        var elem_nav_pages = $("#" + nav_pages_id);
+
         if(navPagesMode == 'continuous') {
 
             var nav_start, nav_end, mod, offset, totalSections;
@@ -848,7 +850,7 @@
             if(nav_end < totalPages) {
                 nav_html += '<div id="' + nav_dots_right_id + '">...</div>';
             }
-            $("#" + nav_pages_id).html(nav_html);
+            elem_nav_pages.html(nav_html);
 
 
         } else if(navPagesMode == 'first-last-always-visible') {
@@ -896,7 +898,7 @@
 
             }
 
-            $("#" + nav_pages_id).html(nav_html);
+            elem_nav_pages.html(nav_html);
 
             // show - hide nav controls
             if(showNavButtons) {
