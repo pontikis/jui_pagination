@@ -343,6 +343,7 @@
                             elem.append('<div id="' + slider_id + '"></div>');
                         }
                     }
+                    var elem_slider = $("#" + slider_id);
 
                     if(sliderElementID) {
                         selector = "#" + create_id(settings.slider_id_prefix, container_id);
@@ -352,9 +353,9 @@
                         }
                     }
 
-                    $("#" + slider_id).removeClass(sliderClass).addClass(sliderClass);
+                    elem_slider.removeClass(sliderClass).addClass(sliderClass);
 
-                    $("#" + slider_id).slider({
+                    elem_slider.slider({
                         min: 1,
                         max: totalPages,
                         value: (sliderOrientation == 'horizontal' ? currentPage : totalPages - currentPage + 1),
