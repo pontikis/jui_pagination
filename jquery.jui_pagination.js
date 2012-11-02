@@ -706,7 +706,8 @@
      * @param plugin_container_id
      */
     var create_preferences = function(plugin_container_id) {
-        var prefix = $("#" + plugin_container_id).jui_pagination('getOption', 'pref_dialog_id_prefix');
+        var elem = $("#" + plugin_container_id);
+        var prefix = elem.jui_pagination('getOption', 'pref_dialog_id_prefix');
         var dialog_id = create_id(prefix, plugin_container_id);
         var pref_id;
         var state;
@@ -744,23 +745,23 @@
         $("#" + dialog_id).html(pref_html);
 
         pref_id = dialog_id + '_slider';
-        state = $("#" + plugin_container_id).jui_pagination('getOption', 'useSlider');
+        state = elem.jui_pagination('getOption', 'useSlider');
         $("#" + pref_id).attr("checked", state);
 
         pref_id = dialog_id + '_goto_page';
-        state = $("#" + plugin_container_id).jui_pagination('getOption', 'showGoToPage');
+        state = elem.jui_pagination('getOption', 'showGoToPage');
         $("#" + pref_id).attr("checked", state);
 
         pref_id = dialog_id + '_rows_per_page';
-        state = $("#" + plugin_container_id).jui_pagination('getOption', 'showRowsPerPage');
+        state = elem.jui_pagination('getOption', 'showRowsPerPage');
         $("#" + pref_id).attr("checked", state);
 
         pref_id = dialog_id + '_rows_info';
-        state = $("#" + plugin_container_id).jui_pagination('getOption', 'showRowsInfo');
+        state = elem.jui_pagination('getOption', 'showRowsInfo');
         $("#" + pref_id).attr("checked", state);
 
         pref_id = dialog_id + '_rows_per_page';
-        state = $("#" + plugin_container_id).jui_pagination('getOption', 'showNavButtons');
+        state = elem.jui_pagination('getOption', 'showNavButtons');
         $("#" + pref_id).attr("checked", state);
     };
 
