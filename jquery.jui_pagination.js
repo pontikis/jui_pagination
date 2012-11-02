@@ -369,9 +369,10 @@
                     });
 
                 } else {
-                    if(typeof($("#" + slider_id).data("slider")) == 'object') {
-                        $("#" + slider_id).slider('destroy');
-                        $("#" + slider_id).html('');
+                    var elem_slider = $("#" + slider_id);
+                    if(typeof(elem_slider.data("slider")) == 'object') {
+                        elem_slider.slider('destroy');
+                        elem_slider.html('');
                     }
                 }
 
