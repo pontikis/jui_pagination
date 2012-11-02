@@ -8,7 +8,7 @@ Copyright Christos Pontikis http://pontikis.net
 * Requires jquery, jquery-ui, jquery-ui themes (tested with jquery 1.8.2 and jquery-ui 1.9.0)
 * For touch event support jquery.ui.touch-punch.min.js could be used (see folder /lib)
 
-UPCOMING Release 1.14 Download [here]
+UPCOMING Release 1.14 (?? Nov 2012) Download [here]
 
 License [MIT][mit]
 

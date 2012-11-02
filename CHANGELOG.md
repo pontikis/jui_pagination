@@ -7,7 +7,7 @@ Copyright Christos Pontikis http://pontikis.net
 
 License MIT
 
-UPCOMING Release 1.14 (?? Oct 2012)
+UPCOMING Release 1.14 (?? Nov 2012)
 ---------------------------
 * minified version added (http://dean.edwards.name/packer/)
 * sliderInsidePane property (slider can be placed inside nav pane - it becomes default)
