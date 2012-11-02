@@ -791,14 +791,14 @@
         var selector = '';
         var i;
         var nav_html = '';
-        var goto = parseInt(currentPage);
+        var goto_page = parseInt(currentPage);
 
         var elem_nav_pages = $("#" + nav_pages_id);
 
         if(navPagesMode == 'continuous') {
 
             var nav_start, nav_end, mod, offset, totalSections;
-            nav_start = goto;
+            nav_start = goto_page;
 
             // detect possible offset to navigation pages
             if(totalPages < visiblePageLinks) {
@@ -826,7 +826,7 @@
 
             // show - hide nav controls
             if(showNavButtons) {
-                var tmp = (showNavPages ? nav_start : goto);
+                var tmp = (showNavPages ? nav_start : goto_page);
                 selector = "#" + nav_top_id + ', ' + "#" + nav_prev_id;
                 if(tmp > 1) {
                     $(selector).show();
@@ -834,7 +834,7 @@
                     $(selector).hide();
                 }
 
-                tmp = (showNavPages ? nav_end : goto);
+                tmp = (showNavPages ? nav_end : goto_page);
                 selector = "#" + nav_next_id + ', ' + "#" + nav_last_id;
                 if(tmp < totalPages) {
                     $(selector).show();
@@ -877,13 +877,13 @@
                 var right_links = Math.ceil((median_links - 1) / 2);
 
                 // create nav pages html
-                if(goto <= median_links) {
+                if(goto_page <= median_links) {
                     for(i = 1; i <= median_links + 1; i++) {
                         nav_html += '<div id="' + nav_item_id_prefix + i + '">' + i + '</div>';
                     }
                     nav_html += '<div id="' + nav_dots_right_id + '">...</div>';
                     nav_html += '<div id="' + nav_item_id_prefix + totalPages + '">' + totalPages + '</div>';
-                } else if(goto > totalPages - median_links) {
+                } else if(goto_page > totalPages - median_links) {
                     nav_html += '<div id="' + nav_item_id_prefix + '1' + '">1</div>';
                     nav_html += '<div id="' + nav_dots_left_id + '">...</div>';
                     for(i = totalPages - median_links; i <= totalPages; i++) {
@@ -892,7 +892,7 @@
                 } else {
                     nav_html += '<div id="' + nav_item_id_prefix + '1' + '">1</div>';
                     nav_html += '<div id="' + nav_dots_left_id + '">...</div>';
-                    for(i = goto - left_links; i <= goto + right_links; i++) {
+                    for(i = goto_page - left_links; i <= goto_page + right_links; i++) {
                         nav_html += '<div id="' + nav_item_id_prefix + i + '">' + i + '</div>';
                     }
                     nav_html += '<div id="' + nav_dots_right_id + '">...</div>';
@@ -906,14 +906,14 @@
             // show - hide nav controls
             if(showNavButtons) {
                 selector = "#" + nav_top_id + ', ' + "#" + nav_prev_id;
-                if(goto > 1) {
+                if(goto_page > 1) {
                     $(selector).show();
                 } else {
                     $(selector).hide();
                 }
 
                 selector = "#" + nav_next_id + ', ' + "#" + nav_last_id;
-                if(goto < totalPages) {
+                if(goto_page < totalPages) {
                     $(selector).show();
                 } else {
                     $(selector).hide();
@@ -927,7 +927,7 @@
 
         var elem_nav_items = $('[id^="' + nav_item_id_prefix + '"]');
         elem_nav_items.removeClass().addClass(navItemClass);
-        $("#" + nav_item_id_prefix + goto).removeClass().addClass(navItemSelectedClass);
+        $("#" + nav_item_id_prefix + goto_page).removeClass().addClass(navItemSelectedClass);
 
         if(navItemHoverClass != '') {
             elem_nav_items.hover(
