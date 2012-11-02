@@ -975,8 +975,9 @@
 
         // update slider if exists
         if(update_slider) {
-            if(typeof($("#" + slider_id).data("slider")) == 'object') {
-                $("#" + slider_id).slider({
+            var elem_slider = $("#" + slider_id);
+            if(typeof(elem_slider.data("slider")) == 'object') {
+                elem_slider.slider({
                     'value': (sliderOrientation == 'horizontal' ? goto_page : totalPages - goto_page + 1)
                 });
             }
