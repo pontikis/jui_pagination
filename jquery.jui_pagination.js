@@ -4,7 +4,7 @@
  * For touch event support jquery.ui.touch-punch.min.js could be used (see folder /lib)
  * Copyright 2012 Christos Pontikis http://pontikis.net
  * Project page https://github.com/pontikis/jui_pagination
- * UPCOMING Release 1.14 (?? Oct 2012)
+ * UPCOMING Release 1.14 (?? Noe 2012)
  * License MIT
  */
 "use strict";
