@@ -1,6 +1,9 @@
-body {
-    font-family: "Trebuchet MS", Arial, sans-serif;
-    font-size: 13px;
+.wrap {
+    padding: 5px;
+}
+
+fieldset {
+    padding: 4px;
 }
 
 /* -------------------------------------------------------------------------- */
