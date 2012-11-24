@@ -9,6 +9,7 @@ License MIT
 
 UPCOMING Release 1.14 (?? Nov 2012)
 ---------------------------
+* jsdoc documentation
 * minified version added using Online YUI Compressor http://www.refresh-sf.com/yui/
 * add master-reset css for same appearance in all browsers
 * sliderInsidePane property (slider can be placed inside nav pane - it becomes default)

@@ -1,12 +1,36 @@
 /**
- * jquery pagination plugin
- * Requires jquery, jquery-ui slider, jquery-ui CSS
- * For touch event support jquery.ui.touch-punch.min.js could be used (see folder /lib)
- * Copyright 2012 Christos Pontikis http://pontikis.net
- * Project page https://github.com/pontikis/jui_pagination
- * UPCOMING Release 1.14 (?? Nov 2012)
- * License MIT
+ * @fileOverview jquery pagination plugin
+ *               <p>License MIT
+ *               <br />Copyright 2012 Christos Pontikis <a href="http://pontikis.net">http://pontikis.net</a>
+ *               <br />Project page <a href="https://github.com/pontikis/jui_pagination">https://github.com/pontikis/jui_pagination</a>
+ * @version 1.14 (UPCOMING Release: 1.14 (?? Nov 2012))
+ * @author Christos Pontikis http://pontikis.net
+ * @requires jquery, jquery-ui slider, jquery-ui CSS, jquery.ui.touch-punch.min.js (for touch event support)
  */
+
+/**
+ * See <a href="http://jquery.com">http://jquery.com</a>.
+ * @name $
+ * @class
+ * See the jQuery Library  (<a href="http://jquery.com">http://jquery.com</a>) for full details.  This just
+ * documents the function and classes that are added to jQuery by this plug-in.
+ */
+
+/**
+ * See <a href="http://jquery.com">http://jquery.com</a>
+ * @name fn
+ * @class
+ * See the jQuery Library  (<a href="http://jquery.com">http://jquery.com</a>) for full details.  This just
+ * documents the function and classes that are added to jQuery by this plug-in.
+ * @memberOf $
+ */
+
+/**
+ * Pseudo-Namespace containing private methods (for documentation purposes)
+ * @name _private_methods
+ * @namespace
+ */
+
 "use strict";
 (function($) {
 
@@ -16,9 +40,7 @@
     var methods = {
 
         /**
-         * @constructor
-         * @param options
-         * @return {*}
+         * @lends $.fn.jui_pagination
          */
         init: function(options) {
 
@@ -469,7 +491,7 @@
 
         /**
          * Get default values
-         * Usage: $(element).jui_pagination('getDefaults');
+         * @example $(element).jui_pagination('getDefaults');
          * @return {Object}
          */
         getDefaults: function() {
@@ -567,7 +589,7 @@
 
         /**
          * Get any option set to plugin using its name (as string)
-         * Usage: $(element).jui_pagination('getOption', some_option);
+         * @example $(element).jui_pagination('getOption', some_option);
          * @param opt
          * @return {*}
          */
@@ -578,7 +600,7 @@
 
         /**
          * Get all options
-         * Usage: $(element).jui_pagination('getAllOptions');
+         * @example $(element).jui_pagination('getAllOptions');
          * @return {*}
          */
         getAllOptions: function() {
@@ -588,7 +610,7 @@
 
         /**
          * Set option
-         * Usage: $(element).jui_pagination('setOption', 'oprion_name',  'oprion_value',  reinit);
+         * @example $(element).jui_pagination('setOption', 'oprion_name',  'oprion_value',  reinit);
          * @param opt
          * @param val
          * @param reinit
@@ -603,7 +625,7 @@
 
         /**
          * Destroy plugin
-         * Usage: $(element).jui_pagination('destroy');
+         * @example $(element).jui_pagination('destroy');
          * @return {*|jQuery}
          */
         destroy: function() {
@@ -616,7 +638,7 @@
 
         /**
          * Set rows info
-         * Usage: $(element).jui_pagination('setRowsInfo', info_html);
+         * @example $(element).jui_pagination('setRowsInfo', info_html);
          * @param info_html
          */
         setRowsInfo: function(info_html) {
@@ -627,6 +649,10 @@
     };
 
     /* private methods ------------------------------------------------------ */
+
+    /**
+     * @lends _private_methods
+     */
 
     /**
      * Create element id
@@ -1004,6 +1030,14 @@
         update_current_page(container_id, goto_page, update_slider);
     };
 
+
+
+    /**
+     * jui_pagination - datagrid jQuery plugin.
+     *
+     * @class jui_pagination
+     * @memberOf $.fn
+     */
     $.fn.jui_pagination = function(method) {
 
         if(this.size() != 1) {
