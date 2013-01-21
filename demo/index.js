@@ -1,9 +1,11 @@
 $(function() {
 
-    $("#ui-theme-switcher").change(function() {
-        var theme_url = $(this).val();
-        $("#ui-theme").attr("href", theme_url);
+    // jui_theme_switch
+    $("#ui-theme-switcher").jui_theme_switch({
+        stylesheet_link_id: "ui-theme",
+        datasource_url: 'default.json'
     });
+
 
 
     /**
