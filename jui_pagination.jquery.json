@@ -16,7 +16,7 @@
     "dependencies": {
         "jquery": ">=1.6"
     },
-    "description": "jQuery plugin, provides pagination using page links or slider. Fully configurable. jQuery UI themes compatible.",
+    "description": "jQuery plugin, provides pagination using page links or slider. Fully configurable. jQuery UI themes compatible. Localization support.",
     "homepage": "http://pontikis.net/labs/jui_pagination",
     "docs": "http://pontikis.net/labs/jui_pagination/docs",
     "demo": "http://pontikis.net/labs/jui_pagination/demo",
