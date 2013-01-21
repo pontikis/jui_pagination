@@ -1,6 +1,6 @@
 {
     "name": "jui_pagination",
-    "version": "1.4.0",
+    "version": "2.0.0",
     "title": "jui_pagination jQuery plugin",
     "author": {
         "name": "Christos Pontikis",
@@ -14,9 +14,10 @@
         }
     ],
     "dependencies": {
-        "jquery": ">=1.6"
+        "jquery": ">=1.6",
+        "jquery-ui": ">=1.8"
     },
-    "description": "jQuery plugin, provides pagination using page links or slider. Fully configurable. jQuery UI themes compatible. Localization support.",
+    "description": "jQuery plugin, provides pagination using page links or jQuery UI slider. Fully configurable. jQuery UI themes compatible. Localization support.",
     "homepage": "http://pontikis.net/labs/jui_pagination",
     "docs": "http://pontikis.net/labs/jui_pagination/docs",
     "demo": "http://pontikis.net/labs/jui_pagination/demo",

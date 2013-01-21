@@ -1,13 +1,19 @@
 jui_pagination
 ==============
 
-jQuery pagination plugin (using jQuery UI)
+jQuery plugin, provides pagination using page links or jQuery UI slider. Fully configurable. jQuery UI themes compatible. Localization support.
 
-Copyright Christos Pontikis http://pontikis.net
+Project page: [https://pontikis.net/labs/jui_pagination][HOME]
+[HOME]: http://pontikis.net/labs/jui_pagination
 
-License MIT
+Copyright Christos Pontikis [http://pontikis.net][copyright]
+[copyright]: http://pontikis.net
 
-UPCOMING Release 1.14 (?? Nov 2012)
+License [MIT][mit]
+[mit]: https://raw.github.com/pontikis/jui_pagination/master/MIT_LICENSE
+
+
+Release 2.0.0 (22 Jan 2013)
 ---------------------------
 * jsdoc documentation
 * minified version added using Online YUI Compressor http://www.refresh-sf.com/yui/
@@ -19,11 +25,11 @@ UPCOMING Release 1.14 (?? Nov 2012)
 * option useNavPane removed
 * jquery-ui 1.9.1
 
-Release 1.12 (25 Oct 2012)
+Release 1.1.2 (25 Oct 2012)
 ---------------------------
 * Use ui-state-default instead of ui-widget-header (more fine interface)
 
-Release 1.10 (23 Oct 2012)
+Release 1.1.0 (23 Oct 2012)
 ---------------------------
 * New minimal design without navigation buttons (old nav buttons inteface is still available)
 * Go to page functionality (using input box)
@@ -34,6 +40,6 @@ Release 1.10 (23 Oct 2012)
 * Localization
 * Disable selection in nav pane (optional, default false)
 
-Release 1.00 (13 Oct 2012)
+Release 1.0.0 (13 Oct 2012)
 -------------------------
 * Basic functionality

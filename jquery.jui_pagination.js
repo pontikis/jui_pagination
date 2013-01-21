@@ -1,11 +1,11 @@
 /**
- * @fileOverview jquery pagination plugin
+ * @fileOverview jui_pagination: jQuery plugin, provides pagination using page links or jQuery UI slider. Fully configurable. jQuery UI themes compatible. Localization support.
  *               <p>License MIT
- *               <br />Copyright 2012 Christos Pontikis <a href="http://pontikis.net">http://pontikis.net</a>
- *               <br />Project page <a href="https://github.com/pontikis/jui_pagination">https://github.com/pontikis/jui_pagination</a>
- * @version 1.14 (UPCOMING Release: 1.14 (?? Nov 2012))
+ *               <br />Copyright Christos Pontikis <a href="http://pontikis.net">http://pontikis.net</a>
+ *               <br />Project page <a href="http://pontikis.net/labs/jui_pagination">http://pontikis.net/labs/jui_pagination</a>
+ * @version 2.0.0 (22 Jan 2013)
  * @author Christos Pontikis http://pontikis.net
- * @requires jquery, jquery-ui slider, jquery-ui CSS, jquery.ui.touch-punch.min.js (for touch event support)
+ * @requires jquery, jquery-ui, jquery.ui.touch-punch.min.js (for touch event support)
  */
 
 /**
