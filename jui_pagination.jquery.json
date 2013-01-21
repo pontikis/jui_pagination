@@ -1,0 +1,32 @@
+{
+    "name": "jui_pagination",
+    "version": "1.4.0",
+    "title": "jui_pagination jQuery plugin",
+    "author": {
+        "name": "Christos Pontikis",
+        "email": "christos@pontikis.net",
+        "url": "http://pontikis.net"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://raw.github.com/pontikis/jui_pagination/master/MIT_LICENSE"
+        }
+    ],
+    "dependencies": {
+        "jquery": ">=1.6"
+    },
+    "description": "jQuery plugin, provides pagination using page links or slider. Fully configurable. jQuery UI themes compatible.",
+    "homepage": "http://pontikis.net/labs/jui_pagination",
+    "docs": "http://pontikis.net/labs/jui_pagination/docs",
+    "demo": "http://pontikis.net/labs/jui_pagination/demo",
+    "download": "https://github.com/pontikis/jui_pagination/archive/master.zip",
+    "keywords": [
+        "pagination",
+        "paginate",
+        "themable",
+        "grid",
+        "ui"
+    ],
+    "bugs": "https://github.com/pontikis/jui_pagination/issues"
+}
