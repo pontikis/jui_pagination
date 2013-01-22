@@ -420,8 +420,6 @@
 
                         elem_pref_dialog.dialog({
                             autoOpen: true,
-                            show: "blind",
-                            hide: "explode",
                             position: {
                                 my: "top",
                                 at: "bottom",
