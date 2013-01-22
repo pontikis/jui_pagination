@@ -179,7 +179,7 @@
                     } else if(value == 'slider') {
                         if(useSlider && sliderInsidePane) {
                             elem_slider = $("#" + slider_id);
-                            if(typeof(elem_slider.data("slider")) == 'object') {
+                            if(typeof(elem_slider.data("slider")) == 'object' || typeof(elem_slider.data("uiSlider")) == 'object') {
                                 elem_slider.slider('destroy');
                                 elem_slider.html('');
                             }
@@ -372,7 +372,7 @@
 
                     if(sliderElementID) {
                         selector = "#" + create_id(settings.slider_id_prefix, container_id);
-                        if(typeof($(selector).data("slider")) == 'object') {
+                        if(typeof($(selector).data("slider")) == 'object' || typeof($(selector).data("uiSlider")) == 'object') {
                             $(selector).slider('destroy');
                             $(selector).html('');
                         }
@@ -395,7 +395,7 @@
 
                 } else {
                     elem_slider = $("#" + slider_id);
-                    if(typeof(elem_slider.data("slider")) == 'object') {
+                    if(typeof(elem_slider.data("slider")) == 'object' || typeof(elem_slider.data("uiSlider")) == 'object') {
                         elem_slider.slider('destroy');
                         elem_slider.html('');
                     }
@@ -1003,7 +1003,7 @@
         // update slider if exists
         if(update_slider) {
             var elem_slider = $("#" + slider_id);
-            if(typeof(elem_slider.data("slider")) == 'object') {
+            if(typeof(elem_slider.data("slider")) == 'object' || typeof(elem_slider.data("uiSlider")) == 'object') {
                 elem_slider.slider({
                     'value': (sliderOrientation == 'horizontal' ? goto_page : totalPages - goto_page + 1)
                 });
