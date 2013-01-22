@@ -431,7 +431,7 @@
                                     text: rsc_jui_pag.preferences_close,
                                     click: function() {
                                         $(this).dialog("close");
-                                        $(this).dialog("destroy");
+                                        //$(this).dialog("destroy");
                                     }
                                 }
                             ],
