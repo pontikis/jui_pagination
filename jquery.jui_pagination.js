@@ -5,7 +5,7 @@
  *               <br />Project page <a href="http://pontikis.net/labs/jui_pagination">http://pontikis.net/labs/jui_pagination</a>
  * @version 2.0.0 (22 Jan 2013)
  * @author Christos Pontikis http://pontikis.net
- * @requires jquery, jquery-ui, jquery.ui.touch-punch.min.js (for touch event support)
+ * @requires jquery >= 1.6, jquery-ui >= 1.8
  */
 
 /**

@@ -7,6 +7,8 @@ $(function() {
     });
 
 
+    $("#jui_version").html('<strong>' + 'jQuery version: ' + '</strong>' + $().jquery
+        + ' - ' + '<strong>' + 'jQuery-ui version: ' + '</strong>' + $.ui.version);
 
     /**
      * demo_pag1 ---------------------------------------------------------------

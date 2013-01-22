@@ -15,6 +15,7 @@ License [MIT][mit]
 
 Release 2.0.0 (22 Jan 2013)
 ---------------------------
+* jquery-ui 1.10.0
 * jsdoc documentation
 * minified version added using Online YUI Compressor http://www.refresh-sf.com/yui/
 * add master-reset css for same appearance in all browsers
