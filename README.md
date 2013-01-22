@@ -35,7 +35,7 @@ Support Forum
 [FORUM]: http://pontikis.net/bbs
 
 Download
--------
+--------
 Download [here][DOWNLOAD]
 [DOWNLOAD]: https://github.com/pontikis/jui_pagination/archive/master.zip
 
